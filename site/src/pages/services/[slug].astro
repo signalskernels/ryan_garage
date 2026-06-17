@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import ServiceIcon from '@/components/ServiceIcon.astro';
+import { services } from '@/data/services';
+import { site } from '@/data/site';
+import { photo } from '@/lib/photos';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug).slice(0, 4);
+
+const canonical = new URL(`/services/${service.slug}`, Astro.site).href;
+const jsonLd: Record<string, any>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: service.h1,
+    provider: { '@type': 'HomeAndConstructionBusiness', name: site.name, telephone: '+1-224-770-0587' },
+    areaServed: { '@type': 'City', name: 'Huntley, IL' },
+    url: canonical,
+    description: service.short,
+  },
+];
+if (service.faqs?.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: service.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+---
+<Base title={service.h1} description={service.short} jsonLd={jsonLd}>
+  <PageHeader
+    title={service.h1}
+    subtitle={service.short}
+    crumbs={[{ label: 'Services', href: '/services' }, { label: service.title }]}
+  />
+
+  <section class="section">
+    <div class="wrap svc-detail">
+      <article class="prose svc-detail__main">
+        <Image src={photo(service.photo)} alt={service.h1} widths={[600, 900]} sizes="(max-width:900px) 100vw, 720px" class="svc-detail__hero" />
+        {service.intro.map((p) => <p>{p}</p>)}
+
+        <h2>What you get</h2>
+        <ul class="check">
+          {service.benefits.map((b) => <li>{b}</li>)}
+        </ul>
+
+        {service.signs && (
+          <div class="signs">
+            <h3>{service.signs.heading}</h3>
+            <ul class="check check--warn">
+              {service.signs.items.map((i) => <li>{i}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {service.priceHint && <p class="svc-detail__hint">💡 {service.priceHint}</p>}
+
+        {service.faqs?.length ? (
+          <>
+            <h2>Common questions</h2>
+            {service.faqs.map((f) => (
+              <div class="qa">
+                <h3>{f.q}</h3>
+                <p>{f.a}</p>
+              </div>
+            ))}
+          </>
+        ) : null}
+      </article>
+
+      <aside class="svc-detail__side">
+        <div class="side-card card">
+          <h3>Need this fixed?</h3>
+          <p>Call now for fast, honest service — often same-day.</p>
+          <a href={site.phoneHref} class="btn btn--block btn--lg">Call {site.phone}</a>
+          <a href="/book" class="btn btn--block btn--navy">Request Service</a>
+          <ul class="side-card__list">
+            <li>✓ 24/7 emergency service</li>
+            <li>✓ Free estimates</li>
+            <li>✓ Fully insured</li>
+          </ul>
+        </div>
+        <div class="side-card card">
+          <h4>Other services</h4>
+          <ul class="side-links">
+            {others.map((o) => (
+              <li>
+                <a href={`/services/${o.slug}`}><span class="side-links__ic"><ServiceIcon name={o.icon} size={18} /></span>{o.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap"><LeadForm heading={`Request ${service.title.toLowerCase()}`} intro="Send a few details and we’ll confirm a time fast — usually the same day." /></div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .svc-detail{ display:grid; grid-template-columns:1fr 340px; gap:clamp(28px,4vw,52px); align-items:start; }
+  @media (max-width:920px){ .svc-detail{ grid-template-columns:1fr; } }
+  .svc-detail__hero{ width:100%; border-radius:var(--radius); margin-bottom:1.4rem; box-shadow:var(--shadow-sm); }
+  .svc-detail__hint{ background:var(--gold-soft); border:1px solid #f3e2a8; border-radius:var(--radius-sm); padding:.9rem 1.1rem; font-weight:600; color:var(--navy); }
+  .check{ list-style:none; padding:0; }
+  .check li{ position:relative; padding-left:1.8rem; margin:.5rem 0; }
+  .check li::before{ content:'✓'; position:absolute; left:0; top:0; color:#fff; background:var(--gold); width:1.25rem; height:1.25rem;
+    border-radius:50%; font-size:.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .check--warn li::before{ content:'!'; background:var(--navy); }
+  .signs{ background:var(--surface); border-radius:var(--radius); padding:1.2rem 1.4rem; margin:1.6rem 0; }
+  .signs h3{ margin-top:0; }
+  .qa{ border-top:1px solid var(--line); padding-top:1rem; margin-top:1rem; }
+  .qa h3{ font-size:1.1rem; margin-bottom:.3rem; }
+
+  .svc-detail__side{ position:sticky; top:96px; display:grid; gap:1rem; }
+  .side-card{ padding:1.3rem; }
+  .side-card h3{ margin-bottom:.3rem; }
+  .side-card > p{ color:var(--muted); font-size:.92rem; margin-bottom:1rem; }
+  .side-card .btn{ margin-bottom:.5rem; }
+  .side-card__list{ list-style:none; padding:0; margin:.8rem 0 0; font-size:.88rem; color:var(--navy); font-weight:600; }
+  .side-card__list li{ margin:.35rem 0; }
+  .side-links{ list-style:none; padding:0; margin:0; }
+  .side-links li{ border-top:1px solid var(--line-2); }
+  .side-links li:first-child{ border-top:none; }
+  .side-links a{ display:flex; align-items:center; gap:.6rem; padding:.7rem 0; font-weight:600; color:var(--body); }
+  .side-links a:hover{ color:var(--navy); }
+  .side-links__ic{ color:var(--gold-600); display:flex; }
+  @media (max-width:920px){ .svc-detail__side{ position:static; } }
+</style>

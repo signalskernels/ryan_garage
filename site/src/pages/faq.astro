@@ -1,0 +1,59 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { faqs } from '@/data/faqs';
+import { site } from '@/data/site';
+
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+}];
+---
+<Base title="FAQ" description="Answers to common questions about Ryan Garage Door — emergency service, experience, service area, credentials, openers, maintenance and payment." jsonLd={jsonLd}>
+  <PageHeader
+    title="Frequently Asked Questions"
+    subtitle="Honest answers to the things homeowners ask us most. Still curious? Just call — we’re happy to help."
+    crumbs={[{ label: 'FAQ' }]}
+  />
+
+  <section class="section">
+    <div class="wrap measure faq" style="margin-inline:auto;">
+      {faqs.map((f, i) => (
+        <details class="faq__item" open={i === 0}>
+          <summary>
+            <span>{f.q}</span>
+            <span class="faq__chev" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq__a"><p>{f.a}</p></div>
+        </details>
+      ))}
+      <div class="faq__cta card">
+        <div>
+          <h3>Didn’t find your answer?</h3>
+          <p>We’re available 24/7 — call and we’ll talk it through, no pressure.</p>
+        </div>
+        <a href={site.phoneHref} class="btn btn--lg">Call {site.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .faq__item{ border:1px solid var(--line); border-radius:var(--radius-sm); margin-bottom:.7rem; background:#fff; overflow:hidden; }
+  .faq__item[open]{ border-color:#cdd6e4; box-shadow:var(--shadow-sm); }
+  .faq__item summary{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1.1rem 1.3rem; font-weight:700; color:var(--ink); font-size:1.04rem; }
+  .faq__item summary::-webkit-details-marker{ display:none; }
+  .faq__chev{ flex:none; width:26px; height:26px; border-radius:50%; background:var(--surface-2); color:var(--navy);
+    display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:700; transition:transform .2s ease; }
+  .faq__item[open] .faq__chev{ transform:rotate(45deg); background:var(--navy); color:#fff; }
+  .faq__a{ padding:0 1.3rem 1.2rem; color:var(--body); }
+  .faq__a p{ margin:0; }
+  .faq__cta{ display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding:1.5rem; margin-top:1.6rem; flex-wrap:wrap; }
+  .faq__cta h3{ margin-bottom:.2rem; }
+  .faq__cta p{ margin:0; color:var(--muted); }
+</style>

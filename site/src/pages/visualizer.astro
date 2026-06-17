@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+import { photo } from '@/lib/photos';
+
+const steps = [
+  'Snap a photo of your home from the street',
+  'Try different door styles, colors and windows',
+  'See what fits your home before you buy',
+  'Send us your favorite — we’ll quote it',
+];
+---
+<Base title="Design Your Door" description="Preview new garage doors on a photo of your own home with a free online design tool, then get a quote from Ryan Garage Door.">
+  <PageHeader
+    title="Design Your New Door"
+    subtitle="Not sure what style suits your home? Preview different doors on a photo of your own house before you decide — then we’ll bring your favorite to life."
+    crumbs={[{ label: 'Design Your Door' }]}
+  />
+
+  <section class="section">
+    <div class="wrap viz">
+      <div class="prose">
+        <h2>See it on your home first</h2>
+        <p>Choosing a garage door is a big visual decision — it can be a third of what people see from the street. A design visualizer lets you upload a photo of your house and try on different styles, colors, and window options until something clicks.</p>
+        <ol class="viz__steps">
+          {steps.map((s, i) => <li><span>{i + 1}</span>{s}</li>)}
+        </ol>
+        <div class="cta-row">
+          <a href={site.links.visualizer} class="btn btn--lg" target="_blank" rel="noopener">Open the design tool ↗</a>
+          <a href="/book" class="btn btn--lg btn--outline">Get a quote instead</a>
+        </div>
+        <p class="muted" style="font-size:.84rem; margin-top:1rem;">The design tool opens on the manufacturer’s website in a new tab. Found a look you love? Send it our way and we’ll measure, quote, and install it.</p>
+      </div>
+      <div class="viz__media">
+        <Image src={photo('Professional-Garage-Door-Service-2')} alt="A modern home with a new garage door" widths={[420, 640]} sizes="(max-width:800px) 100vw, 420px" />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Already know what you want?" text="Skip ahead — tell us about your new door and we’ll send you a free quote." />
+</Base>
+
+<style>
+  .viz{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(28px,4vw,52px); align-items:center; }
+  @media (max-width:860px){ .viz{ grid-template-columns:1fr; } }
+  .viz__media :global(img){ width:100%; border-radius:var(--radius-lg); box-shadow:var(--shadow); }
+  .viz__steps{ list-style:none; padding:0; margin:1.2rem 0 1.6rem; }
+  .viz__steps li{ display:flex; align-items:center; gap:.8rem; margin:.6rem 0; font-weight:600; color:var(--ink); }
+  .viz__steps span{ flex:none; width:28px; height:28px; border-radius:50%; background:var(--gold); color:var(--navy-900);
+    font-weight:800; display:flex; align-items:center; justify-content:center; font-size:.85rem; }
+</style>

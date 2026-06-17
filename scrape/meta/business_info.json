@@ -1,0 +1,31 @@
+{
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
+  "url": "https://garagedoorrepair-il.com",
+  "logo": "https://garagedoorrepair-il.com/wp-content/uploads/2026/05/Ryan-Garage-Door-logo.webp",
+  "hasMap": "https://maps.app.goo.gl/AWFXcd6ZD4Suiu3S6",
+  "email": "",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Huntley",
+    "addressRegion": "IL",
+    "postalCode": "60142"
+  },
+  "description": "Garage Door Service",
+  "name": "Ryan Garage Door",
+  "telephone": "(224) 770-0587",
+  "openingHours": [
+    "Mo 24hours service",
+    "Tu 24hours service",
+    "We 24hours service",
+    "Th 24hours service",
+    "Fr 24hours service",
+    "Sa 24hours service",
+    "Su 24hours service"
+  ],
+  "paymentAccepted": "Visa, Mastercard, American Express, Discover, Paypal, Cash, Check, CashApp, Zelle",
+  "image": "https://garagedoorrepair-il.com/wp-content/uploads/2026/05/Ryan-Garage-Door-logo.webp",
+  "sameAs": [
+    ""
+  ]
+}

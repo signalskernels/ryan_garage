@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { photo } from '@/lib/photos';
+import { site } from '@/data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+const all = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const more = all.filter((p) => p.id !== post.id).slice(0, 3);
+
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  author: { '@type': 'Organization', name: site.name },
+  publisher: { '@type': 'Organization', name: site.name },
+}];
+---
+<Base title={post.data.title} description={post.data.description} jsonLd={jsonLd}>
+  <PageHeader
+    title={post.data.title}
+    subtitle={post.data.description}
+    crumbs={[{ label: 'Blog', href: '/blog' }, { label: post.data.category }]}
+    showCall={false}
+  />
+
+  <section class="section">
+    <div class="wrap measure post" style="margin-inline:auto;">
+      <p class="post__meta"><span class="bp__cat">{post.data.category}</span> · {fmt(post.data.date)}</p>
+      {post.data.hero && (
+        <Image src={photo(post.data.hero)} alt={post.data.title} widths={[680, 1000]} sizes="(max-width:800px) 100vw, 760px" class="post__hero" loading="eager" />
+      )}
+      <article class="prose"><Content /></article>
+
+      <div class="post__cta card">
+        <h3>Need a hand with your garage door?</h3>
+        <p>We’re available 24/7 for honest, fast service across the Huntley area.</p>
+        <div class="cta-row">
+          <a href={site.phoneHref} class="btn">Call {site.phone}</a>
+          <a href="/book" class="btn btn--outline">Request Service</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="section section--surface">
+      <div class="wrap">
+        <h2 style="margin-bottom:1.2rem;">More from the blog</h2>
+        <div class="grid cols-3">
+          {more.map((p) => (
+            <a href={`/blog/${p.id}`} class="card card--hover" style="padding:1.2rem;">
+              <span class="bp__cat">{p.data.category}</span>
+              <h3 style="font-size:1.08rem; margin:.3rem 0 .3rem;">{p.data.title}</h3>
+              <p style="font-size:.9rem; color:var(--muted); margin:0;">{p.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand />
+</Base>
+
+<style>
+  .post__meta{ color:var(--muted); font-size:.9rem; }
+  .bp__cat{ font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--gold-600); }
+  .post__hero{ width:100%; border-radius:var(--radius); margin:.6rem 0 1.6rem; box-shadow:var(--shadow-sm); }
+  .post__cta{ padding:1.6rem; margin-top:2rem; text-align:center; }
+  .post__cta h3{ margin-bottom:.3rem; }
+  .post__cta p{ color:var(--muted); }
+  .post__cta .cta-row{ justify-content:center; }
+</style>

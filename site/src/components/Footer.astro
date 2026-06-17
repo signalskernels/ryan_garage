@@ -1,0 +1,73 @@
+---
+import { site, footerNav, days } from '@/data/site';
+const year = 2026;
+---
+<footer class="ft">
+  <div class="wrap ft__grid">
+    <div class="ft__brand">
+      <span class="ft__logochip"><img src="/ryan-logo.png" alt={site.name} width="190" height="56" /></span>
+      <p class="ft__tag">{site.tagline}. Mobile garage door repair, installation &amp; service across Huntley, IL and the surrounding suburbs.</p>
+      <div class="ft__proof">
+        <span class="stars">★★★★★</span>
+        <span><b>{site.reviews.rating.toFixed(1)}</b> · {site.reviews.total}+ reviews</span>
+      </div>
+      <div class="ft__badges">
+        <span class="ft__badge">Fully Insured</span>
+        <span class="ft__badge">BBB Accredited</span>
+        <span class="ft__badge">24/7 Service</span>
+      </div>
+    </div>
+
+    {Object.entries(footerNav).map(([heading, links]) => (
+      <div class="ft__col">
+        <h4>{heading}</h4>
+        <ul>
+          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+    ))}
+
+    <div class="ft__col ft__contact">
+      <h4>Contact</h4>
+      <a class="ft__phone" href={site.phoneHref}>{site.phone}</a>
+      <p>{site.address.locality}, {site.address.region} {site.address.postalCode}</p>
+      <p class="ft__hours"><b>Hours:</b> {site.hoursLabel}</p>
+      <p class="ft__pay">{site.paymentAccepted.join(' · ')}</p>
+      <a class="btn btn--block ft__cta" href="/book">Request Service</a>
+    </div>
+  </div>
+
+  <div class="ft__bar">
+    <div class="wrap ft__bar-in">
+      <p>© {year} {site.legalName}. All rights reserved.</p>
+      <p class="ft__credit">Website by <a href="https://signalskernels.com" rel="noopener">Signals&nbsp;|&nbsp;Kernels</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ft{ background:var(--navy-900); color:#a9bdd8; font-size:.95rem; }
+  .ft__grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; gap:2rem; padding-block:clamp(40px,6vw,64px); }
+  .ft__logochip{ display:inline-block; background:#fff; border-radius:12px; padding:10px 14px; margin-bottom:1.1rem; box-shadow:var(--shadow-sm); }
+  .ft__logochip img{ height:40px; width:auto; display:block; }
+  .ft__tag{ max-width:34ch; color:#9fb4d2; }
+  .ft__proof{ display:flex; align-items:center; gap:.5rem; margin:.4rem 0 1rem; color:#dce6f4; }
+  .ft__proof b{ color:#fff; }
+  .ft__badges{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .ft__badge{ font-size:.74rem; font-weight:700; color:#cfe0f6; border:1px solid rgba(255,255,255,.16); border-radius:999px; padding:.3em .8em; }
+  .ft h4{ color:#fff; font-size:.95rem; margin-bottom:.9rem; letter-spacing:.02em; }
+  .ft__col ul{ list-style:none; margin:0; padding:0; }
+  .ft__col li{ margin:.5rem 0; }
+  .ft__col a{ color:#a9bdd8; }
+  .ft__col a:hover{ color:#fff; }
+  .ft__phone{ display:block; color:#fff!important; font-size:1.3rem; font-weight:800; letter-spacing:-.01em; margin-bottom:.5rem; }
+  .ft__hours,.ft__pay{ font-size:.85rem; color:#90a6c6; }
+  .ft__pay{ line-height:1.5; }
+  .ft__cta{ margin-top:.4rem; }
+  .ft__bar{ border-top:1px solid rgba(255,255,255,.1); }
+  .ft__bar-in{ display:flex; justify-content:space-between; gap:1rem; padding:1.1rem 0; flex-wrap:wrap; font-size:.82rem; color:#7e93b3; }
+  .ft__credit a{ color:#a9bdd8; border-bottom:1px solid rgba(255,255,255,.25); }
+  .ft__credit a:hover{ color:#fff; }
+  @media (max-width:900px){ .ft__grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .ft__grid{ grid-template-columns:1fr; } }
+</style>

@@ -1,0 +1,56 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { locations } from '@/data/locations';
+import { site } from '@/data/site';
+
+// group by county for a more local feel
+const byCounty = locations.reduce((acc, l) => {
+  (acc[l.county] ??= []).push(l);
+  return acc;
+}, {} as Record<string, typeof locations>);
+---
+<Base title="Service Area" description="Ryan Garage Door provides mobile garage door repair and installation across Huntley, IL and 18+ nearby communities within a 50-mile radius.">
+  <PageHeader
+    title="Where We Serve"
+    subtitle={`Based in Huntley, we bring mobile garage door service to homes within about ${site.serviceRadiusMiles} miles — across McHenry, Kane, Lake and DuPage counties.`}
+    crumbs={[{ label: 'Service Area' }]}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      {Object.entries(byCounty).map(([county, towns]) => (
+        <div class="county">
+          <h2 class="county__name">{county}</h2>
+          <div class="grid cols-3 area-grid">
+            {towns.map((l) => (
+              <a href={`/service-area/${l.slug}`} class="ac card card--hover">
+                <h3>{l.name}, IL {l.primary && <span class="ac__home">Home base</span>}</h3>
+                <p>{l.blurb}</p>
+                <span class="ac__link">Garage door service in {l.name} →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+      <p class="area-note">Don’t see your town? We travel up to {site.serviceRadiusMiles} miles from Huntley — including parts of Elgin, Wheaton and greater Chicagoland. <a href={site.phoneHref}>Call {site.phone}</a> and we’ll let you know.</p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .county{ margin-bottom:clamp(28px,4vw,48px); }
+  .county__name{ font-size:1.4rem; padding-bottom:.5rem; border-bottom:2px solid var(--gold); display:inline-block; margin-bottom:1.2rem; }
+  .area-grid{ grid-template-columns:repeat(3,1fr); }
+  @media (max-width:900px){ .area-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .area-grid{ grid-template-columns:1fr; } }
+  .ac{ padding:1.2rem 1.3rem; display:flex; flex-direction:column; }
+  .ac h3{ font-size:1.1rem; margin-bottom:.4rem; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+  .ac__home{ font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--gold-600); background:var(--gold-soft); padding:.2em .6em; border-radius:999px; }
+  .ac p{ font-size:.9rem; color:var(--muted); flex:1; margin-bottom:.7rem; }
+  .ac__link{ font-weight:700; font-size:.86rem; color:var(--navy); }
+  .area-note{ text-align:center; color:var(--muted); margin-top:1rem; }
+</style>

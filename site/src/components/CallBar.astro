@@ -1,0 +1,20 @@
+---
+import { site } from '@/data/site';
+---
+<div class="callbar" role="region" aria-label="Quick contact">
+  <a class="callbar__btn callbar__call" href={site.phoneHref}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+    Call Now
+  </a>
+  <a class="callbar__btn callbar__book" href="/book">Request Service</a>
+</div>
+
+<style>
+  .callbar{ position:fixed; bottom:0; left:0; right:0; z-index:55; display:none;
+    grid-template-columns:1fr 1fr; gap:0; box-shadow:0 -6px 20px -8px rgba(10,31,61,.4); }
+  .callbar__btn{ display:flex; align-items:center; justify-content:center; gap:.5rem;
+    padding:15px 10px; font-weight:800; font-size:1.02rem; letter-spacing:.01em; }
+  .callbar__call{ background:var(--gold); color:var(--navy-900); }
+  .callbar__book{ background:var(--navy); color:#fff; }
+  @media (max-width:780px){ .callbar{ display:grid; } }
+</style>

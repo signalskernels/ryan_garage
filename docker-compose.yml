@@ -1,0 +1,36 @@
+services:
+  # Static Astro site served by nginx
+  web:
+    build:
+      context: ./site
+      args:
+        PUBLIC_SITE_URL: https://ryan-garage.signalskernels.com
+    image: ryan-garage:latest
+    container_name: ryan-garage-web
+    expose:
+      - "80"
+    ports:
+      # Local debugging only; the public path is via the tunnel.
+      - "8090:80"
+    restart: unless-stopped
+    networks: [ryan-garage]
+
+  # Cloudflare tunnel → ryan-garage.signalskernels.com → web:80
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: ryan-garage-cloudflared
+    # Run as the host user so cloudflared can read the 0400 credentials file
+    # owned by uid 1000 (mounted read-only from ~/.cloudflared).
+    user: "1000:1000"
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
+    depends_on: [web]
+    volumes:
+      - ./cloudflared/config.yml:/etc/cloudflared/config.yml:ro
+      - ${HOME}/.cloudflared/5ad48926-e989-4a59-899d-b5193325b162.json:/etc/cloudflared/credentials.json:ro
+      - ${HOME}/.cloudflared/cert.pem:/etc/cloudflared/cert.pem:ro
+    restart: unless-stopped
+    networks: [ryan-garage]
+
+networks:
+  ryan-garage:
+    driver: bridge

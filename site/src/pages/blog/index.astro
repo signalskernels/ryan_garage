@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { photo } from '@/lib/photos';
+
+const posts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+<Base title="Garage Door Tips & Advice" description="Helpful, no-nonsense garage door advice from the Ryan Garage Door team — springs, openers, maintenance, buying guides and more.">
+  <PageHeader
+    title="Garage Door Tips & Advice"
+    subtitle="Straight-talking guides from the people who actually fix these doors — so you can spot trouble early and make smart choices."
+    crumbs={[{ label: 'Blog' }]}
+  />
+
+  <section class="section">
+    <div class="wrap grid cols-3 blog-grid">
+      {posts.map((p, i) => (
+        <a href={`/blog/${p.id}`} class="bp card card--hover">
+          {p.data.hero && (
+            <div class="bp__media">
+              <Image src={photo(p.data.hero)} alt={p.data.title} widths={[360, 560]} sizes="(max-width:700px) 100vw, 360px" loading={i < 3 ? 'eager' : 'lazy'} />
+            </div>
+          )}
+          <div class="bp__body">
+            <span class="bp__cat">{p.data.category}</span>
+            <h2>{p.data.title}</h2>
+            <p>{p.data.description}</p>
+            <span class="bp__date">{fmt(p.data.date)}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .blog-grid{ grid-template-columns:repeat(3,1fr); align-items:start; }
+  @media (max-width:900px){ .blog-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .blog-grid{ grid-template-columns:1fr; } }
+  .bp{ display:flex; flex-direction:column; }
+  .bp__media{ aspect-ratio:16/10; overflow:hidden; }
+  .bp__media :global(img){ width:100%; height:100%; object-fit:cover; transition:transform .3s ease; }
+  .bp:hover .bp__media :global(img){ transform:scale(1.05); }
+  .bp__body{ padding:1.2rem 1.3rem 1.4rem; flex:1; display:flex; flex-direction:column; }
+  .bp__cat{ font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--gold-600); }
+  .bp__body h2{ font-size:1.18rem; margin:.4rem 0 .5rem; line-height:1.2; }
+  .bp__body p{ font-size:.9rem; color:var(--muted); flex:1; margin-bottom:.7rem; }
+  .bp__date{ font-size:.8rem; color:var(--muted); }
+</style>

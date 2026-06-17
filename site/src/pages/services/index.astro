@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import ServiceIcon from '@/components/ServiceIcon.astro';
+import { services } from '@/data/services';
+import { photo } from '@/lib/photos';
+---
+<Base title="Garage Door Services" description="Garage door spring repair, opener repair, cable repair, roller replacement, installation, replacement, maintenance and keyless entry — mobile service across Huntley, IL.">
+  <PageHeader
+    title="Our Garage Door Services"
+    subtitle="One trusted local team for every garage door need — repairs, new doors, openers, and tune-ups. Fully insured, 24/7."
+    crumbs={[{ label: 'Services' }]}
+  />
+
+  <section class="section">
+    <div class="wrap grid svc-list">
+      {services.map((s) => (
+        <a href={`/services/${s.slug}`} class="sl card card--hover">
+          <div class="sl__media">
+            <Image src={photo(s.photo)} alt={s.h1} widths={[320, 520]} sizes="(max-width:700px) 100vw, 360px" />
+            {s.emergency && <span class="sl__badge">24/7</span>}
+          </div>
+          <div class="sl__body">
+            <div class="sl__icon"><ServiceIcon name={s.icon} size={24} /></div>
+            <h2>{s.title}</h2>
+            <p>{s.short}</p>
+            {s.priceHint && <p class="sl__hint">{s.priceHint}</p>}
+            <span class="sl__link">Learn more →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand title="Not sure what’s wrong?" text="Tell us what your door is doing — we’ll diagnose it honestly and quote it up front." />
+</Base>
+
+<style>
+  .svc-list{ grid-template-columns:repeat(3,1fr); }
+  @media (max-width:900px){ .svc-list{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:620px){ .svc-list{ grid-template-columns:1fr; } }
+  .sl{ display:flex; flex-direction:column; }
+  .sl__media{ position:relative; aspect-ratio:16/10; overflow:hidden; }
+  .sl__media :global(img){ width:100%; height:100%; object-fit:cover; transition:transform .3s ease; }
+  .sl:hover .sl__media :global(img){ transform:scale(1.05); }
+  .sl__badge{ position:absolute; top:10px; right:10px; background:var(--gold); color:var(--navy-900);
+    font-size:.72rem; font-weight:800; padding:.25em .7em; border-radius:999px; }
+  .sl__body{ padding:1.3rem; flex:1; display:flex; flex-direction:column; position:relative; }
+  .sl__icon{ position:absolute; top:-26px; left:1.3rem; width:48px; height:48px; border-radius:12px;
+    background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); }
+  .sl__body h2{ font-size:1.2rem; margin:.6rem 0 .35rem; }
+  .sl__body p{ font-size:.92rem; color:var(--muted); margin-bottom:.5rem; }
+  .sl__hint{ font-size:.84rem!important; color:var(--gold-600)!important; font-weight:600; }
+  .sl__link{ margin-top:auto; font-weight:700; font-size:.9rem; color:var(--navy); }
+</style>

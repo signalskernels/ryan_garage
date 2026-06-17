@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { photosByPrefix, photo } from '@/lib/photos';
+
+// Project shots + a few highlighted service photos.
+const projectShots = photosByPrefix('Professional-Garage-Door-Service');
+const highlights = ['Garage-Door-Replacement', 'Garage-Door-Opener-Repair', 'Garage-Door-Maintenance', 'Trusted-Garage-Door-Service-Huntley-IL'];
+const captions = ['Garage door installation', 'New door & opener', 'Spring & cable repair', 'Door replacement', 'Opener upgrade', 'Maintenance & tune-up', 'Roller replacement', 'Smart opener setup'];
+const gallery = [
+  ...highlights.map((name, i) => ({ img: photo(name), cap: captions[i] })),
+  ...projectShots.map((p, i) => ({ img: p.img, cap: captions[i % captions.length] })),
+];
+---
+<Base title="Project Gallery" description="See examples of Ryan Garage Door’s work — installations, replacements, opener upgrades and repairs across the Huntley, IL area.">
+  <PageHeader
+    title="Project Gallery"
+    subtitle="A look at the doors, openers and repairs we’ve handled for homeowners across the NW Chicago suburbs."
+    crumbs={[{ label: 'Gallery' }]}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="gal">
+        {gallery.map((g, i) => (
+          <figure class="gal__item">
+            <Image src={g.img} alt={`${g.cap} — Ryan Garage Door`} widths={[300, 480]} sizes="(max-width:600px) 50vw, 300px" loading={i < 4 ? 'eager' : 'lazy'} />
+            <figcaption>{g.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p class="gal__note">Want your home to look like this? <a href="/book">Request a free estimate</a> or call <a href="tel:+12247700587">(224) 770-0587</a>.</p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .gal{ columns:4 220px; column-gap:14px; }
+  .gal__item{ break-inside:avoid; margin:0 0 14px; position:relative; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-sm); }
+  .gal__item :global(img){ width:100%; height:auto; display:block; transition:transform .35s ease; }
+  .gal__item:hover :global(img){ transform:scale(1.06); }
+  .gal__item figcaption{ position:absolute; left:0; right:0; bottom:0; padding:.9rem .8rem .6rem; color:#fff; font-size:.82rem; font-weight:600;
+    background:linear-gradient(transparent, rgba(10,31,61,.82)); }
+  .gal__note{ text-align:center; color:var(--muted); margin-top:1.6rem; }
+</style>

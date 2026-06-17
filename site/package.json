@@ -1,0 +1,18 @@
+{
+  "name": "ryan-garage-door",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing website for Ryan Garage Door (Huntley, IL). Built by Signals | Kernels.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.5.2",
+    "sharp": "^0.33.5"
+  }
+}

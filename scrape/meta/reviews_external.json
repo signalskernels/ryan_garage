@@ -1,0 +1,213 @@
+{
+  "captured": "2026-06-14",
+  "business": "Ryan Garage Door",
+  "address_detail": "11713 Woodcreek Dr S, Apt E, Huntley, IL 60142 (per HomeAdvisor/Angi/Nextdoor)",
+  "platforms": [
+    {
+      "platform": "Google Maps",
+      "rating": 5.0,
+      "review_count": 115,
+      "url": "https://www.google.com/maps?cid=14099083416139631943",
+      "note": "~115 reviews, all 5\u2605 (RYAN GARAGE DOOR, feature id 0x4500cafc059a08b:0xc3aa01aab59a8d47). Full verbatim list in content/_google-reviews.md. Captured manually \u2014 Google blocks automated fetching from this environment (verified)."
+    },
+    {
+      "platform": "HomeAdvisor",
+      "rating": 5.0,
+      "review_count": 13,
+      "url": "https://www.homeadvisor.com/rated.RyanGarageDoor.144832131.html",
+      "note": "100% five-star. All 13 captured verbatim below."
+    },
+    {
+      "platform": "Angi",
+      "rating": 5.0,
+      "review_count": 13,
+      "url": "https://www.angi.com/companylist/us/il/huntley/ryan-garage-door-reviews-1.htm",
+      "note": "Same backend as HomeAdvisor \u2014 identical 13 reviews (not duplicated below)."
+    },
+    {
+      "platform": "Thumbtack",
+      "rating": 5.0,
+      "review_count": 123,
+      "hires": 160,
+      "url": "https://www.thumbtack.com/il/huntley/garage-door-repair/ryan-garage-door/service/512784037060321286",
+      "note": "123 reviews / 160 hires, all 5.0. Only 5 most-recent are publicly extractable (rest load behind JS pagination / need Thumbtack login or the client's pro dashboard export)."
+    },
+    {
+      "platform": "Nextdoor",
+      "rating": null,
+      "review_count": 13,
+      "url": "https://nextdoor.com/pages/ryan-garage-door-huntley-il/",
+      "note": "13 neighbor recommendations; individual texts are login-gated (only a summary is public)."
+    },
+    {
+      "platform": "Yelp",
+      "rating": null,
+      "review_count": null,
+      "url": "https://www.yelp.com/biz/ryan-garage-door-chicago",
+      "note": "Listing exists but is login/anti-bot walled \u2014 could not extract."
+    },
+    {
+      "platform": "Facebook",
+      "rating": null,
+      "review_count": null,
+      "url": "https://www.facebook.com/61575661076074",
+      "note": "Page exists (RYAN garage DOOR, Huntley IL) but reviews are login-walled."
+    },
+    {
+      "platform": "On-site (WP-Customer-Reviews)",
+      "rating": 5.0,
+      "review_count": 1,
+      "url": "https://garagedoorrepair-il.com/testimonials/",
+      "note": "One testimonial published on the current website."
+    }
+  ],
+  "reviews": {
+    "homeadvisor_angi": [
+      {
+        "author": "Jaspreet S.",
+        "date": "Dec 2025",
+        "rating": 5,
+        "service": "Garage Door Opener Installation and Replacement",
+        "price": "$150",
+        "text": "I liked his service a lot. It was very cold last Saturday but he got the job done. I have no complaints."
+      },
+      {
+        "author": "Angelique B.",
+        "date": "Dec 2025",
+        "rating": 5,
+        "service": "Garage Door Opener Installation and Replacement",
+        "price": null,
+        "text": "Was able to come out within 24 hours of reaching out after a major company did not show up to do the job. Service was great and came prepared with us having a part missing from the box (FedEx delivered in open/damaged box). I 100% recommend Ryan Garage! Installed both kits on our 3-car garage. Great price - other companies were overcharging to do the same job."
+      },
+      {
+        "author": "William U.",
+        "date": "Jun 2025",
+        "rating": 5,
+        "service": "Garage Door Opener Repair or Adjustment",
+        "price": null,
+        "text": "Ryan showed up exactly when he said he would. Very professional and a sincerely Great guy! Finished the gear box repair in a timely matter. Excellent work and extremely neat. Price was right!! Can't go wrong with Ryan. Kudos!!"
+      },
+      {
+        "author": "Mark T.",
+        "date": "Jun 2025",
+        "rating": 5,
+        "service": "Garage Door Repair",
+        "price": "$215",
+        "text": "Garage door spring broke and after some quotes I settled on Ryan Garage Door in Huntley to do the job for me he showed up within a few hours and did a quick & FANTASTIC JOB at a GREAT PRICE & even included free maintenance on the door! I give Ryan Garage a 1000% percent rating on not only their work but also their reasonable pricing! If you need any garage door services, I definitely recommend RYAN GARAGE you won't be disappointed! Mark T Elgin Il Before & After"
+      },
+      {
+        "author": "William S.",
+        "date": "Jun 2025",
+        "rating": 5,
+        "service": "Garage Door Opener Installation and Replacement",
+        "price": "$350",
+        "text": "Person was polite, knowledgeable, efficient and cleaned everything up. Definitely would use again."
+      },
+      {
+        "author": "James B.",
+        "date": "May 2025",
+        "rating": 5,
+        "service": "Garage Door Opener Installation and Replacement",
+        "price": "$485",
+        "text": "He was very professional did a great job. Came over in 30 minutes had job done in couple hours, even set my button on rear mirror to open and close door without remote like i had with previous unit. I would hire him for any other garage door work if i need to."
+      },
+      {
+        "author": "Dharmendra P.",
+        "date": "May 2025",
+        "rating": 5,
+        "service": null,
+        "price": null,
+        "text": "Best garages door ever very professional and did a very clean job also help fix other problems"
+      },
+      {
+        "author": "James A.",
+        "date": "Apr 2025",
+        "rating": 5,
+        "service": "Garage Door Opener Installation and Replacement",
+        "price": null,
+        "text": "Very professional and garage door opener works great"
+      },
+      {
+        "author": "Doug G.",
+        "date": "Apr 2025",
+        "rating": 5,
+        "service": "Garage Door Installation and Replacement",
+        "price": null,
+        "text": "Ryan and his team are phenomenal! I got numerous quotes for a garage door and opener replacement, Ryan\u2019s price was the best by far and there is zero drop off in quality of work or customer care from the higher priced contractors. I 100% recommend working with Ryan Garage Door!"
+      },
+      {
+        "author": "Sean P.",
+        "date": "Mar 2025",
+        "rating": 5,
+        "service": null,
+        "price": null,
+        "text": "Showed up did a great job and was very fast and efficient. Very cost effective."
+      },
+      {
+        "author": "Bryan B.",
+        "date": "Dec 2024",
+        "rating": 5,
+        "service": "Garage Door Opener Installation and Replacement",
+        "price": null,
+        "text": "Very quick to respond and provide an estimate. Was able to install the new garage door openers the same day. Very professional and did good work at a fair price."
+      },
+      {
+        "author": "David H.",
+        "date": "Nov 2024",
+        "rating": 5,
+        "service": "Garage Door Installation and Replacement",
+        "price": null,
+        "text": "The job was fast and right. Ryan was more like a friend than just a workman."
+      },
+      {
+        "author": "Tahil F.",
+        "date": "May 2024",
+        "rating": 5,
+        "service": null,
+        "price": "$4,000",
+        "text": "I would highly recommend anyone to contact Ryan garage door. They are professionals and do excellent work and keep time."
+      }
+    ],
+    "thumbtack_recent": [
+      {
+        "author": "Gerry D.",
+        "date": "Jan 17, 2026",
+        "rating": 5,
+        "text": "Ryan called, to set up an appointment to come look at the problem. He gave a time of arrival, then when running late, messaged with an apology and new ETA, which he made on time. He arrived and within 15 seconds knew what the issue was, but was polite enough to let me go through my story of what happened and why I called. He quickly quoted what he believed needed to be done, and then mentioned that additional work may be needed if first resolution did not work. Quoted all work. He got to work and fixed the issue with just the first idea he had. The entire experience was handled very professionally! Recommend him 100%"
+      },
+      {
+        "author": "Matthew C.",
+        "date": "Dec 12, 2025",
+        "rating": 5,
+        "text": "Quoted me a price up front. Showed up on time, even in a snow storm. Did the work efficiently and had the door working better than it has in the nearly 4 years we've lived in our house."
+      },
+      {
+        "author": "Claudia K.",
+        "date": "Dec 14, 2025",
+        "rating": 5,
+        "text": "Great experience with Ryan. I was in a bit of a situation as my garage door with not go up, and I had to leave my car out in freezing temperatures. Fortunately, he diagnosed the problem quickly, and within an hour or so, all was well. I felt his price was fair, and I would definitely call him again, or recommend him to others."
+      },
+      {
+        "author": "Kathryn S.",
+        "date": "Sep 19, 2025",
+        "rating": 5,
+        "text": "Ryan was wonderful! I have very old, unique garage doors that no other technician would attempt to repair. He understood how much we loved the doors and found a reliable solution. He not only fixed the issue but walked through some general upkeep we could do at home to preserve the old style we have. I love supporting honest and reliable businesses and I can say for certain that Ryan will be my first call for any garage doors needs."
+      },
+      {
+        "author": "Mohammad A.",
+        "date": "Jan 18, 2026",
+        "rating": 5,
+        "text": "Had a great experience with the garage service that I needed. I took his card and will pass it to family and friends. Will call again for future needs!"
+      }
+    ],
+    "onsite": [
+      {
+        "author": "Janelle Ortiz",
+        "title": "New Parent Needing Quick Repairs",
+        "rating": "5",
+        "date": "2025-08-06 15:04:57",
+        "body": "Their garage door service was a lifesaver when our garage door suddenly got stuck halfway open, just days after bringing home our newborn. Their team arrived the same afternoon I called and immediately figured out that a broken spring was causing the issue. They not only fixed it but also checked everything else to make sure there wouldn't be another surprise anytime soon. What really stood out was how they explained what went wrong in plain terms without making me feel clueless. It's such a relief knowing we can rely on them with all the chaos of having a new baby."
+      }
+    ]
+  }
+}

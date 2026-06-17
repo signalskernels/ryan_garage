@@ -1,0 +1,23 @@
+---
+import Base from '@/layouts/Base.astro';
+import { site } from '@/data/site';
+---
+<Base title="Thank You" description="Thanks for reaching out to Ryan Garage Door — we’ll be in touch shortly." noindex={true}>
+  <section class="section center ty">
+    <div class="wrap measure" style="margin-inline:auto;">
+      <div class="ty__check" aria-hidden="true">✓</div>
+      <h1>Thank you — we’ve got your request!</h1>
+      <p class="lead" style="margin:.8rem auto 1.6rem;">We’ll reach out shortly to confirm your appointment. Need us right away? We’re available 24/7.</p>
+      <div class="cta-row cta-row--center">
+        <a href={site.phoneHref} class="btn btn--lg">Call {site.phone}</a>
+        <a href="/" class="btn btn--lg btn--outline">Back to home</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ty{ padding-block:clamp(60px,9vw,110px); }
+  .ty__check{ width:74px; height:74px; border-radius:50%; background:var(--gold); color:var(--navy-900);
+    font-size:2.3rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 1.4rem; }
+</style>

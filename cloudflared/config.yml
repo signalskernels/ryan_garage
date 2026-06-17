@@ -1,0 +1,19 @@
+# Cloudflared ingress for the `ryan-garage` tunnel.
+# Preview deploy of the Ryan Garage Door site → ryan-garage.signalskernels.com
+#
+# To regenerate:
+#   cloudflared tunnel create ryan-garage
+#   cloudflared tunnel route dns ryan-garage ryan-garage.signalskernels.com
+#   # then point credentials-file at ~/.cloudflared/<uuid>.json (mounted in compose)
+
+tunnel: 5ad48926-e989-4a59-899d-b5193325b162
+credentials-file: /etc/cloudflared/credentials.json
+metrics: 0.0.0.0:2000
+
+ingress:
+  - hostname: ryan-garage.signalskernels.com
+    service: http://web:80
+    originRequest:
+      connectTimeout: 30s
+  # Catch-all
+  - service: http_status:404

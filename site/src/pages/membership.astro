@@ -1,0 +1,71 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+
+const includes = [
+  'Two professional tune-ups per year',
+  'Full multi-point safety inspection',
+  'Lubrication of rollers, hinges & springs',
+  'Spring-balance & cable-wear check',
+  'Safety auto-reverse & sensor testing',
+  'Hardware tightening & track alignment',
+  'Priority scheduling when you need us',
+  'Member discount on any repairs',
+];
+---
+<Base title="Worry-Free Maintenance Plan" description="Keep your garage door safe, quiet and reliable year-round with Ryan Garage Door’s Worry-Free maintenance plan — twice-yearly tune-ups, priority service and member discounts.">
+  <PageHeader
+    title="The Worry-Free Maintenance Plan"
+    subtitle="Most garage door breakdowns are preventable. Put your maintenance on autopilot and stop emergencies before they start."
+    crumbs={[{ label: 'Maintenance Plan' }]}
+  />
+
+  <section class="section">
+    <div class="wrap mem">
+      <div class="prose mem__copy">
+        <h2>Peace of mind, twice a year</h2>
+        <p>Your garage door is the largest moving part of your home — and it’s easy to forget about until it fails at the worst possible moment. Our Worry-Free plan keeps it running safely and quietly, catches small problems before they become expensive ones, and puts you first when you do need us.</p>
+        <h3>What’s included</h3>
+        <ul class="check2">
+          {includes.map((i) => <li>{i}</li>)}
+        </ul>
+        <p class="muted" style="font-size:.86rem;">Plan pricing is simple and flat — call for current rates. Members get priority scheduling and a standing discount on any repairs we make during a visit.</p>
+      </div>
+
+      <aside class="mem__card card">
+        <div class="mem__tag">Most popular</div>
+        <h3>Worry-Free Club</h3>
+        <p class="mem__price">Ask us<span>flat annual plan</span></p>
+        <ul class="mem__perks">
+          <li>✓ 2 tune-ups / year</li>
+          <li>✓ Priority scheduling</li>
+          <li>✓ Member repair discount</li>
+          <li>✓ Full safety inspection</li>
+        </ul>
+        <a href={site.phoneHref} class="btn btn--block btn--lg">Call {site.phone}</a>
+        <a href="/book" class="btn btn--block btn--navy">Ask about the plan</a>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand title="Ready to stop worrying about your garage door?" />
+</Base>
+
+<style>
+  .mem{ display:grid; grid-template-columns:1.3fr .7fr; gap:clamp(28px,4vw,52px); align-items:start; }
+  @media (max-width:860px){ .mem{ grid-template-columns:1fr; } }
+  .check2{ list-style:none; padding:0; columns:2 200px; column-gap:1.4rem; }
+  .check2 li{ position:relative; padding-left:1.6rem; margin:.45rem 0; break-inside:avoid; }
+  .check2 li::before{ content:'✓'; position:absolute; left:0; color:#fff; background:var(--gold); width:1.15rem; height:1.15rem;
+    border-radius:50%; font-size:.68rem; font-weight:800; display:flex; align-items:center; justify-content:center; top:.2rem; }
+  .mem__card{ padding:1.6rem; position:sticky; top:96px; border-color:var(--gold-600); }
+  .mem__tag{ display:inline-block; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--navy-900); background:var(--gold); padding:.25em .7em; border-radius:999px; margin-bottom:.6rem; }
+  .mem__price{ font-size:1.8rem; font-weight:800; color:var(--navy); margin:.2rem 0 1rem; }
+  .mem__price span{ display:block; font-size:.8rem; font-weight:600; color:var(--muted); }
+  .mem__perks{ list-style:none; padding:0; margin:0 0 1.2rem; font-weight:600; color:var(--navy); }
+  .mem__perks li{ margin:.4rem 0; }
+  @media (max-width:860px){ .mem__card{ position:static; } }
+</style>

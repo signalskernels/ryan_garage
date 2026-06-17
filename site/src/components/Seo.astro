@@ -1,0 +1,77 @@
+---
+import { site } from '@/data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path to an OG image in /public (optional) */
+  image?: string;
+  /** Extra JSON-LD objects to inject (Service, FAQPage, BreadcrumbList…) */
+  jsonLd?: Record<string, any>[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Trusted mobile garage door repair, installation & service in Huntley, IL and the surrounding suburbs. 24/7 emergency service, 265+ five-star reviews. Call (224) 770-0587.',
+  image = '/ryan-logo.png',
+  jsonLd = [],
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title
+  ? `${title} | ${site.name}`
+  : `${site.name} — Garage Door Repair & Installation in Huntley, IL`;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://ryan-garage.signalskernels.com').href.replace(/\/$/, '') || '/';
+const ogImage = new URL(image, Astro.site ?? 'https://ryan-garage.signalskernels.com').href;
+
+// Sitewide LocalBusiness schema (no self-review schema — see research §6)
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  '@id': `${Astro.site?.href ?? 'https://ryan-garage.signalskernels.com/'}#business`,
+  name: site.name,
+  image: ogImage,
+  telephone: '+1-224-770-0587',
+  url: Astro.site?.href ?? canonical,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.address.locality,
+    addressRegion: site.address.region,
+    postalCode: site.address.postalCode,
+    addressCountry: site.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  areaServed: ['Huntley IL', 'Batavia IL', 'McHenry IL', 'Vernon Hills IL', 'West Chicago IL', 'Woodstock IL', 'Barrington IL', 'Geneva IL', 'Grayslake IL', 'Cary IL'],
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '00:00',
+    closes: '23:59',
+  },
+  paymentAccepted: site.paymentAccepted.join(', '),
+  sameAs: [site.social.facebook, site.social.google].filter(Boolean),
+};
+
+const schemas = [localBusiness, ...jsonLd];
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex,nofollow" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+
+{schemas.map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}

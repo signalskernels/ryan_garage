@@ -1,0 +1,5 @@
+const slider=document.querySelectorAll('.testimonials-container');function createSlider(wrapper){const sliderContainer=wrapper.querySelector(".keen-slider");if(!sliderContainer){return}
+const settings=JSON.parse(wrapper.getAttribute('data-settings'));new KeenSlider(sliderContainer,{loop:!0,slides:settings.slides,breakpoints:settings.breakpoints,created:function(instance){wrapper.querySelector(".slider-previous").addEventListener("click",function(){instance.prev()});wrapper.querySelector(".slider-next").addEventListener("click",function(){instance.next()});updateClasses(instance);autoPlay(instance,settings.interval)},slideChanged(instance){updateClasses(instance)}});function updateClasses(instance){let slide=instance.track.details.relativeSlide;let arrowLeft=wrapper.querySelector(".slider-previous");let arrowRight=wrapper.querySelector(".slider-next")}
+function autoPlay(sliderContainer,interval){if(parseInt(interval)<=0){return}
+setInterval(function(){sliderContainer.next()},interval)}}
+slider.forEach((wrapper)=>{if(wrapper.getElementsByClassName('testimonial-item').length>1){createSlider(wrapper)}})

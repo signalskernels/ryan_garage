@@ -1,0 +1,120 @@
+---
+import { site, nav } from '@/data/site';
+const { ribbon = true } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(href + '/'));
+---
+{ribbon && (
+  <div class="ribbon">
+    <div class="wrap ribbon__in">
+      <span class="ribbon__msg"><strong>24/7 Emergency Service</strong> · Same-day appointments available</span>
+      <span class="ribbon__dot">•</span>
+      <span class="ribbon__msg ribbon__offer">New customers save <strong>10%</strong></span>
+      <a class="ribbon__call" href={site.phoneHref}>Call {site.phone}</a>
+    </div>
+  </div>
+)}
+
+<header class="hd" data-header>
+  <div class="wrap hd__in">
+    <a href="/" class="hd__logo" aria-label={`${site.name} — home`}>
+      <img src="/ryan-logo.png" alt={site.name} width="220" height="64" />
+    </a>
+
+    <nav class="hd__nav" aria-label="Primary">
+      {nav.map((item) => (
+        <a href={item.href} class:list={['hd__link', { 'is-active': isActive(item.href) }]}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="hd__actions">
+      <a href={site.phoneHref} class="hd__phone">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        <span><small>24/7 · Call now</small><b>{site.phone}</b></span>
+      </a>
+      <a href="/book" class="btn">Request Service</a>
+      <button class="hd__burger" aria-label="Open menu" aria-expanded="false" data-burger>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="hd__drawer" data-drawer hidden>
+    <nav aria-label="Mobile">
+      {nav.map((item) => <a href={item.href} class:list={['hd__dlink', { 'is-active': isActive(item.href) }]}>{item.label}</a>)}
+      <a href="/coupons" class="hd__dlink">Coupons &amp; Offers</a>
+      <a href="/financing" class="hd__dlink">Financing</a>
+    </nav>
+    <div class="hd__drawer-cta">
+      <a href={site.phoneHref} class="btn btn--block">Call {site.phone}</a>
+      <a href="/book" class="btn btn--navy btn--block">Request Service</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .ribbon{ background:var(--navy-900); color:#cfe0f6; font-size:.85rem; }
+  .ribbon__in{ display:flex; align-items:center; gap:.7rem; justify-content:center; padding:7px 0; flex-wrap:wrap; }
+  .ribbon strong{ color:#fff; }
+  .ribbon__offer strong{ color:var(--gold); }
+  .ribbon__dot{ opacity:.4; }
+  .ribbon__call{ display:none; color:var(--gold); font-weight:700; }
+  @media (max-width:780px){ .ribbon__offer,.ribbon__dot{ display:none; } }
+
+  .hd{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:1px solid var(--line);
+       transition:box-shadow .2s ease; }
+  .hd.is-stuck{ box-shadow:0 6px 24px -16px rgba(10,31,61,.5); }
+  .hd__in{ display:flex; align-items:center; gap:1.2rem; min-height:74px; }
+  .hd__logo img{ height:46px; width:auto; }
+  .hd__nav{ display:flex; gap:.3rem; margin-left:.5rem; flex:1; }
+  .hd__link{ font-weight:600; font-size:.95rem; color:var(--body); padding:.5rem .65rem; border-radius:8px; white-space:nowrap; }
+  .hd__link:hover{ color:var(--navy); background:var(--surface); }
+  .hd__link.is-active{ color:var(--navy); background:var(--surface-2); }
+
+  .hd__actions{ display:flex; align-items:center; gap:.7rem; }
+  .hd__phone{ display:flex; align-items:center; gap:.5rem; color:var(--navy); }
+  .hd__phone svg{ color:var(--gold-600); flex:none; }
+  .hd__phone small{ display:block; font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700; }
+  .hd__phone b{ display:block; font-size:1.05rem; line-height:1.1; color:var(--navy); }
+
+  .hd__burger{ display:none; flex-direction:column; gap:4px; width:42px; height:42px; align-items:center; justify-content:center;
+    background:var(--navy); border:none; border-radius:10px; cursor:pointer; }
+  .hd__burger span{ display:block; width:20px; height:2px; background:#fff; border-radius:2px; transition:.2s; }
+  .hd__burger[aria-expanded="true"] span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+  .hd__burger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .hd__burger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
+
+  .hd__drawer{ border-top:1px solid var(--line); padding:1rem var(--gut) 1.4rem; background:#fff; }
+  .hd__drawer nav{ display:flex; flex-direction:column; }
+  .hd__dlink{ padding:.85rem .25rem; border-bottom:1px solid var(--line-2); font-weight:600; color:var(--ink); }
+  .hd__dlink.is-active{ color:var(--navy); }
+  .hd__drawer-cta{ display:grid; gap:.6rem; margin-top:1rem; }
+
+  /* responsive: hide desktop nav + phone-block, show burger */
+  @media (max-width:1024px){
+    .hd__nav{ display:none; }
+    .hd__phone small{ display:none; }
+  }
+  @media (max-width:1024px){ .hd__burger{ display:flex; } }
+  @media (max-width:560px){
+    .hd__phone b{ font-size:.95rem; }
+    .hd .btn{ display:none; }
+    .hd__logo img{ height:40px; }
+  }
+  @media (min-width:1025px){ .hd__drawer{ display:none!important; } }
+</style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const burger = document.querySelector('[data-burger]');
+  const drawer = document.querySelector('[data-drawer]');
+  burger?.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!open));
+    if (drawer) (drawer as HTMLElement).hidden = open;
+  });
+  const onScroll = () => header?.classList.toggle('is-stuck', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

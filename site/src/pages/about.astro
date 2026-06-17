@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import TrustStrip from '@/components/TrustStrip.astro';
+import { site } from '@/data/site';
+import { photo } from '@/lib/photos';
+
+const values = [
+  { t: 'Honesty first', d: 'We tell you what’s actually wrong and what it’ll cost — before we start. No invented problems, no pressure.' },
+  { t: 'Show up & follow through', d: 'We give a time window, communicate if we’re running late, and get the job done right the first time.' },
+  { t: 'Fair pricing', d: 'Customers tell us again and again that we beat the big competitors’ quotes without cutting corners.' },
+  { t: 'Treat your home like ours', d: 'Insured, careful, and tidy — we clean up and leave your garage better than we found it.' },
+];
+---
+<Base title="About Us" description={`Ryan Garage Door is a fully-insured, family-run mobile garage door company serving Huntley, IL since ${site.founded}. Meet the team behind 265+ five-star reviews.`}>
+  <PageHeader
+    title="About Ryan Garage Door"
+    subtitle={`A fully-insured, owner-operated mobile garage door company serving Huntley, IL and the NW suburbs since ${site.founded}.`}
+    crumbs={[{ label: 'About' }]}
+  />
+
+  <section class="section">
+    <div class="wrap about">
+      <div class="prose about__copy">
+        <h2>The pro your neighbors recommend</h2>
+        <p>Ryan Garage Door started with a simple idea: homeowners deserve garage door service that’s fast, honest, and fairly priced — without the runaround or the upsell. Years and hundreds of jobs later, that’s still exactly how we work.</p>
+        <p>We’re a small, owner-operated team led by Ryan, alongside skilled technicians like Badru, Muwonge and Moush. Because we’re mobile, we come to you — anywhere within about {site.serviceRadiusMiles} miles of Huntley — with the parts and tools to get most jobs done on the spot, often the same day you call.</p>
+        <p>From a snapped spring at 2 a.m. to a beautiful new insulated door, we handle it all with the same care: diagnose honestly, quote up front, fix it right, and make sure it’s safe before we leave. That approach has earned us <strong>{site.reviews.total}+ five-star reviews</strong> across Google, Thumbtack, Angi and Nextdoor — every single one, five stars.</p>
+        <p>We’re fully insured and BBB-accredited, and we carry and service the brands you know — LiftMaster, Chamberlain and Genie — including Wi-Fi smart openers you can control from your phone.</p>
+      </div>
+      <div class="about__media">
+        <Image src={photo('Trusted-Garage-Door-Service-Huntley-IL')} alt="Ryan Garage Door technician adjusting a garage door" widths={[420, 640]} sizes="(max-width:800px) 100vw, 420px" />
+        <div class="about__card card">
+          <div class="about__card-n">{site.yearsExperience}+ yrs</div>
+          <p>of hands-on garage door experience serving the Huntley area</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight" style="padding-bottom:clamp(20px,3vw,36px);">
+    <div class="wrap"><TrustStrip /></div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap">
+      <div class="sec-head center">
+        <p class="eyebrow">What we stand for</p>
+        <h2>How we treat every job</h2>
+      </div>
+      <div class="grid cols-4">
+        {values.map((v) => (
+          <div class="val card">
+            <h3>{v.t}</h3>
+            <p>{v.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Ready to work with a team you can trust?" />
+</Base>
+
+<style>
+  .about{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(28px,4vw,52px); align-items:start; }
+  @media (max-width:860px){ .about{ grid-template-columns:1fr; } }
+  .about__media{ position:relative; }
+  .about__media :global(img){ width:100%; border-radius:var(--radius-lg); box-shadow:var(--shadow); }
+  .about__card{ position:absolute; right:-12px; bottom:-18px; max-width:200px; padding:1rem 1.2rem; background:var(--navy); color:#cfe0f6; }
+  .about__card-n{ font-size:1.6rem; font-weight:800; color:#fff; line-height:1; }
+  .about__card p{ font-size:.82rem; margin:.3rem 0 0; }
+  .sec-head{ max-width:60ch; } .sec-head.center{ margin-inline:auto; }
+  .val{ padding:1.3rem; }
+  .val h3{ font-size:1.08rem; margin-bottom:.3rem; }
+  .val p{ font-size:.92rem; color:var(--muted); margin:0; }
+</style>

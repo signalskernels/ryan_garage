@@ -1,0 +1,52 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { coupons, couponTerms } from '@/data/coupons';
+import { site } from '@/data/site';
+---
+<Base title="Coupons & Offers" description="Current garage door service discounts from Ryan Garage Door — new customer, senior, military and first-responder savings across Huntley, IL.">
+  <PageHeader
+    title="Coupons & Offers"
+    subtitle="A little thank-you to our neighbors. Mention an offer when you book to save on your service."
+    crumbs={[{ label: 'Coupons & Offers' }]}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid cols-2 cpns">
+        {coupons.map((c) => (
+          <div class="cpn">
+            <div class="cpn__left">
+              <div class="cpn__amt">{c.amount}</div>
+              {c.badge && <span class="cpn__badge">{c.badge}</span>}
+            </div>
+            <div class="cpn__body">
+              <h3>{c.title}</h3>
+              <p>{c.detail}</p>
+              {c.group && <p class="cpn__who">For: {c.group}</p>}
+              <a href={site.phoneHref} class="btn">Call to redeem</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="cpn__terms">{couponTerms}</p>
+    </div>
+  </section>
+
+  <CtaBand title="Ready to claim your discount?" text="Call now and mention the offer — we’ll take care of the rest." />
+</Base>
+
+<style>
+  .cpns{ align-items:stretch; }
+  .cpn{ display:grid; grid-template-columns:130px 1fr; border:2px dashed var(--gold-600); border-radius:var(--radius); overflow:hidden; background:#fff; }
+  .cpn__left{ background:var(--navy); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.2rem .8rem; text-align:center; gap:.5rem; }
+  .cpn__amt{ font-size:1.5rem; font-weight:800; color:var(--gold); line-height:1; }
+  .cpn__badge{ font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; background:var(--gold); color:var(--navy-900); padding:.2em .55em; border-radius:999px; }
+  .cpn__body{ padding:1.2rem 1.3rem; }
+  .cpn__body h3{ font-size:1.1rem; margin-bottom:.3rem; }
+  .cpn__body p{ font-size:.92rem; color:var(--muted); margin-bottom:.5rem; }
+  .cpn__who{ font-size:.82rem!important; font-weight:600; color:var(--navy)!important; }
+  .cpn__terms{ text-align:center; color:var(--muted); font-size:.84rem; margin-top:1.6rem; max-width:60ch; margin-inline:auto; }
+  @media (max-width:560px){ .cpn{ grid-template-columns:100px 1fr; } }
+</style>

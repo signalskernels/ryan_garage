@@ -1,0 +1,59 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import { site } from '@/data/site';
+
+const points = [
+  { t: 'Check your rate in minutes', d: 'A quick prequalification shows what you’d pay — with no impact to your credit score.' },
+  { t: 'Pay over time', d: 'Spread the cost of a new door or major repair into manageable monthly payments.' },
+  { t: 'Get the door you actually want', d: 'Choose the insulation, style and features you want now instead of settling.' },
+];
+---
+<Base title="Financing" description="Spread the cost of a new garage door or major repair with simple, low-impact financing. Prequalify in minutes with Ryan Garage Door.">
+  <PageHeader
+    title="Easy Financing"
+    subtitle="A new door or major repair shouldn’t mean paying everything up front. Spread the cost into simple monthly payments."
+    crumbs={[{ label: 'Financing' }]}
+  />
+
+  <section class="section">
+    <div class="wrap fin">
+      <div class="prose">
+        <h2>Get it done now, pay over time</h2>
+        <p>Whether it’s an unexpected emergency repair or a planned upgrade to a beautiful new insulated door, financing lets you move forward today and pay at a pace that works for your budget.</p>
+        <div class="grid cols-3" style="margin:1.6rem 0;">
+          {points.map((p) => (
+            <div class="fin__pt card">
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </div>
+          ))}
+        </div>
+        <p class="muted" style="font-size:.86rem;">Financing is provided through third-party lending partners, subject to approval. Ask us for current options and terms when you book — there’s no obligation.</p>
+      </div>
+
+      <aside class="fin__box card">
+        <h3>Interested in financing?</h3>
+        <p>Mention it when you reach out and we’ll walk you through the current options and what your payments could look like.</p>
+        <a href={site.phoneHref} class="btn btn--block btn--lg">Call {site.phone}</a>
+        <a href="/book" class="btn btn--block btn--navy">Request a quote</a>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand title="Questions about paying over time?" text="Give us a call — we’ll explain your options in plain language, no pressure." />
+</Base>
+
+<style>
+  .fin{ display:grid; grid-template-columns:1.3fr .7fr; gap:clamp(28px,4vw,52px); align-items:start; }
+  @media (max-width:860px){ .fin{ grid-template-columns:1fr; } }
+  .fin__pt{ padding:1.2rem; }
+  .fin__pt h3{ font-size:1.02rem; margin-bottom:.3rem; }
+  .fin__pt p{ font-size:.9rem; color:var(--muted); margin:0; }
+  .fin__box{ padding:1.5rem; position:sticky; top:96px; }
+  .fin__box h3{ margin-bottom:.5rem; }
+  .fin__box > p{ color:var(--muted); font-size:.92rem; margin-bottom:1rem; }
+  .fin__box .btn{ margin-bottom:.5rem; }
+  @media (max-width:860px){ .fin__box{ position:static; } }
+</style>
