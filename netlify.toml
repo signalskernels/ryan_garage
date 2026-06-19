@@ -1,14 +1,16 @@
-# Netlify config. The site is BUILT on GitHub Actions and the prebuilt dist/ is
-# pushed via the Netlify CLI (see .github/workflows/deploy.yml) — so there is no
-# Netlify build step. publish points at the prebuilt output for any manual deploy.
+# Netlify config. The repo is connected to Netlify's git integration, so
+# Netlify builds + deploys: production on `main`, deploy previews on `dev`/PRs.
+# (The GitHub Actions workflow is a build/CI gate only — it does NOT deploy,
+# to avoid double-deploys.)
 #
-# Do NOT also connect this repo to Netlify's own build/deploy, or it will
-# double-deploy. Create the site as "deploy manually" / CLI-only.
+# Set PUBLIC_SITE_URL in Netlify (Site config → Environment variables) to the
+# live domain so canonical URLs + sitemap are correct; otherwise it falls back
+# to the preview URL in astro.config.mjs.
 
 [build]
   base = "site"
-  publish = "site/dist"
-  command = ""   # intentionally empty — GitHub Actions builds, Netlify only hosts
+  command = "npm run build"
+  publish = "dist"        # relative to base → site/dist
 
 # Long-cache Astro's fingerprinted assets.
 [[headers]]

@@ -70,20 +70,21 @@ before the Netlify cutover.
 
 ---
 
-## CMS (Sveltia) + CI/CD (GitHub Actions → Netlify)
+## CMS (Sveltia) + CI/CD (Netlify git deploys)
 
-**Architecture:** GitHub Actions builds the site (free runner minutes) and pushes
-the prebuilt `dist/` to Netlify via the Netlify CLI — so builds never touch
-Netlify's credit budget. The owner edits content in **Sveltia CMS** at `/admin`;
-saves commit to `main`, which triggers the Action → redeploy. All $0/month.
+**Architecture:** The repo is connected to **Netlify's git integration**, which
+builds + deploys automatically: production on `main`, deploy previews on `dev`
+and PRs. The owner edits content in **Sveltia CMS** at `/admin`; saves commit to
+`main` → Netlify redeploys. All $0/month. The **GitHub Actions workflow is a
+build/CI gate only** (it does NOT deploy) and is the required status check on
+`main`, so a broken build blocks the merge before Netlify builds.
 
 **Branch model:**
-- `dev` — working branch. Pushes get a Netlify **draft/preview deploy** (unique URL) to review before merging.
-- `main` — production. Merges/pushes get a Netlify **production deploy**.
-- PRs targeting `main` also get a preview deploy.
-- Before the Netlify secrets are set, the workflow still **builds** (CI check) and just skips the deploy.
+- `dev` — working branch. Pushes get a Netlify **deploy preview** (unique URL) to review.
+- `main` — production. Merges get a Netlify **production deploy**. Protected: requires a PR + the passing `build-deploy` check.
+- PRs targeting `main` also get a deploy preview.
 
-Day-to-day: branch off `dev` → open a PR → review the preview deploy → merge to `dev`,
+Day-to-day: branch off `dev` → open a PR → review the Netlify deploy preview → merge to `dev`,
 then merge `dev → main` to publish.
 
 ### What's CMS-editable now
@@ -92,20 +93,18 @@ Reviews, and Blog posts. Data lives in `src/content/data/*.json` + `src/content/
 **Next (same pattern):** Services and the 74 service-area pages are still in
 `src/data/*.ts` — move them to JSON to make them owner-editable too.
 
-### One-time setup — Netlify host + GitHub Actions
-You need to do these (they require your Netlify/GitHub accounts):
-1. **Create the Netlify site as CLI/manual deploy** (do NOT connect it to Git for
-   builds, or it will double-deploy). Dashboard → Add new site → Deploy manually,
-   or `netlify sites:create`. Copy the **Site ID** (Site config → General → API ID).
-2. **Create a Netlify personal access token** (User settings → Applications → New).
-3. **Add GitHub repo secrets** (repo → Settings → Secrets and variables → Actions):
-   `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`.
-4. *(At DNS cutover)* add repo **variable** `PUBLIC_SITE_URL` = the live domain
-   (until then it falls back to the preview URL in `astro.config.mjs`).
-5. Push to `dev` (preview deploy) or merge to `main` (production deploy) → the Action builds + deploys.
-6. Point the domain DNS at Netlify, enable HTTPS. After the first deploy with a
-   test submission, confirm **Forms** show up under Netlify → Forms (the forms
-   render as static HTML, so Netlify detects them on deploy).
+### Netlify (already connected — git deploys)
+Netlify builds the site itself (`netlify.toml` sets base `site`, command
+`npm run build`, publish `dist`). To finish:
+1. In Netlify **Site config → Environment variables**, set `PUBLIC_SITE_URL` to
+   the live domain (or the Netlify URL for now) so canonical URLs + sitemap are
+   correct — otherwise it falls back to the preview URL in `astro.config.mjs`.
+2. At launch, point the domain DNS at Netlify and enable HTTPS.
+3. After a deploy + a test form submission, confirm **Forms** show up under
+   Netlify → Forms (forms render as static HTML, so Netlify detects them).
+- Do **not** add `NETLIFY_AUTH_TOKEN`/`NETLIFY_SITE_ID` as GitHub secrets — the
+  Actions workflow is build-only and adding them wouldn't enable a deploy (kept
+  this way on purpose so there's a single deploy path: Netlify git).
 
 ### One-time setup — Sveltia auth (owner editing)
 1. **GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth Apps → New):
