@@ -1,0 +1,95 @@
+name: Build & Deploy
+
+# Branch model:
+#   dev    → working branch. Pushes get a Netlify DRAFT/PREVIEW deploy (unique URL).
+#   main   → production. Merges/pushes get a Netlify PRODUCTION deploy.
+#   PRs to main → preview deploy too, so you can review before merging.
+#
+# The site is built on GitHub Actions (free minutes, off Netlify's credit budget)
+# and the prebuilt dist/ is pushed via the Netlify CLI. CMS edits commit to main
+# → production redeploy.
+#
+# Safe before setup: if the Netlify secrets aren't configured yet, the build still
+# runs (acting as a CI check) and the deploy is skipped with a notice.
+
+on:
+  push:
+    branches: [main, dev]
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Build
+        working-directory: site
+        env:
+          # Set this repo Variable to the live domain at DNS cutover.
+          # Falls back to the preview URL in astro.config.mjs if unset.
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+        run: npm run build
+
+      - name: Check Netlify secrets
+        id: secrets
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          if [ -n "$NETLIFY_AUTH_TOKEN" ] && [ -n "$NETLIFY_SITE_ID" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Netlify secrets not set — built only, skipping deploy. Add NETLIFY_AUTH_TOKEN + NETLIFY_SITE_ID."
+          fi
+
+      - name: Deploy to production (main)
+        if: steps.secrets.outputs.ready == 'true' && github.ref == 'refs/heads/main'
+        working-directory: site
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npx --yes netlify-cli@latest deploy --prod --dir=dist --json \
+            --message "prod: ${GITHUB_SHA::7}" > deploy.json
+          url=$(jq -r '.url // .deploy_url // empty' deploy.json)
+          echo "🚀 Production: $url"
+          echo "### 🚀 Production deploy" >> "$GITHUB_STEP_SUMMARY"
+          echo "$url" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Deploy preview (dev / PR)
+        if: steps.secrets.outputs.ready == 'true' && github.ref != 'refs/heads/main'
+        working-directory: site
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npx --yes netlify-cli@latest deploy --dir=dist --json \
+            --message "preview: ${GITHUB_REF_NAME} ${GITHUB_SHA::7}" > deploy.json
+          url=$(jq -r '.deploy_url // .url // empty' deploy.json)
+          echo "🔍 Preview: $url"
+          echo "### 🔍 Preview deploy (\`${GITHUB_REF_NAME}\`)" >> "$GITHUB_STEP_SUMMARY"
+          echo "$url" >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,128 @@
+# Sveltia CMS configuration (Decap-compatible).
+# Paths are relative to the REPO ROOT (the Astro site lives under site/).
+#
+# AUTH: GitHub backend + a free self-hosted OAuth worker (sveltia-cms-auth on
+# Cloudflare Workers). After deploying the worker, set base_url below to it.
+backend:
+  name: github
+  repo: signalskernels/ryan_garage      # owner/repo
+  branch: main
+  base_url: https://REPLACE-WITH-WORKER.workers.dev   # ← your sveltia-cms-auth worker URL
+
+# Uploaded media (CMS image picker). Lives in the static folder so Astro serves it.
+media_folder: "site/public/uploads"
+public_folder: "/uploads"
+
+# Saves commit straight to `main`, which triggers the GitHub Action → Netlify deploy.
+# (Add `publish_mode: editorial_workflow` later if you want draft/approve via PRs.)
+
+collections:
+  # ── Business info, hours, promos & homepage hero copy ──
+  - name: settings
+    label: "Site Settings"
+    delete: false
+    files:
+      - name: general
+        label: "Business Info & Homepage"
+        file: "site/src/content/data/settings.json"
+        fields:
+          - { name: name, label: "Business name", widget: string }
+          - { name: tagline, label: "Tagline", widget: string }
+          - { name: phone, label: "Phone (display)", widget: string, hint: "e.g. (224) 770-0587 — the click-to-call link is generated automatically" }
+          - { name: email, label: "Email", widget: string, required: false }
+          - { name: city, label: "City", widget: string }
+          - { name: region, label: "State", widget: string }
+          - { name: postalCode, label: "ZIP", widget: string }
+          - { name: hoursLabel, label: "Hours (display)", widget: string }
+          - { name: founded, label: "Year founded", widget: number, value_type: int }
+          - { name: yearsExperience, label: "Years of experience", widget: number, value_type: int }
+          - { name: serviceRadiusMiles, label: "Service radius (miles)", widget: number, value_type: int }
+          - { name: reviewsTotal, label: "Total reviews", widget: number, value_type: int }
+          - { name: reviewsGoogle, label: "Google reviews", widget: number, value_type: int }
+          - { name: reviewsThumbtack, label: "Thumbtack reviews", widget: number, value_type: int }
+          - { name: reviewsHomeadvisor, label: "HomeAdvisor/Angi reviews", widget: number, value_type: int }
+          - { name: reviewsNextdoor, label: "Nextdoor reviews", widget: number, value_type: int }
+          - { name: googleProfileUrl, label: "Google Business Profile / Maps URL", widget: string }
+          - { name: facebookUrl, label: "Facebook URL", widget: string, required: false }
+          - { name: ribbonOffer, label: "Top-bar offer text", widget: string }
+          - { name: heroHeadlinePre, label: "Hero headline (start)", widget: string }
+          - { name: heroHeadlineHighlight, label: "Hero headline (gold part)", widget: string }
+          - { name: heroHeadlinePost, label: "Hero headline (end)", widget: string }
+          - { name: heroSub, label: "Hero subheadline", widget: text }
+
+  # ── Coupons / promotions ──
+  - name: coupons
+    label: "Coupons & Offers"
+    delete: false
+    files:
+      - name: coupons
+        label: "All Coupons"
+        file: "site/src/content/data/coupons.json"
+        fields:
+          - name: coupons
+            label: "Coupons"
+            widget: list
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: amount, label: "Amount (e.g. 10% OFF)", widget: string }
+              - { name: detail, label: "Description", widget: text }
+              - { name: group, label: "Who it's for", widget: string, required: false }
+              - { name: badge, label: "Badge (optional)", widget: string, required: false }
+          - { name: terms, label: "Coupon terms", widget: text }
+
+  # ── FAQs ──
+  - name: faqs
+    label: "FAQs"
+    delete: false
+    files:
+      - name: faqs
+        label: "All FAQs"
+        file: "site/src/content/data/faqs.json"
+        fields:
+          - name: faqs
+            label: "Questions"
+            widget: list
+            summary: "{{fields.q}}"
+            fields:
+              - { name: q, label: "Question", widget: string }
+              - { name: a, label: "Answer", widget: text }
+
+  # ── Reviews ──
+  - name: reviews
+    label: "Reviews"
+    delete: false
+    files:
+      - name: reviews
+        label: "All Reviews"
+        file: "site/src/content/data/reviews.json"
+        fields:
+          - name: reviews
+            label: "Reviews"
+            widget: list
+            summary: "{{fields.author}} — {{fields.source}}"
+            fields:
+              - { name: author, label: "Author", widget: string }
+              - { name: source, label: "Source", widget: select, options: ["Google", "HomeAdvisor", "Thumbtack", "Website"] }
+              - { name: date, label: "Date / year", widget: string }
+              - { name: rating, label: "Rating", widget: number, value_type: int, default: 5, min: 1, max: 5 }
+              - { name: text, label: "Review text", widget: text }
+              - { name: tag, label: "Service tag", widget: string, required: false }
+              - { name: featured, label: "Show on homepage?", widget: boolean, default: false }
+
+  # ── Blog posts ──
+  - name: posts
+    label: "Blog Posts"
+    label_singular: "Post"
+    folder: "site/src/content/posts"
+    extension: md
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: "Title", widget: string }
+      - { name: description, label: "Description / excerpt", widget: text }
+      - { name: date, label: "Date", widget: datetime, picker_utc: true, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: category, label: "Category", widget: string, default: "Garage Door Tips" }
+      - { name: hero, label: "Hero image name", widget: string, required: false, hint: "Photo basename in src/assets/photos, e.g. Garage-Door-Service" }
+      - { name: body, label: "Body", widget: markdown }

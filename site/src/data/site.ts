@@ -1,65 +1,64 @@
 /* ============================================================
-   Single source of truth for business facts + global nav.
-   Everything the owner might edit lives here (CMS-portable).
-   Facts verified from the scraped current site + reviews pull
-   (see research/ + scrape/ in the repo root).
+   Business config. Owner-editable values live in
+   src/content/data/settings.json (edited via the CMS); this module
+   reads them and adds derived/static fields the site needs.
    ============================================================ */
+import s from '../content/data/settings.json';
+
+const digits = s.phone.replace(/\D/g, '');
 
 export const site = {
-  name: 'Ryan Garage Door',
-  legalName: 'Ryan Garage Door',
-  tagline: 'All Your Garage Door Needs',
-  // 224 area code, Huntley IL
-  phone: '(224) 770-0587',
-  phoneHref: 'tel:+12247700587',
-  email: '', // none published; contact form + phone are primary
+  name: s.name,
+  legalName: s.name,
+  tagline: s.tagline,
+  phone: s.phone,
+  phoneHref: `tel:+1${digits}`,
+  email: s.email,
   address: {
-    locality: 'Huntley',
-    region: 'IL',
-    postalCode: '60142',
+    locality: s.city,
+    region: s.region,
+    postalCode: s.postalCode,
     country: 'US',
-    // Full street address discovered during reviews pull. Kept private-ish
-    // (mobile-only business) — shown in footer/contact at owner's discretion.
-    full: 'Huntley, IL 60142',
+    full: `${s.city}, ${s.region} ${s.postalCode}`,
   },
   geo: { lat: 42.1681, lng: -88.4279 }, // Huntley, IL
-  mapUrl: 'https://maps.app.goo.gl/AWFXcd6ZD4Suiu3S6',
-  yearsExperience: 6,
-  founded: 2022,
-  serviceRadiusMiles: 50,
-  hoursLabel: 'Open 24 hours · 7 days a week',
+  mapUrl: s.googleProfileUrl,
+  yearsExperience: s.yearsExperience,
+  founded: s.founded,
+  serviceRadiusMiles: s.serviceRadiusMiles,
+  hoursLabel: s.hoursLabel,
   hours247: true,
   paymentAccepted: ['Visa', 'Mastercard', 'American Express', 'Discover', 'PayPal', 'Cash', 'Check', 'CashApp', 'Zelle'],
   openerBrands: ['LiftMaster', 'Chamberlain', 'Genie'],
   team: ['Ryan', 'Badru', 'Muwonge', 'Moush'],
 
-  // Aggregate review proof (verified 2026-06-14, see scrape/content/_reviews.md)
   reviews: {
-    total: 265,
-    google: 115,
-    thumbtack: 123,
-    homeadvisor: 13,
-    nextdoor: 13,
+    total: s.reviewsTotal,
+    google: s.reviewsGoogle,
+    thumbtack: s.reviewsThumbtack,
+    homeadvisor: s.reviewsHomeadvisor,
+    nextdoor: s.reviewsNextdoor,
     rating: 5.0,
-    googleReviewUrl: 'https://search.google.com/local/writereview?placeid=', // owner to paste Place ID
-    googleProfileUrl: 'https://maps.app.goo.gl/AWFXcd6ZD4Suiu3S6',
+    googleReviewUrl: 'https://search.google.com/local/writereview?placeid=',
+    googleProfileUrl: s.googleProfileUrl,
   },
 
-  // Outbound link-outs used by the base ($0/mo) build.
   links: {
-    // Free Clopay design tool (link-out, not embeddable). Owner-confirm brand.
     visualizer: 'https://www.clopaydoor.com/ezdoor',
-    // Wisetack prequal link is $0 merchant fee; placeholder until merchant set up.
     financing: '#contact',
   },
 
   social: {
-    facebook: 'https://www.facebook.com/61575661076074',
-    google: 'https://maps.app.goo.gl/AWFXcd6ZD4Suiu3S6',
+    facebook: s.facebookUrl,
+    google: s.googleProfileUrl,
   },
-} as const;
 
-// Primary navigation (header). Keep flat + short for mobile.
+  // marketing copy (CMS-editable)
+  ribbonOffer: s.ribbonOffer,
+  hero: { pre: s.heroHeadlinePre, highlight: s.heroHeadlineHighlight, post: s.heroHeadlinePost, sub: s.heroSub },
+};
+
+// Primary navigation (header).
 export const nav: { label: string; href: string }[] = [
   { label: 'Services', href: '/services' },
   { label: 'Service Area', href: '/service-area' },
@@ -71,7 +70,6 @@ export const nav: { label: string; href: string }[] = [
   { label: 'Contact', href: '/contact' },
 ];
 
-// Footer link groups
 export const footerNav = {
   Services: [
     { label: 'Spring Repair', href: '/services/spring-repair' },

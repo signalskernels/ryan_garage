@@ -1,26 +1,41 @@
 ---
 import { site } from '@/data/site';
-const stats = [
-  { n: `${site.reviews.total}+`, l: 'Five-star reviews' },
-  { n: '5.0★', l: 'Across every platform' },
-  { n: '24/7', l: 'Emergency service' },
-  { n: `${site.serviceRadiusMiles}mi`, l: 'Mobile service radius' },
+
+const icons: Record<string, string> = {
+  star: '<path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.9 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/>',
+  badge: '<circle cx="12" cy="12" r="9"/><path d="M8.3 12.4l2.5 2.5 4.9-5.3"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7.2V12l3.2 1.9"/>',
+  shield: '<path d="M12 2.5l7.5 2.8v5.7c0 4.7-3.2 8-7.5 9.5-4.3-1.5-7.5-4.8-7.5-9.5V5.3z"/><path d="M9 12l2 2 4-4"/>',
+};
+const items = [
+  { icon: 'star', n: `${site.reviews.total}+`, l: 'Five-star reviews' },
+  { icon: 'badge', n: '5.0★', l: 'On Google, Thumbtack & Angi' },
+  { icon: 'clock', n: '24/7', l: 'Emergency service' },
+  { icon: 'shield', n: 'Licensed', l: 'Fully insured & BBB-accredited' },
 ];
 ---
-<div class="trust">
-  {stats.map((s) => (
-    <div class="trust__item">
-      <div class="trust__n">{s.n}</div>
-      <div class="trust__l">{s.l}</div>
-    </div>
-  ))}
-</div>
+<section class="ribbon-band">
+  <div class="wrap ribbon-band__in">
+    {items.map((i) => (
+      <div class="rb__item">
+        <svg class="rb__ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[i.icon]} />
+        <span class="rb__txt"><b>{i.n}</b><small>{i.l}</small></span>
+      </div>
+    ))}
+  </div>
+</section>
 
 <style>
-  .trust{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
-    border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-  .trust__item{ background:#fff; padding:1.2rem 1rem; text-align:center; }
-  .trust__n{ font-size:clamp(1.5rem,3vw,2rem); font-weight:800; color:var(--navy); letter-spacing:-.02em; line-height:1; }
-  .trust__l{ font-size:.82rem; color:var(--muted); margin-top:.35rem; }
-  @media (max-width:560px){ .trust{ grid-template-columns:repeat(2,1fr); } }
+  .ribbon-band{ background:var(--navy); }
+  .ribbon-band__in{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    padding-block:clamp(16px,2.2vw,22px); }
+  .rb__item{ display:flex; align-items:center; gap:.7rem; justify-content:center; }
+  .rb__ic{ color:var(--gold); flex:none; }
+  .rb__txt b{ display:block; color:#fff; font-size:1.35rem; font-weight:800; line-height:1; letter-spacing:-.02em; }
+  .rb__txt small{ display:block; color:#aec3e0; font-size:.78rem; margin-top:.15rem; }
+  @media (max-width:760px){
+    .ribbon-band__in{ grid-template-columns:repeat(2,1fr); gap:1.1rem 0; }
+    .rb__item{ justify-content:flex-start; padding-left:8%; }
+  }
+  @media (max-width:420px){ .rb__txt b{ font-size:1.15rem; } }
 </style>

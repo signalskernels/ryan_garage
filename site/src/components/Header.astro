@@ -9,7 +9,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path === href 
     <div class="wrap ribbon__in">
       <span class="ribbon__msg"><strong>24/7 Emergency Service</strong> · Same-day appointments available</span>
       <span class="ribbon__dot">•</span>
-      <span class="ribbon__msg ribbon__offer">New customers save <strong>10%</strong></span>
+      <span class="ribbon__msg ribbon__offer">{site.ribbonOffer}</span>
       <a class="ribbon__call" href={site.phoneHref}>Call {site.phone}</a>
     </div>
   </div>

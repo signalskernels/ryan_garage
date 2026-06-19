@@ -1,0 +1,46 @@
+---
+import { services } from '@/data/services';
+// Compact lead form for the hero. Wired by the shared scripts/leadforms.ts.
+---
+<div class="ef card" data-lead-form>
+  <div class="ef__head">
+    <h3>Get a Free Estimate</h3>
+    <p>No obligation. We’ll get right back to you — often the same day.</p>
+  </div>
+  <form name="estimate" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="ef__form">
+    <input type="hidden" name="form-name" value="estimate" />
+    <p class="ef__hp"><label>Leave blank: <input name="bot-field" /></label></p>
+    <div class="ef__row">
+      <input class="input" type="text" name="name" placeholder="Full name" autocomplete="name" required aria-label="Full name" />
+      <input class="input" type="tel" name="phone" placeholder="Phone number" autocomplete="tel" required aria-label="Phone number" />
+    </div>
+    <select class="select" name="service" aria-label="Service type">
+      <option value="">Select a service…</option>
+      {services.map((s) => <option value={s.title}>{s.title}</option>)}
+      <option value="Not sure / something else">Not sure / something else</option>
+    </select>
+    <textarea class="textarea ef__ta" name="details" placeholder="Briefly, what’s going on with your door?" aria-label="Your problem"></textarea>
+    <button type="submit" class="btn btn--lg btn--block">Request my estimate</button>
+    <p class="ef__fine">Or call <a href="tel:+12247700587"><b>(224) 770-0587</b></a> — 24/7</p>
+  </form>
+  <div class="ef__success" data-lead-success hidden>
+    <div class="ef__check" aria-hidden="true">✓</div>
+    <h3>Got it — thank you!</h3>
+    <p>We’ll reach out shortly to confirm. Need us now? Call <a href="tel:+12247700587"><b>(224) 770-0587</b></a>.</p>
+  </div>
+</div>
+
+<style>
+  .ef{ padding:1.4rem 1.4rem 1.3rem; box-shadow:var(--shadow-lg); }
+  .ef__head h3{ font-size:1.3rem; margin-bottom:.2rem; }
+  .ef__head p{ font-size:.86rem; color:var(--muted); margin-bottom:1rem; }
+  .ef__row{ display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-bottom:.6rem; }
+  .ef__form .select{ margin-bottom:.6rem; }
+  .ef__ta{ min-height:84px; margin-bottom:.7rem; }
+  .ef__hp{ position:absolute; left:-9999px; }
+  .ef__fine{ text-align:center; font-size:.82rem; color:var(--muted); margin:.7rem 0 0; }
+  .ef__success{ text-align:center; padding:1rem .3rem; }
+  .ef__check{ width:52px; height:52px; border-radius:50%; background:var(--gold); color:var(--navy-900);
+    font-size:1.7rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto .8rem; }
+  @media (max-width:420px){ .ef__row{ grid-template-columns:1fr; } }
+</style>

@@ -67,3 +67,57 @@ before the Netlify cutover.
 - **Google review link** — paste the real Place ID into `site.reviews.googleReviewUrl`.
 - **Door brand** — visualizer links to Clopay EZDoor; swap if Ryan carries another brand.
 - **Coupon amounts / membership pricing** — placeholders pulled from current ads.
+
+---
+
+## CMS (Sveltia) + CI/CD (GitHub Actions → Netlify)
+
+**Architecture:** GitHub Actions builds the site (free runner minutes) and pushes
+the prebuilt `dist/` to Netlify via the Netlify CLI — so builds never touch
+Netlify's credit budget. The owner edits content in **Sveltia CMS** at `/admin`;
+saves commit to `main`, which triggers the Action → redeploy. All $0/month.
+
+**Branch model:**
+- `dev` — working branch. Pushes get a Netlify **draft/preview deploy** (unique URL) to review before merging.
+- `main` — production. Merges/pushes get a Netlify **production deploy**.
+- PRs targeting `main` also get a preview deploy.
+- Before the Netlify secrets are set, the workflow still **builds** (CI check) and just skips the deploy.
+
+Day-to-day: branch off `dev` → open a PR → review the preview deploy → merge to `dev`,
+then merge `dev → main` to publish.
+
+### What's CMS-editable now
+Site Settings (business info, hours, promos, homepage hero copy), Coupons, FAQs,
+Reviews, and Blog posts. Data lives in `src/content/data/*.json` + `src/content/posts/*.md`.
+**Next (same pattern):** Services and the 74 service-area pages are still in
+`src/data/*.ts` — move them to JSON to make them owner-editable too.
+
+### One-time setup — Netlify host + GitHub Actions
+You need to do these (they require your Netlify/GitHub accounts):
+1. **Create the Netlify site as CLI/manual deploy** (do NOT connect it to Git for
+   builds, or it will double-deploy). Dashboard → Add new site → Deploy manually,
+   or `netlify sites:create`. Copy the **Site ID** (Site config → General → API ID).
+2. **Create a Netlify personal access token** (User settings → Applications → New).
+3. **Add GitHub repo secrets** (repo → Settings → Secrets and variables → Actions):
+   `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`.
+4. *(At DNS cutover)* add repo **variable** `PUBLIC_SITE_URL` = the live domain
+   (until then it falls back to the preview URL in `astro.config.mjs`).
+5. Push to `dev` (preview deploy) or merge to `main` (production deploy) → the Action builds + deploys.
+6. Point the domain DNS at Netlify, enable HTTPS. After the first deploy with a
+   test submission, confirm **Forms** show up under Netlify → Forms (the forms
+   render as static HTML, so Netlify detects them on deploy).
+
+### One-time setup — Sveltia auth (owner editing)
+1. **GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth Apps → New):
+   Homepage = your site; Authorization callback = `https://<worker>.workers.dev/callback`
+   (fill in after step 2). Note the **Client ID**; generate a **Client secret**.
+2. **Deploy the `sveltia-cms-auth` Cloudflare Worker** (github.com/sveltia/sveltia-cms-auth):
+   `wrangler deploy`, then set worker secrets `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`,
+   and `ALLOWED_DOMAINS` = your site domain. Copy the worker URL.
+3. Set the OAuth App's callback to the worker `/callback`, and set `base_url:` in
+   `public/admin/config.yml` to the worker URL. Confirm `repo:` matches.
+4. **Invite the owner as a repo collaborator** (free) so he has write access. He
+   goes to `yoursite.com/admin` → "Sign in with GitHub" → edits → saves.
+5. Note: only **GitHub login** works on the free static path. Account-less
+   (Google/email) editing would require a paid SaaS — out of scope for $0/mo.
+

@@ -1,0 +1,23 @@
+# Netlify config. The site is BUILT on GitHub Actions and the prebuilt dist/ is
+# pushed via the Netlify CLI (see .github/workflows/deploy.yml) — so there is no
+# Netlify build step. publish points at the prebuilt output for any manual deploy.
+#
+# Do NOT also connect this repo to Netlify's own build/deploy, or it will
+# double-deploy. Create the site as "deploy manually" / CLI-only.
+
+[build]
+  base = "site"
+  publish = "site/dist"
+  command = ""   # intentionally empty — GitHub Actions builds, Netlify only hosts
+
+# Long-cache Astro's fingerprinted assets.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Keep the CMS admin out of search results.
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

@@ -53,6 +53,12 @@ const jsonLd = [{
           ))}
         </div>
 
+        <h3>Areas &amp; landmarks we cover in {loc.name}</h3>
+        <p>Wherever you are in {loc.name} — near {loc.spots.join(', ')} — we’ll come to you. No storefront trip, no waiting around: we bring the shop to your driveway.</p>
+        <ul class="loc__spots">
+          {loc.spots.map((s) => <li>{s}</li>)}
+        </ul>
+
         <h2>Why {loc.name} homeowners choose us</h2>
         <ul class="check">
           <li><strong>Same-day &amp; 24/7 emergency service</strong> — a stuck or broken door can’t wait, and neither do we.</li>
@@ -104,6 +110,9 @@ const jsonLd = [{
   .check li{ position:relative; padding-left:1.8rem; margin:.55rem 0; }
   .check li::before{ content:'✓'; position:absolute; left:0; top:.15rem; color:#fff; background:var(--gold); width:1.25rem; height:1.25rem;
     border-radius:50%; font-size:.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .loc__spots{ list-style:none; padding:0; margin:.4rem 0 1.6rem; display:flex; flex-wrap:wrap; gap:.45rem; }
+  .loc__spots li{ font-size:.84rem; font-weight:600; color:var(--navy); background:var(--surface); border:1px solid var(--line);
+    border-radius:999px; padding:.32em .8em; margin:0; }
   .loc__side{ position:sticky; top:96px; display:grid; gap:1rem; }
   @media (max-width:920px){ .loc__side{ position:static; } }
   .side-card{ padding:1.3rem; }
