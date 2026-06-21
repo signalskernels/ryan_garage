@@ -1,0 +1,11 @@
+# QA / scratch artifacts (screenshots taken during dev)
+shots/
+
+# deps / build output (also covered by site/.gitignore)
+node_modules/
+dist/
+.astro/
+
+# os / misc
+.DS_Store
+*.log

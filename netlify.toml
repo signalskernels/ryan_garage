@@ -1,0 +1,25 @@
+# Netlify config. The repo is connected to Netlify's git integration, so
+# Netlify builds + deploys: production on `main`, deploy previews on `dev`/PRs.
+# (The GitHub Actions workflow is a build/CI gate only — it does NOT deploy,
+# to avoid double-deploys.)
+#
+# Set PUBLIC_SITE_URL in Netlify (Site config → Environment variables) to the
+# live domain so canonical URLs + sitemap are correct; otherwise it falls back
+# to the preview URL in astro.config.mjs.
+
+[build]
+  base = "site"
+  command = "npm run build"
+  publish = "dist"        # relative to base → site/dist
+
+# Long-cache Astro's fingerprinted assets.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Keep the CMS admin out of search results.
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

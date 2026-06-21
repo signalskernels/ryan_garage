@@ -15,10 +15,15 @@ for (const path in modules) {
   byName[base] = modules[path].default;
 }
 
-/** Get a photo by basename (e.g. "Garage-Door-Service"). Throws if missing. */
+// Fallback image used when a referenced photo name is missing (e.g. a typo
+// entered via the CMS) — degrade gracefully instead of failing the build.
+const FALLBACK = 'Garage-Door-Service';
+
+/** Get a photo by basename (e.g. "Garage-Door-Service"). Falls back if missing. */
 export function photo(name: string): ImageMetadata {
-  const img = byName[name];
-  if (!img) throw new Error(`photo() — unknown image "${name}". Available: ${Object.keys(byName).join(', ')}`);
+  const img = byName[name] ?? byName[FALLBACK];
+  if (!img) throw new Error(`photo() — no image "${name}" and no fallback "${FALLBACK}".`);
+  if (!byName[name]) console.warn(`photo() — unknown image "${name}", using fallback.`);
   return img;
 }
 

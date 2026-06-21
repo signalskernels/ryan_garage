@@ -1,47 +1,6 @@
-/* FAQs — from the current site (scrape/meta/faqs.json), lightly cleaned,
-   plus a few practical additions. Powers /faq and the FAQPage JSON-LD. */
+/* FAQs. CMS-editable in src/content/data/faqs.json. Powers /faq + FAQ JSON-LD. */
+import data from '../content/data/faqs.json';
 
 export interface Faq { q: string; a: string; }
 
-export const faqs: Faq[] = [
-  {
-    q: 'Do you really offer 24/7 emergency service?',
-    a: 'Yes. As a mobile garage door service we keep a flexible schedule and respond promptly to urgent calls — a stuck door, a snapped spring, a door that won’t close and secure your home. Call (224) 770-0587 any time and we’ll arrange the soonest available visit.',
-  },
-  {
-    q: 'How many years of experience do you have?',
-    a: 'Our team has over six years in the garage door industry, covering everything from cable and spring replacements to opener installations. We’ve handled countless residential service calls and specialize in diagnosing mechanical issues and implementing long-term solutions.',
-  },
-  {
-    q: 'What areas do you serve?',
-    a: 'We’re based in Huntley, IL and provide mobile service within roughly a 50-mile radius — including Batavia, McHenry, Vernon Hills, West Chicago, Woodstock, Barrington, Geneva, Grayslake and many more nearby communities. If you’re not sure whether you’re in range, just ask.',
-  },
-  {
-    q: 'What credentials and insurance do you have?',
-    a: 'We operate under full insurance coverage and hold BBB accreditation. Our technicians receive continuous training in modern repair techniques and safety protocols, and follow best practices on every job site.',
-  },
-  {
-    q: 'What should I expect during a garage door opener installation?',
-    a: 'We follow a clear multi-step process: removal of the old components, precise mounting of the new unit, calibration of the safety sensors, and final testing. We program your remotes and keypads (and your car’s built-in button) and make sure everything integrates with your system before we leave.',
-  },
-  {
-    q: 'What are the signs my cables or springs need replacing?',
-    a: 'Common indicators include sudden jerking during operation, unbalanced or crooked door movement, loud snapping noises, or visible fraying or rust on the cables and springs. Catching these early prevents a total failure that could be costly or unsafe.',
-  },
-  {
-    q: 'How do I choose the right garage door for my home?',
-    a: 'It comes down to insulation needs, material durability, appearance, and compatibility with your opener. We’ll walk you through steel, composite and aluminum options so you get the right look and long-term reliability for your budget — and financing is available if you’d rather pay over time.',
-  },
-  {
-    q: 'What maintenance extends the life of my garage door?',
-    a: 'Lubricating moving parts (rollers and hinges), checking spring-tension balance, inspecting weather seals, and tightening hardware all help. We recommend a tune-up roughly twice a year. Ask about our Worry-Free maintenance plan to put it on autopilot.',
-  },
-  {
-    q: 'Can you set up a keypad or Wi-Fi smart opener?',
-    a: 'Absolutely. We install exterior keypads and Wi-Fi / app-controlled smart openers so you can open, close and monitor your garage from your phone. We confirm compatibility with your current opener and set up secure access codes.',
-  },
-  {
-    q: 'What payment methods do you accept?',
-    a: 'We accept Visa, Mastercard, American Express, Discover, PayPal, Cash, Check, CashApp and Zelle — whatever’s easiest for you.',
-  },
-];
+export const faqs = data.faqs as Faq[];

@@ -67,3 +67,56 @@ before the Netlify cutover.
 - **Google review link** — paste the real Place ID into `site.reviews.googleReviewUrl`.
 - **Door brand** — visualizer links to Clopay EZDoor; swap if Ryan carries another brand.
 - **Coupon amounts / membership pricing** — placeholders pulled from current ads.
+
+---
+
+## CMS (Sveltia) + CI/CD (Netlify git deploys)
+
+**Architecture:** The repo is connected to **Netlify's git integration**, which
+builds + deploys automatically: production on `main`, deploy previews on `dev`
+and PRs. The owner edits content in **Sveltia CMS** at `/admin`; saves commit to
+`main` → Netlify redeploys. All $0/month. The **GitHub Actions workflow is a
+build/CI gate only** (it does NOT deploy) and is the required status check on
+`main`, so a broken build blocks the merge before Netlify builds.
+
+**Branch model:**
+- `dev` — working branch. Pushes get a Netlify **deploy preview** (unique URL) to review.
+- `main` — production. Merges get a Netlify **production deploy**. Protected: requires a PR + the passing `build-deploy` check.
+- PRs targeting `main` also get a deploy preview.
+
+Day-to-day: branch off `dev` → open a PR → review the Netlify deploy preview → merge to `dev`,
+then merge `dev → main` to publish.
+
+### What's CMS-editable now
+Site Settings (business info, hours, promos, homepage hero copy), Coupons, FAQs,
+Reviews, and Blog posts. Data lives in `src/content/data/*.json` + `src/content/posts/*.md`.
+**Next (same pattern):** Services and the 74 service-area pages are still in
+`src/data/*.ts` — move them to JSON to make them owner-editable too.
+
+### Netlify (already connected — git deploys)
+Netlify builds the site itself (`netlify.toml` sets base `site`, command
+`npm run build`, publish `dist`). To finish:
+1. In Netlify **Site config → Environment variables**, set `PUBLIC_SITE_URL` to
+   the live domain (or the Netlify URL for now) so canonical URLs + sitemap are
+   correct — otherwise it falls back to the preview URL in `astro.config.mjs`.
+2. At launch, point the domain DNS at Netlify and enable HTTPS.
+3. After a deploy + a test form submission, confirm **Forms** show up under
+   Netlify → Forms (forms render as static HTML, so Netlify detects them).
+- Do **not** add `NETLIFY_AUTH_TOKEN`/`NETLIFY_SITE_ID` as GitHub secrets — the
+  Actions workflow is build-only and adding them wouldn't enable a deploy (kept
+  this way on purpose so there's a single deploy path: Netlify git).
+
+### One-time setup — Sveltia auth (owner editing)
+1. **GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth Apps → New):
+   Homepage = your site; Authorization callback = `https://<worker>.workers.dev/callback`
+   (fill in after step 2). Note the **Client ID**; generate a **Client secret**.
+2. **Deploy the `sveltia-cms-auth` Cloudflare Worker** (github.com/sveltia/sveltia-cms-auth):
+   `wrangler deploy`, then set worker secrets `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`,
+   and `ALLOWED_DOMAINS` = your site domain. Copy the worker URL.
+3. Set the OAuth App's callback to the worker `/callback`, and set `base_url:` in
+   `public/admin/config.yml` to the worker URL. Confirm `repo:` matches.
+4. **Invite the owner as a repo collaborator** (free) so he has write access. He
+   goes to `yoursite.com/admin` → "Sign in with GitHub" → edits → saves.
+5. Note: only **GitHub login** works on the free static path. Account-less
+   (Google/email) editing would require a paid SaaS — out of scope for $0/mo.
+

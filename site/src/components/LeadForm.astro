@@ -114,25 +114,3 @@ const {
   .lf__check{ width:56px; height:56px; border-radius:50%; background:var(--gold); color:var(--navy-900);
     font-size:1.8rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
 </style>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-lead-form]').forEach((wrap) => {
-    const form = wrap.querySelector<HTMLFormElement>('form');
-    const success = wrap.querySelector<HTMLElement>('[data-lead-success]');
-    if (!form) return;
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const body = new URLSearchParams();
-      data.forEach((v, k) => body.append(k, String(v)));
-      const btn = form.querySelector<HTMLButtonElement>('button[type=submit]');
-      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-      try {
-        // Posts to "/" — Netlify captures AJAX form submissions this way.
-        await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() });
-      } catch (_) { /* preview has no form backend — still show success UX */ }
-      form.hidden = true;
-      if (success) { success.hidden = false; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-    });
-  });
-</script>
