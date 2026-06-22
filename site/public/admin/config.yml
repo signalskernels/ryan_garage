@@ -48,6 +48,7 @@ collections:
           - { name: googleReviewUrl, label: "Google 'write a review' URL", widget: string, hint: "Link the 'Leave us a review' buttons point to" }
           - { name: facebookUrl, label: "Facebook URL", widget: string, required: false }
           - { name: visualizerUrl, label: "Door visualizer URL", widget: string, hint: "External design-your-door tool the visualizer page links to" }
+          - { name: chatEmbedSrc, label: "Live chat embed URL", widget: string, required: false, hint: "Free Tawk.to chat: make a free account at tawk.to, copy your widget embed URL (https://embed.tawk.to/.../...), and paste it here. Leave blank to hide chat." }
           - { name: financingLink, label: "Financing button link", widget: string, hint: "Where 'Apply / Get financing' buttons go (e.g. #contact or an external URL)" }
           - { name: team, label: "Team members", widget: list, field: { name: name, label: "Name", widget: string }, hint: "Used on the About page" }
           - { name: paymentAccepted, label: "Payment methods accepted", widget: list, field: { name: method, label: "Method", widget: string } }

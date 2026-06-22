@@ -28,6 +28,7 @@ export const site = {
   founded: s.founded,
   serviceRadiusMiles: s.serviceRadiusMiles,
   hoursLabel: s.hoursLabel,
+  chatEmbedSrc: s.chatEmbedSrc,
   paymentAccepted: s.paymentAccepted,
   openerBrands: s.openerBrands,
   team: s.team,

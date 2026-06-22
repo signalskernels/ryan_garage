@@ -1,0 +1,36 @@
+---
+/* Free, owner-answered live chat (Tawk.to) — an Included, $0/mo deliverable.
+   Loads lazily (first user interaction, or browser idle) so it never blocks
+   initial render / Core Web Vitals. Renders nothing until a chat embed URL is
+   set in Site Settings (CMS), so there's no broken/empty widget before the
+   client connects their free Tawk.to account. */
+import { site } from '@/data/site';
+const chatSrc = (site.chatEmbedSrc || '').trim();
+---
+{chatSrc && (
+  <script define:vars={{ chatSrc }}>
+    (function () {
+      var loaded = false;
+      function loadChat() {
+        if (loaded) return;
+        loaded = true;
+        window.Tawk_API = window.Tawk_API || {};
+        var s1 = document.createElement('script');
+        var s0 = document.getElementsByTagName('script')[0];
+        s1.async = true;
+        s1.src = chatSrc;
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+      }
+      ['scroll', 'mousemove', 'touchstart', 'click', 'keydown'].forEach(function (ev) {
+        window.addEventListener(ev, loadChat, { once: true, passive: true });
+      });
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadChat, { timeout: 6000 });
+      } else {
+        window.setTimeout(loadChat, 4000);
+      }
+    })();
+  </script>
+)}
