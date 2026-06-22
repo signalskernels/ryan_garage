@@ -6,14 +6,21 @@
    Data is CMS-editable in src/content/data/locations.json. */
 import data from '../content/data/locations.json';
 
+export interface LocationFaq {
+  q: string;
+  a: string;
+}
+
 export interface Location {
   name: string;
   slug: string;
   county: string;
   primary?: boolean;
   blurb: string;          // distinctive 1–2 sentence local intro
+  intro?: string[];       // unique multi-paragraph body copy (local SEO)
   spots: string[];        // local landmarks / neighborhoods
   nearby: string[];       // slugs of nearby towns we also serve
+  faqs?: LocationFaq[];   // city-specific Q&A (renders + FAQPage schema)
 }
 
 export const locations = data.locations as Location[];

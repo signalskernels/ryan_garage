@@ -2,7 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import LeadForm from '@/components/LeadForm.astro';
-import { site, days } from '@/data/site';
+import { site } from '@/data/site';
 import { page } from '@/lib/pages';
 
 const c = page('contact');
@@ -29,9 +29,7 @@ const c = page('contact');
         </div>
         <div class="contact__block">
           <h3>{c.hours.heading}</h3>
-          <ul class="contact__hours">
-            {days.map((d) => <li><span>{d}</span><b>{c.hours.openLabel}</b></li>)}
-          </ul>
+          <p class="muted">{c.hours.note}</p>
         </div>
         <div class="contact__block">
           <h3>{c.payBlock.heading}</h3>

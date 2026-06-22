@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Request Service",
-    "description": "Request garage door service from Ryan Garage Door. Pick a time and we’ll confirm fast — often same-day. Or call {phone} 24/7."
+    "description": "Request garage door service from Ryan Garage Door. Pick a time and we’ll confirm fast — often same-day. Or call {phone}."
   },
   "header": {
     "title": "Request Service",
@@ -10,9 +10,9 @@
   },
   "call": {
     "eyebrow": "Fastest option",
-    "heading": "Call us — we pick up 24/7",
+    "heading": "Call us — we answer fast",
     "callLabel": "Call {phone}",
-    "note": "Broken spring, stuck door, or after-hours emergency? A quick call gets help on the way fastest."
+    "note": "Broken spring, stuck door, or an urgent problem? A quick call gets help on the way fastest."
   },
   "next": {
     "heading": "What happens next",

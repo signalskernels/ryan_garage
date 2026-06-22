@@ -23,7 +23,7 @@ const c = page('services-index');
         <a href={`/services/${s.slug}`} class="sl card card--hover">
           <div class="sl__media">
             <Image src={photo(s.photo)} alt={s.h1} widths={[320, 520]} sizes="(max-width:700px) 100vw, 360px" />
-            {s.emergency && <span class="sl__badge">24/7</span>}
+            {s.emergency && <span class="sl__badge">Emergency</span>}
           </div>
           <div class="sl__body">
             <div class="sl__icon"><ServiceIcon name={s.icon} size={24} /></div>

@@ -12,7 +12,7 @@
   "emptyHtml": "No questions match that search. Try another word — or just <a href=\"tel:+12247700587\">call us</a>.",
   "cta": {
     "heading": "Didn’t find your answer?",
-    "text": "We’re available 24/7 — call and we’ll talk it through, no pressure.",
+    "text": "Just give us a call and we’ll talk it through, no pressure.",
     "callLabel": "Call {phone}"
   }
 }

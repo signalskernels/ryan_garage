@@ -1,13 +1,13 @@
 # Sveltia CMS configuration (Decap-compatible).
 # Paths are relative to the REPO ROOT (the Astro site lives under site/).
 #
-# AUTH: GitHub backend + a free self-hosted OAuth worker (sveltia-cms-auth on
-# Cloudflare Workers). After deploying the worker, set base_url below to it.
+# AUTH: GitHub backend via Sveltia's built-in "Sign In with Token" flow — the
+# owner pastes a GitHub personal access token (scope: public_repo) at /admin.
+# No OAuth App and no Cloudflare Worker needed. See HANDOFF.md "Step 5".
 backend:
   name: github
   repo: signalskernels/ryan_garage      # owner/repo
   branch: main
-  base_url: https://REPLACE-WITH-WORKER.workers.dev   # ← your sveltia-cms-auth worker URL
 
 # Uploaded media (CMS image picker). Lives in src/assets/photos so Astro's
 # <Image> optimizes every uploaded photo (responsive/compressed variants) just
@@ -147,9 +147,18 @@ collections:
               - { name: slug, label: "URL slug", widget: string, hint: "Page lives at /service-area/<slug>" }
               - { name: county, label: "County", widget: string }
               - { name: primary, label: "Home-base / primary city?", widget: boolean, default: false, required: false }
-              - { name: blurb, label: "Local intro (1–2 sentences)", widget: text }
+              - { name: blurb, label: "Local intro (1–2 sentences)", widget: text, hint: "Short line used on the page header + the service-area index card" }
+              - { name: intro, label: "Page intro paragraphs", widget: list, required: false, field: { name: paragraph, label: "Paragraph", widget: text }, hint: "Unique local copy at the top of the city page (leave empty to use the default intro)" }
               - { name: spots, label: "Local landmarks / neighborhoods", widget: list, field: { name: spot, label: "Spot", widget: string } }
               - { name: nearby, label: "Nearby towns we also serve", widget: list, field: { name: slug, label: "Slug", widget: string }, hint: "Use the URL slug of another service-area city" }
+              - name: faqs
+                label: "City FAQs"
+                widget: list
+                required: false
+                summary: "{{fields.q}}"
+                fields:
+                  - { name: q, label: "Question", widget: string }
+                  - { name: a, label: "Answer", widget: text }
 
   # ── Static page copy & images (every visible word + photo is editable here) ──
   - name: pages
@@ -472,9 +481,9 @@ collections:
               { name: heading, label: "Heading", widget: string },
               { name: text, label: "Text", widget: text },
               { name: link, label: "Link label", widget: string } ] }
-          - { name: hours, label: "Hours block", widget: object, fields: [
+          - { name: hours, label: "Availability block", widget: object, fields: [
               { name: heading, label: "Heading", widget: string },
-              { name: openLabel, label: "Per-day label", widget: string } ] }
+              { name: note, label: "Availability note", widget: text } ] }
           - { name: payBlock, label: "Payment block", widget: object, fields: [
               { name: heading, label: "Heading", widget: string } ] }
           - { name: callButtonLabel, label: "Bottom call button", widget: string }

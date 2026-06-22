@@ -13,7 +13,7 @@ interface Props {
 
 const {
   title,
-  description = 'Trusted mobile garage door repair, installation & service in Huntley, IL and the surrounding suburbs. 24/7 emergency service, 265+ five-star reviews. Call (224) 770-0587.',
+  description = 'Trusted mobile garage door repair, installation & service in Huntley, IL and the surrounding suburbs. Fast, same-day service and 265+ five-star reviews. Call (224) 770-0587.',
   image = '/ryan-logo.png',
   jsonLd = [],
   noindex = false,
@@ -45,12 +45,6 @@ const localBusiness = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
   areaServed: ['Huntley IL', 'Crystal Lake IL', 'Algonquin IL', 'Cary IL', 'McHenry IL', 'Woodstock IL', 'Elgin IL', 'South Elgin IL', 'St. Charles IL', 'Geneva IL', 'Batavia IL', 'Aurora IL', 'Naperville IL', 'Wheaton IL', 'Schaumburg IL', 'Barrington IL', 'Rockford IL', 'Joliet IL', 'Orland Park IL'],
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    opens: '00:00',
-    closes: '23:59',
-  },
   paymentAccepted: site.paymentAccepted.join(', '),
   sameAs: [site.social.facebook, site.social.google].filter(Boolean),
 };

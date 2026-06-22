@@ -17,18 +17,41 @@ const { loc, idx } = Astro.props;
 const review = reviews[idx % reviews.length];
 const nearby = loc.nearby.map((s) => locationBySlug(s)).filter(Boolean);
 
-const jsonLd = [{
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  serviceType: 'Garage Door Repair & Installation',
-  provider: { '@type': 'HomeAndConstructionBusiness', name: site.name, telephone: '+1-224-770-0587' },
-  areaServed: { '@type': 'City', name: `${loc.name}, IL`, containedInPlace: loc.county },
-  url: new URL(`/service-area/${loc.slug}`, Astro.site).href,
-}];
+const pageUrl = new URL(`/service-area/${loc.slug}`, Astro.site).href;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Garage Door Repair & Installation',
+    provider: { '@type': 'HomeAndConstructionBusiness', name: site.name, telephone: '+1-224-770-0587' },
+    areaServed: { '@type': 'City', name: `${loc.name}, IL`, containedInPlace: loc.county },
+    url: pageUrl,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Service Area', item: new URL('/service-area', Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: `${loc.name}, IL`, item: pageUrl },
+    ],
+  },
+  ...(loc.faqs && loc.faqs.length
+    ? [{
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: loc.faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }]
+    : []),
+];
 ---
 <Base
   title={`Garage Door Repair in ${loc.name}, IL`}
-  description={`Fast, fully-insured mobile garage door repair, installation and service in ${loc.name}, IL (${loc.county}). 24/7 emergency service. ${site.reviews.total}+ five-star reviews. Call ${site.phone}.`}
+  description={`Fast, fully-insured mobile garage door repair, installation and service in ${loc.name}, IL (${loc.county}). Often same-day appointments. ${site.reviews.total}+ five-star reviews. Call ${site.phone}.`}
   jsonLd={jsonLd}
 >
   <PageHeader
@@ -40,8 +63,14 @@ const jsonLd = [{
   <section class="section">
     <div class="wrap loc">
       <article class="prose loc__main">
-        <p>Looking for a dependable garage door company in <strong>{loc.name}, {loc.county}</strong>? Ryan Garage Door brings honest, professional, fully-insured mobile service right to your driveway. Whether you’ve got a snapped spring, a dead opener, or you’re ready for a beautiful new door, our local team responds fast — often the same day.</p>
-        <p>We know {loc.name} well — from {loc.spots.slice(0, 2).join(' and ')} to the neighborhoods around {loc.spots[loc.spots.length - 1]} — and we’re proud to keep its garage doors running safely and quietly through every Illinois season, including the brutal cold snaps when springs and openers tend to give out.</p>
+        {loc.intro && loc.intro.length
+          ? loc.intro.map((p) => <p>{p}</p>)
+          : (
+            <Fragment>
+              <p>Looking for a dependable garage door company in <strong>{loc.name}, {loc.county}</strong>? Ryan Garage Door brings honest, professional, fully-insured mobile service right to your driveway. Whether you’ve got a snapped spring, a dead opener, or you’re ready for a beautiful new door, our local team responds fast — often the same day.</p>
+              <p>We know {loc.name} well — from {loc.spots.slice(0, 2).join(' and ')} to the neighborhoods around {loc.spots[loc.spots.length - 1]} — and we’re proud to keep its garage doors running safely and quietly through every Illinois season, including the brutal cold snaps when springs and openers tend to give out.</p>
+            </Fragment>
+          )}
 
         <h2>Garage door services we offer in {loc.name}</h2>
         <div class="loc__svcs">
@@ -61,7 +90,7 @@ const jsonLd = [{
 
         <h2>Why {loc.name} homeowners choose us</h2>
         <ul class="check">
-          <li><strong>Same-day &amp; 24/7 emergency service</strong> — a stuck or broken door can’t wait, and neither do we.</li>
+          <li><strong>Fast, same-day service</strong> — a stuck or broken door can’t wait, and neither do we.</li>
           <li><strong>Honest, upfront pricing</strong> — we diagnose the real problem and quote it before we start.</li>
           <li><strong>Fully insured &amp; BBB-accredited</strong> — experienced technicians you can trust in your home.</li>
           <li><strong>Top-rated locally</strong> — {site.reviews.total}+ five-star reviews from {loc.county} and across the NW suburbs.</li>
@@ -88,6 +117,22 @@ const jsonLd = [{
       </aside>
     </div>
   </section>
+
+  {loc.faqs && loc.faqs.length > 0 && (
+    <section class="section">
+      <div class="wrap loc__faqwrap">
+        <h2>Garage door FAQs — {loc.name}, IL</h2>
+        <div class="loc__faqs">
+          {loc.faqs.map((f) => (
+            <details class="loc__faq">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="section section--surface">
     <div class="wrap"><LeadForm heading={`Request service in ${loc.name}`} intro="Send a few details and we’ll confirm a time fast — usually the same day." /></div>

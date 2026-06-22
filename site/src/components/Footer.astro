@@ -14,7 +14,7 @@ const year = 2026;
       <div class="ft__badges">
         <span class="ft__badge">Fully Insured</span>
         <span class="ft__badge">BBB Accredited</span>
-        <span class="ft__badge">24/7 Service</span>
+        <span class="ft__badge">Same-Day Service</span>
       </div>
     </div>
 
@@ -60,6 +60,9 @@ const year = 2026;
   .ft__col li{ margin:.5rem 0; }
   .ft__col a{ color:#a9bdd8; }
   .ft__col a:hover{ color:#fff; }
+  /* button labels keep their own --fg — footer link color must not bleed onto the gold CTA */
+  .ft__col a.btn{ color:var(--fg); }
+  .ft__col a.btn:hover{ color:var(--navy-900); }
   .ft__phone{ display:block; color:#fff!important; font-size:1.3rem; font-weight:800; letter-spacing:-.01em; margin-bottom:.5rem; }
   .ft__hours,.ft__pay{ font-size:.85rem; color:#90a6c6; }
   .ft__pay{ line-height:1.5; }

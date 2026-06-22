@@ -107,16 +107,14 @@ Netlify builds the site itself (`netlify.toml` sets base `site`, command
   this way on purpose so there's a single deploy path: Netlify git).
 
 ### One-time setup — Sveltia auth (owner editing)
-1. **GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth Apps → New):
-   Homepage = your site; Authorization callback = `https://<worker>.workers.dev/callback`
-   (fill in after step 2). Note the **Client ID**; generate a **Client secret**.
-2. **Deploy the `sveltia-cms-auth` Cloudflare Worker** (github.com/sveltia/sveltia-cms-auth):
-   `wrangler deploy`, then set worker secrets `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`,
-   and `ALLOWED_DOMAINS` = your site domain. Copy the worker URL.
-3. Set the OAuth App's callback to the worker `/callback`, and set `base_url:` in
-   `public/admin/config.yml` to the worker URL. Confirm `repo:` matches.
-4. **Invite the owner as a repo collaborator** (free) so he has write access. He
-   goes to `yoursite.com/admin` → "Sign in with GitHub" → edits → saves.
-5. Note: only **GitHub login** works on the free static path. Account-less
-   (Google/email) editing would require a paid SaaS — out of scope for $0/mo.
+Uses Sveltia's built-in **personal-access-token** login — **no OAuth App and no
+Cloudflare Worker** (those add a paid/maintained moving part for no benefit here).
+1. Confirm `repo:` in `public/admin/config.yml` matches `owner/repo`. There is no
+   `base_url` — the token flow needs none.
+2. **Invite the owner as a repo collaborator** (free) so his token has write access.
+3. The owner goes to `yoursite.com/admin` → **"Sign In with Token"** (not "Sign in
+   with GitHub"), pastes a GitHub token with `public_repo` scope, edits, saves. The
+   client-facing walkthrough (token generation included) is in `HANDOFF.md` Step 5.
+- Note: account-less (Google/email) editing would require a paid SaaS — out of
+  scope for $0/mo. The token route keeps it free and host-agnostic.
 

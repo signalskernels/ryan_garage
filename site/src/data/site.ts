@@ -28,7 +28,6 @@ export const site = {
   founded: s.founded,
   serviceRadiusMiles: s.serviceRadiusMiles,
   hoursLabel: s.hoursLabel,
-  hours247: true,
   paymentAccepted: s.paymentAccepted,
   openerBrands: s.openerBrands,
   team: s.team,
@@ -42,6 +41,9 @@ export const site = {
     rating: 5.0,
     googleReviewUrl: s.googleReviewUrl,
     googleProfileUrl: s.googleProfileUrl,
+    // "Leave a review" CTAs use the direct write-a-review link when set,
+    // else fall back to the public Maps profile (still lets people review).
+    reviewLink: s.googleReviewUrl || s.googleProfileUrl,
   },
 
   links: {

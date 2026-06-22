@@ -1,16 +1,16 @@
 {
   "meta": {
     "title": "Contact Us",
-    "description": "Contact Ryan Garage Door — call {phone} 24/7, or send a request online. Mobile garage door service across Huntley, IL and the NW suburbs."
+    "description": "Contact Ryan Garage Door — call {phone}, or send a request online. Mobile garage door service across Huntley, IL and the NW suburbs."
   },
   "header": {
     "title": "Contact Us",
-    "subtitle": "Call us 24/7, or send a request and we’ll get right back to you. We’re here to help with anything garage door related.",
+    "subtitle": "Call us, or send a request and we’ll get right back to you. We’re here to help with anything garage door related.",
     "crumb": "Contact"
   },
   "callBlock": {
     "heading": "Call or text",
-    "availability": "Available 24 hours · 7 days a week"
+    "availability": "Call or message anytime — we respond fast"
   },
   "areaBlock": {
     "heading": "Service area",
@@ -18,8 +18,8 @@
     "link": "See all areas we serve →"
   },
   "hours": {
-    "heading": "Hours",
-    "openLabel": "Open 24 hours"
+    "heading": "Availability",
+    "note": "We schedule by appointment — call or message and we’ll set up a visit fast, often the same day."
   },
   "payBlock": {
     "heading": "Payment accepted"
