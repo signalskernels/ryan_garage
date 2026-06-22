@@ -13,8 +13,10 @@ plans — **~$0/month, forever.**
   domain is connected)_
 - **How it works:** you edit content in the browser → click **Save** → the site
   rebuilds and your change is live in ~1–2 minutes.
-- **What you can edit yourself:** business info, hours, phone, homepage text,
-  coupons, FAQs, reviews, blog posts, and your live-chat link.
+- **What you can edit yourself:** essentially everything — business info, every
+  page's text and images, your services, the 74 service-area pages, the
+  navigation/footer menus, coupons, FAQs, reviews, blog posts, and your live-chat
+  link.
 
 ---
 
@@ -96,9 +98,12 @@ key you generate on GitHub once and paste into the editor.
 
 ## Part 3 — How editing works
 
-- **What you can edit today:** Site Settings (business name, phone, email, hours,
-  service area, review counts, homepage hero text, top-bar offer, live-chat link),
-  **Coupons**, **FAQs**, **Reviews**, and **Blog posts**.
+- **What you can edit today:** essentially every word and image on the site —
+  **Site Settings** (business info, phone, hours, review counts, homepage text,
+  top-bar offer, live-chat link), **Navigation & footer menus**, **Services**, the
+  **74 Service-Area pages**, **every page's copy** (Home, About, Contact, Financing,
+  Maintenance Plan, Visualizer, and the rest), **Coupons**, **FAQs**, **Reviews**,
+  and **Blog posts**.
 - **Save = publish.** Clicking **Save** records the change and rebuilds the site.
   It's live in about **1–2 minutes**.
 - **Images:** use the image upload field on a post; it stores the file with the site.
@@ -135,12 +140,29 @@ message you, **answered by you or your team** (not a paid robot), so it stays
 
 ---
 
+## Where your leads go
+
+Every **contact**, **quote**, and **appointment-request** form on the site is
+captured by **Netlify Forms** (free). To make sure you actually see them:
+
+1. In **Netlify → your site → Forms**, every submission is listed.
+2. Turn on **email notifications:** Netlify → **Forms → Settings & notifications →
+   Add notification → Email notification**, then enter the address(es) where new
+   leads should be sent. (Slack or a webhook also work.)
+3. After go-live, send a quick **test** through your own contact form to confirm the
+   email arrives.
+
+Spam is filtered automatically (a hidden "honeypot" field), so you won't get bot junk.
+
+---
+
 ## What still needs a developer
 
-- **Services** pages and the **74 local service-area** pages are currently in code
-  (not in the editor yet). Ask us if you want these made editable — it's the same
-  pattern as the rest.
-- Design/layout changes, new sections, or new page types.
+- Design/layout changes, brand-new sections, or new page *types*.
+- Connecting optional paid add-ons later (real-time online booking, 24/7 AI
+  answering, automated review collection).
+- Everything else — your text, images, services, service-area pages, menus and
+  prices — you can edit yourself (see **How editing works** above).
 
 ---
 
@@ -149,7 +171,10 @@ message you, **answered by you or your team** (not a paid robot), so it stays
 - [ ] **Hours / availability** — the site is worded as *same-day / by appointment*
   (no "24/7" claim). Make sure your Google Business Profile and other listings
   match how you actually operate.
-- [ ] **Google review link** — confirm it points to your real Google reviews page.
+- [ ] **Google review link** — paste your direct *write-a-review* link into
+  **Site Settings → "Google 'write a review' URL"** so the *Leave a review* buttons
+  open the review box in one tap. Get it from **Google Business Profile → "Ask for
+  reviews"** (copy the short link). Until you do, the buttons open your Google listing.
 - [ ] **Door visualizer** — currently links to Clopay; tell us if you carry a
   different brand.
 - [ ] **Coupon amounts / membership pricing** — confirm the numbers are current.
