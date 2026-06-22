@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "Design Your Door",
+    "description": "Preview new garage doors on a photo of your own home with a free online design tool, then get a quote from Ryan Garage Door."
+  },
+  "header": {
+    "title": "Design Your New Door",
+    "subtitle": "Not sure what style suits your home? Preview different doors on a photo of your own house before you decide — then we’ll bring your favorite to life.",
+    "crumb": "Design Your Door"
+  },
+  "intro": {
+    "heading": "See it on your home first",
+    "paragraph": "Choosing a garage door is a big visual decision — it can be a third of what people see from the street. A design visualizer lets you upload a photo of your house and try on different styles, colors, and window options until something clicks."
+  },
+  "steps": [
+    "Snap a photo of your home from the street",
+    "Try different door styles, colors and windows",
+    "See what fits your home before you buy",
+    "Send us your favorite — we’ll quote it"
+  ],
+  "buttons": {
+    "tool": "Open the design tool ↗",
+    "quote": "Get a quote instead"
+  },
+  "note": "The design tool opens on the manufacturer’s website in a new tab. Found a look you love? Send it our way and we’ll measure, quote, and install it.",
+  "image": {
+    "src": "/src/assets/photos/Professional-Garage-Door-Service-2.webp",
+    "alt": "A modern home with a new garage door"
+  },
+  "cta": {
+    "title": "Already know what you want?",
+    "text": "Skip ahead — tell us about your new door and we’ll send you a free quote."
+  }
+}

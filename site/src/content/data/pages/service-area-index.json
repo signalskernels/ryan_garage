@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "title": "Service Area",
+    "description": "Ryan Garage Door provides mobile garage door repair and installation across Huntley, IL and 18+ nearby communities within a 50-mile radius."
+  },
+  "header": {
+    "title": "Where We Serve",
+    "subtitle": "Based in Huntley, our mobile team covers {count} communities across the NW Chicago suburbs — roughly from Rockford in the northwest to Orland Park in the southeast, spanning McHenry, Kane, Lake, DuPage, Cook, Will, DeKalb, Kendall and Winnebago counties.",
+    "crumb": "Service Area"
+  },
+  "homeBadge": "Home base",
+  "cardLinkPrefix": "Garage door service in",
+  "note": {
+    "pre": "Don’t see your town? We travel up to {radius} miles from Huntley — including parts of Elgin, Wheaton and greater Chicagoland. ",
+    "linkLabel": "Call {phone}",
+    "post": " and we’ll let you know."
+  }
+}

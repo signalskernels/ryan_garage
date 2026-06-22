@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "title": "FAQ",
+    "description": "Answers to common questions about Ryan Garage Door — emergency service, experience, service area, credentials, openers, maintenance and payment."
+  },
+  "header": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Honest answers to the things homeowners ask us most. Still curious? Just call — we’re happy to help.",
+    "crumb": "FAQ"
+  },
+  "searchPlaceholder": "Search questions…",
+  "emptyHtml": "No questions match that search. Try another word — or just <a href=\"tel:+12247700587\">call us</a>.",
+  "cta": {
+    "heading": "Didn’t find your answer?",
+    "text": "We’re available 24/7 — call and we’ll talk it through, no pressure.",
+    "callLabel": "Call {phone}"
+  }
+}

@@ -3,46 +3,43 @@ import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
 
-const points = [
-  { t: 'Check your rate in minutes', d: 'A quick prequalification shows what you’d pay — with no impact to your credit score.' },
-  { t: 'Pay over time', d: 'Spread the cost of a new door or major repair into manageable monthly payments.' },
-  { t: 'Get the door you actually want', d: 'Choose the insulation, style and features you want now instead of settling.' },
-];
+const c = page('financing');
 ---
-<Base title="Financing" description="Spread the cost of a new garage door or major repair with simple, low-impact financing. Prequalify in minutes with Ryan Garage Door.">
+<Base title={c.meta.title} description={c.meta.description}>
   <PageHeader
-    title="Easy Financing"
-    subtitle="A new door or major repair shouldn’t mean paying everything up front. Spread the cost into simple monthly payments."
-    crumbs={[{ label: 'Financing' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section">
     <div class="wrap fin">
       <div class="prose">
-        <h2>Get it done now, pay over time</h2>
-        <p>Whether it’s an unexpected emergency repair or a planned upgrade to a beautiful new insulated door, financing lets you move forward today and pay at a pace that works for your budget.</p>
+        <h2>{c.intro.heading}</h2>
+        <p>{c.intro.paragraph}</p>
         <div class="grid cols-3" style="margin:1.6rem 0;">
-          {points.map((p) => (
+          {c.points.map((p: { t: string; d: string }) => (
             <div class="fin__pt card">
               <h3>{p.t}</h3>
               <p>{p.d}</p>
             </div>
           ))}
         </div>
-        <p class="muted" style="font-size:.86rem;">Financing is provided through third-party lending partners, subject to approval. Ask us for current options and terms when you book — there’s no obligation.</p>
+        <p class="muted" style="font-size:.86rem;">{c.intro.disclaimer}</p>
       </div>
 
       <aside class="fin__box card">
-        <h3>Interested in financing?</h3>
-        <p>Mention it when you reach out and we’ll walk you through the current options and what your payments could look like.</p>
-        <a href={site.phoneHref} class="btn btn--block btn--lg">Call {site.phone}</a>
-        <a href="/book" class="btn btn--block btn--navy">Request a quote</a>
+        <h3>{c.box.heading}</h3>
+        <p>{c.box.text}</p>
+        <a href={site.phoneHref} class="btn btn--block btn--lg">{c.box.callLabel}</a>
+        <a href="/book" class="btn btn--block btn--navy">{c.box.quoteLabel}</a>
       </aside>
     </div>
   </section>
 
-  <CtaBand title="Questions about paying over time?" text="Give us a call — we’ll explain your options in plain language, no pressure." />
+  <CtaBand title={c.cta.title} text={c.cta.text} />
 </Base>
 
 <style>

@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Coupons & Offers",
+    "description": "Current garage door service discounts from Ryan Garage Door — new customer, senior, military and first-responder savings across Huntley, IL."
+  },
+  "header": {
+    "title": "Coupons & Offers",
+    "subtitle": "A little thank-you to our neighbors. Mention an offer when you book to save on your service.",
+    "crumb": "Coupons & Offers"
+  },
+  "redeemLabel": "Call to redeem",
+  "forLabel": "For:",
+  "cta": {
+    "title": "Ready to claim your discount?",
+    "text": "Call now and mention the offer — we’ll take care of the rest."
+  }
+}

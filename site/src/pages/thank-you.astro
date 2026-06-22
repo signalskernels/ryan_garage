@@ -1,16 +1,19 @@
 ---
 import Base from '@/layouts/Base.astro';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
+
+const c = page('thank-you');
 ---
-<Base title="Thank You" description="Thanks for reaching out to Ryan Garage Door — we’ll be in touch shortly." noindex={true}>
+<Base title={c.meta.title} description={c.meta.description} noindex={true}>
   <section class="section center ty">
     <div class="wrap measure" style="margin-inline:auto;">
       <div class="ty__check" aria-hidden="true">✓</div>
-      <h1>Thank you — we’ve got your request!</h1>
-      <p class="lead" style="margin:.8rem auto 1.6rem;">We’ll reach out shortly to confirm your appointment. Need us right away? We’re available 24/7.</p>
+      <h1>{c.heading}</h1>
+      <p class="lead" style="margin:.8rem auto 1.6rem;">{c.text}</p>
       <div class="cta-row cta-row--center">
-        <a href={site.phoneHref} class="btn btn--lg">Call {site.phone}</a>
-        <a href="/" class="btn btn--lg btn--outline">Back to home</a>
+        <a href={site.phoneHref} class="btn btn--lg">{c.callLabel}</a>
+        <a href="/" class="btn btn--lg btn--outline">{c.homeLabel}</a>
       </div>
     </div>
   </section>

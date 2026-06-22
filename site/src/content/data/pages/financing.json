@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "Financing",
+    "description": "Spread the cost of a new garage door or major repair with simple, low-impact financing. Prequalify in minutes with Ryan Garage Door."
+  },
+  "header": {
+    "title": "Easy Financing",
+    "subtitle": "A new door or major repair shouldn’t mean paying everything up front. Spread the cost into simple monthly payments.",
+    "crumb": "Financing"
+  },
+  "intro": {
+    "heading": "Get it done now, pay over time",
+    "paragraph": "Whether it’s an unexpected emergency repair or a planned upgrade to a beautiful new insulated door, financing lets you move forward today and pay at a pace that works for your budget.",
+    "disclaimer": "Financing is provided through third-party lending partners, subject to approval. Ask us for current options and terms when you book — there’s no obligation."
+  },
+  "points": [
+    { "t": "Check your rate in minutes", "d": "A quick prequalification shows what you’d pay — with no impact to your credit score." },
+    { "t": "Pay over time", "d": "Spread the cost of a new door or major repair into manageable monthly payments." },
+    { "t": "Get the door you actually want", "d": "Choose the insulation, style and features you want now instead of settling." }
+  ],
+  "box": {
+    "heading": "Interested in financing?",
+    "text": "Mention it when you reach out and we’ll walk you through the current options and what your payments could look like.",
+    "callLabel": "Call {phone}",
+    "quoteLabel": "Request a quote"
+  },
+  "cta": {
+    "title": "Questions about paying over time?",
+    "text": "Give us a call — we’ll explain your options in plain language, no pressure."
+  }
+}

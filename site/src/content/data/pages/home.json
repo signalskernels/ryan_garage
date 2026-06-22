@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "description": "Ryan Garage Door — trusted mobile garage door repair, installation & service in Huntley, IL and the NW Chicago suburbs. 24/7 emergency service. {reviewsTotal}+ five-star reviews. Call {phone}."
+  },
+  "hero": {
+    "eyebrow": "Huntley, IL & surrounding suburbs · Since {founded}",
+    "ratingHtml": "<b>5.0</b> rating · <b>{reviewsTotal}+</b> reviews on Google, Thumbtack &amp; Angi",
+    "callLabel": "Call {phone}",
+    "requestLabel": "Request Service",
+    "badges": [
+      "✓ Fully Insured",
+      "✓ 24/7 Emergency",
+      "✓ Free Estimates",
+      "✓ LiftMaster · Chamberlain · Genie"
+    ],
+    "image": {
+      "src": "/src/assets/photos/Professional-Garage-Door-Service-2.webp",
+      "alt": "New garage door on a modern home"
+    }
+  },
+  "services": {
+    "eyebrow": "What we do",
+    "heading": "Complete residential garage door service",
+    "lead": "From a 2 a.m. broken spring to a beautiful new door, one trusted local team handles it all."
+  },
+  "reviews": {
+    "eyebrow": "Don’t take our word for it",
+    "heading": "{reviewsTotal}+ neighbors. Every single one, five stars.",
+    "lead": "{reviewsGoogle} five-star reviews on Google alone — plus {reviewsThumbtack} on Thumbtack and more on Angi & Nextdoor. Here’s what Huntley-area homeowners say.",
+    "moreLabel": "Read more reviews",
+    "googleLabel": "Leave us a Google review"
+  },
+  "why": {
+    "eyebrow": "Why homeowners choose us",
+    "heading": "The pro your neighbors already trust",
+    "items": [
+      { "icon": "replace", "t": "Same-day & emergency", "d": "A broken door can’t wait. We respond fast — many customers are seen the same day, day or night." },
+      { "icon": "maintenance", "t": "Honest, no upsell", "d": "We diagnose the real problem and quote it up front. We won’t sell you parts you don’t need." },
+      { "icon": "install", "t": "Fair, transparent pricing", "d": "Clear pricing before we start. Reviewers consistently say we beat the big competitors’ quotes." },
+      { "icon": "keypad", "t": "Mobile & fully insured", "d": "We come to you, anywhere within ~50 miles of Huntley, fully insured for your peace of mind." }
+    ]
+  },
+  "process": {
+    "eyebrow": "How it works",
+    "heading": "Simple, honest, done right",
+    "steps": [
+      { "n": "1", "t": "Call or request online", "d": "Tell us what’s happening. We’ll give you a time window — often same-day." },
+      { "n": "2", "t": "Upfront diagnosis & quote", "d": "We assess the issue on-site and quote the work clearly before we begin." },
+      { "n": "3", "t": "Precision repair or install", "d": "We fix it right the first time using correctly-rated, durable parts." },
+      { "n": "4", "t": "Safety test & cleanup", "d": "We cycle-test the door, confirm it’s safe and quiet, and tidy up." }
+    ]
+  },
+  "coupons": {
+    "eyebrow": "Current offers",
+    "heading": "Save on your service",
+    "detailsLabel": "See coupon details"
+  },
+  "area": {
+    "eyebrow": "Service area",
+    "heading": "Serving the suburbs from Rockford to Orland Park",
+    "lead": "Based in Huntley, our mobile team covers a wide swath of the NW Chicago suburbs — across McHenry, Kane, Lake, DuPage, Cook, Will, DeKalb, Kendall and Winnebago counties. {count} communities and counting.",
+    "viewAllLabel": "View all {count} service areas",
+    "moreLabel": "+{count} more →"
+  },
+  "leadSection": {
+    "eyebrow": "Get started",
+    "heading": "Request your free estimate",
+    "lead": "Send a few details and we’ll get right back to you to confirm a time. Prefer to talk? We’re here 24/7.",
+    "hoursNote": "Open 24 hours · 7 days a week",
+    "points": [
+      "✓ Honest, upfront pricing — no surprises",
+      "✓ Same-day & emergency appointments",
+      "✓ Fully insured, BBB-accredited team"
+    ],
+    "formHeading": "Request your free estimate"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "Request Service",
+    "description": "Request garage door service from Ryan Garage Door. Pick a time and we’ll confirm fast — often same-day. Or call {phone} 24/7."
+  },
+  "header": {
+    "title": "Request Service",
+    "subtitle": "Tell us what you need and when. We’ll confirm your appointment fast — usually the same day. For emergencies, calling is quickest.",
+    "crumb": "Request Service"
+  },
+  "call": {
+    "eyebrow": "Fastest option",
+    "heading": "Call us — we pick up 24/7",
+    "callLabel": "Call {phone}",
+    "note": "Broken spring, stuck door, or after-hours emergency? A quick call gets help on the way fastest."
+  },
+  "next": {
+    "heading": "What happens next",
+    "steps": [
+      { "t": "You send your request", "d": "Pick a service and a preferred time. Takes about a minute." },
+      { "t": "We confirm fast", "d": "We’ll call or text to lock in a time — often the same day." },
+      { "t": "We show up & fix it", "d": "Honest diagnosis, upfront quote, and a safety-tested door before we leave." }
+    ]
+  },
+  "trust": "{reviewsTotal}+ five-star reviews · Fully insured · BBB-accredited",
+  "form": {
+    "heading": "Request your appointment",
+    "cta": "Request appointment"
+  }
+}

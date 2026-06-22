@@ -3,54 +3,43 @@ import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
 
-const includes = [
-  'Two professional tune-ups per year',
-  'Full multi-point safety inspection',
-  'Lubrication of rollers, hinges & springs',
-  'Spring-balance & cable-wear check',
-  'Safety auto-reverse & sensor testing',
-  'Hardware tightening & track alignment',
-  'Priority scheduling when you need us',
-  'Member discount on any repairs',
-];
+const c = page('membership');
 ---
-<Base title="Worry-Free Maintenance Plan" description="Keep your garage door safe, quiet and reliable year-round with Ryan Garage Door’s Worry-Free maintenance plan — twice-yearly tune-ups, priority service and member discounts.">
+<Base title={c.meta.title} description={c.meta.description}>
   <PageHeader
-    title="The Worry-Free Maintenance Plan"
-    subtitle="Most garage door breakdowns are preventable. Put your maintenance on autopilot and stop emergencies before they start."
-    crumbs={[{ label: 'Maintenance Plan' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section">
     <div class="wrap mem">
       <div class="prose mem__copy">
-        <h2>Peace of mind, twice a year</h2>
-        <p>Your garage door is the largest moving part of your home — and it’s easy to forget about until it fails at the worst possible moment. Our Worry-Free plan keeps it running safely and quietly, catches small problems before they become expensive ones, and puts you first when you do need us.</p>
-        <h3>What’s included</h3>
+        <h2>{c.intro.heading}</h2>
+        <p>{c.intro.lead}</p>
+        <h3>{c.intro.includesHeading}</h3>
         <ul class="check2">
-          {includes.map((i) => <li>{i}</li>)}
+          {c.includes.map((i: string) => <li>{i}</li>)}
         </ul>
-        <p class="muted" style="font-size:.86rem;">Plan pricing is simple and flat — call for current rates. Members get priority scheduling and a standing discount on any repairs we make during a visit.</p>
+        <p class="muted" style="font-size:.86rem;">{c.intro.note}</p>
       </div>
 
       <aside class="mem__card card">
-        <div class="mem__tag">Most popular</div>
-        <h3>Worry-Free Club</h3>
-        <p class="mem__price">Ask us<span>flat annual plan</span></p>
+        <div class="mem__tag">{c.card.tag}</div>
+        <h3>{c.card.title}</h3>
+        <p class="mem__price">{c.card.price}<span>{c.card.priceNote}</span></p>
         <ul class="mem__perks">
-          <li>✓ 2 tune-ups / year</li>
-          <li>✓ Priority scheduling</li>
-          <li>✓ Member repair discount</li>
-          <li>✓ Full safety inspection</li>
+          {c.card.perks.map((p: string) => <li>{p}</li>)}
         </ul>
-        <a href={site.phoneHref} class="btn btn--block btn--lg">Call {site.phone}</a>
-        <a href="/book" class="btn btn--block btn--navy">Ask about the plan</a>
+        <a href={site.phoneHref} class="btn btn--block btn--lg">{c.card.callLabel}</a>
+        <a href="/book" class="btn btn--block btn--navy">{c.card.bookLabel}</a>
       </aside>
     </div>
   </section>
 
-  <CtaBand title="Ready to stop worrying about your garage door?" />
+  <CtaBand title={c.cta.title} />
 </Base>
 
 <style>

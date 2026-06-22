@@ -9,9 +9,11 @@ backend:
   branch: main
   base_url: https://REPLACE-WITH-WORKER.workers.dev   # ← your sveltia-cms-auth worker URL
 
-# Uploaded media (CMS image picker). Lives in the static folder so Astro serves it.
-media_folder: "site/public/uploads"
-public_folder: "/uploads"
+# Uploaded media (CMS image picker). Lives in src/assets/photos so Astro's
+# <Image> optimizes every uploaded photo (responsive/compressed variants) just
+# like the originals. The photo() helper resolves these stored paths by basename.
+media_folder: "site/src/assets/photos"
+public_folder: "/src/assets/photos"
 
 # Saves commit straight to `main`, which triggers the GitHub Action → Netlify deploy.
 # (Add `publish_mode: editorial_workflow` later if you want draft/approve via PRs.)
@@ -43,12 +45,595 @@ collections:
           - { name: reviewsHomeadvisor, label: "HomeAdvisor/Angi reviews", widget: number, value_type: int }
           - { name: reviewsNextdoor, label: "Nextdoor reviews", widget: number, value_type: int }
           - { name: googleProfileUrl, label: "Google Business Profile / Maps URL", widget: string }
+          - { name: googleReviewUrl, label: "Google 'write a review' URL", widget: string, hint: "Link the 'Leave us a review' buttons point to" }
           - { name: facebookUrl, label: "Facebook URL", widget: string, required: false }
+          - { name: visualizerUrl, label: "Door visualizer URL", widget: string, hint: "External design-your-door tool the visualizer page links to" }
+          - { name: financingLink, label: "Financing button link", widget: string, hint: "Where 'Apply / Get financing' buttons go (e.g. #contact or an external URL)" }
+          - { name: team, label: "Team members", widget: list, field: { name: name, label: "Name", widget: string }, hint: "Used on the About page" }
+          - { name: paymentAccepted, label: "Payment methods accepted", widget: list, field: { name: method, label: "Method", widget: string } }
+          - { name: openerBrands, label: "Opener brands serviced", widget: list, field: { name: brand, label: "Brand", widget: string } }
           - { name: ribbonOffer, label: "Top-bar offer text", widget: string }
           - { name: heroHeadlinePre, label: "Hero headline (start)", widget: string }
           - { name: heroHeadlineHighlight, label: "Hero headline (gold part)", widget: string }
           - { name: heroHeadlinePost, label: "Hero headline (end)", widget: string }
           - { name: heroSub, label: "Hero subheadline", widget: text }
+
+  # ── Navigation & footer menus ──
+  - name: navigation
+    label: "Navigation & Footer"
+    delete: false
+    files:
+      - name: navigation
+        label: "Menus"
+        file: "site/src/content/data/navigation.json"
+        fields:
+          - name: nav
+            label: "Header menu"
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: "Label", widget: string }
+              - { name: href, label: "Link", widget: string, hint: "e.g. /services or https://… " }
+          - name: footer
+            label: "Footer columns"
+            widget: list
+            summary: "{{fields.heading}}"
+            fields:
+              - { name: heading, label: "Column heading", widget: string }
+              - name: links
+                label: "Links"
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { name: label, label: "Label", widget: string }
+                  - { name: href, label: "Link", widget: string }
+
+  # ── Services (powers /services and each /services/{slug} page) ──
+  - name: services
+    label: "Services"
+    delete: false
+    files:
+      - name: services
+        label: "All Services"
+        file: "site/src/content/data/services.json"
+        fields:
+          - name: services
+            label: "Services"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: slug, label: "URL slug", widget: string, hint: "Page lives at /services/<slug>. Changing this changes the URL." }
+              - { name: title, label: "Title (nav / card label)", widget: string }
+              - { name: h1, label: "Page headline (H1)", widget: string }
+              - { name: icon, label: "Icon", widget: select, options: ["spring", "opener", "cable", "roller", "install", "replace", "maintenance", "keypad"] }
+              - { name: photo, label: "Photo", widget: image, required: false }
+              - { name: short, label: "Card blurb (one line)", widget: text }
+              - { name: priceHint, label: "Price hint", widget: string, required: false }
+              - { name: emergency, label: "Emergency service?", widget: boolean, default: false, required: false }
+              - { name: intro, label: "Intro paragraphs", widget: list, field: { name: paragraph, label: "Paragraph", widget: text } }
+              - { name: benefits, label: "Benefits / what you get", widget: list, field: { name: benefit, label: "Benefit", widget: string } }
+              - name: signs
+                label: "When to call (signs)"
+                widget: object
+                required: false
+                collapsed: true
+                fields:
+                  - { name: heading, label: "Heading", widget: string }
+                  - { name: items, label: "Signs", widget: list, field: { name: sign, label: "Sign", widget: string } }
+              - name: faqs
+                label: "FAQs"
+                widget: list
+                required: false
+                summary: "{{fields.q}}"
+                fields:
+                  - { name: q, label: "Question", widget: string }
+                  - { name: a, label: "Answer", widget: text }
+
+  # ── Service areas (powers /service-area and each /service-area/{slug} page) ──
+  - name: service-areas
+    label: "Service Areas"
+    delete: false
+    files:
+      - name: locations
+        label: "All Service Areas"
+        file: "site/src/content/data/locations.json"
+        fields:
+          - name: locations
+            label: "Cities"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "City name", widget: string }
+              - { name: slug, label: "URL slug", widget: string, hint: "Page lives at /service-area/<slug>" }
+              - { name: county, label: "County", widget: string }
+              - { name: primary, label: "Home-base / primary city?", widget: boolean, default: false, required: false }
+              - { name: blurb, label: "Local intro (1–2 sentences)", widget: text }
+              - { name: spots, label: "Local landmarks / neighborhoods", widget: list, field: { name: spot, label: "Spot", widget: string } }
+              - { name: nearby, label: "Nearby towns we also serve", widget: list, field: { name: slug, label: "Slug", widget: string }, hint: "Use the URL slug of another service-area city" }
+
+  # ── Static page copy & images (every visible word + photo is editable here) ──
+  - name: pages
+    label: "Pages"
+    delete: false
+    files:
+      # —— Shared (CTA band + trust strip, used across many pages) ——
+      - name: global
+        label: "Global / Shared blocks"
+        file: "site/src/content/data/pages/global.json"
+        fields:
+          - name: cta
+            label: "Call-to-action band"
+            widget: object
+            fields:
+              - { name: title, label: "Title", widget: string }
+              - { name: text, label: "Text", widget: text }
+              - { name: callLabel, label: "Call button label", widget: string, hint: "{phone} is replaced with the business phone" }
+              - { name: requestLabel, label: "Request button label", widget: string }
+          - name: trust
+            label: "Trust strip"
+            widget: object
+            fields:
+              - name: items
+                label: "Items"
+                widget: list
+                summary: "{{fields.n}} — {{fields.l}}"
+                fields:
+                  - { name: icon, label: "Icon", widget: select, options: ["star", "badge", "clock", "shield"] }
+                  - { name: n, label: "Big number / word", widget: string, hint: "Tokens like {reviewsTotal} are replaced automatically" }
+                  - { name: l, label: "Label", widget: string }
+
+      # —— Home page ——
+      - name: home
+        label: "Home page"
+        file: "site/src/content/data/pages/home.json"
+        fields:
+          - name: meta
+            label: "SEO"
+            widget: object
+            fields:
+              - { name: description, label: "Meta description", widget: text }
+          - name: hero
+            label: "Hero"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: ratingHtml, label: "Rating line (HTML allowed)", widget: string }
+              - { name: callLabel, label: "Call button label", widget: string }
+              - { name: requestLabel, label: "Request button label", widget: string }
+              - { name: badges, label: "Badges", widget: list, field: { name: badge, label: "Badge", widget: string } }
+              - name: image
+                label: "Background image"
+                widget: object
+                fields:
+                  - { name: src, label: "Image", widget: image }
+                  - { name: alt, label: "Alt text", widget: string }
+          - name: services
+            label: "Services section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: lead, label: "Lead", widget: text }
+          - name: reviews
+            label: "Reviews section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: lead, label: "Lead", widget: text }
+              - { name: moreLabel, label: "'More reviews' button", widget: string }
+              - { name: googleLabel, label: "'Leave a review' button", widget: string }
+          - name: why
+            label: "Why-us section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - name: items
+                label: "Cards"
+                widget: list
+                summary: "{{fields.t}}"
+                fields:
+                  - { name: icon, label: "Icon", widget: select, options: ["spring", "opener", "cable", "roller", "install", "replace", "maintenance", "keypad"] }
+                  - { name: t, label: "Title", widget: string }
+                  - { name: d, label: "Text", widget: text }
+          - name: process
+            label: "Process section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - name: steps
+                label: "Steps"
+                widget: list
+                summary: "{{fields.n}}. {{fields.t}}"
+                fields:
+                  - { name: n, label: "Number", widget: string }
+                  - { name: t, label: "Title", widget: string }
+                  - { name: d, label: "Text", widget: text }
+          - name: coupons
+            label: "Coupons section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: detailsLabel, label: "'Coupon details' button", widget: string }
+          - name: area
+            label: "Service-area section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: lead, label: "Lead", widget: text, hint: "{count} becomes the number of service-area cities" }
+              - { name: viewAllLabel, label: "'View all' button", widget: string, hint: "{count} = number of cities" }
+              - { name: moreLabel, label: "'+N more' chip", widget: string, hint: "{count} = cities beyond the first 17" }
+          - name: leadSection
+            label: "Estimate-form section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: lead, label: "Lead", widget: text }
+              - { name: hoursNote, label: "Hours note", widget: string }
+              - { name: points, label: "Bullet points", widget: list, field: { name: point, label: "Point", widget: string } }
+              - { name: formHeading, label: "Form heading", widget: string }
+
+      # —— About ——
+      - name: about
+        label: "About page"
+        file: "site/src/content/data/pages/about.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - name: intro
+            label: "Intro"
+            widget: object
+            fields:
+              - { name: heading, label: "Heading", widget: string }
+              - { name: paragraphs, label: "Paragraphs (HTML allowed)", widget: list, field: { name: paragraph, label: "Paragraph", widget: text } }
+          - { name: image, label: "Photo", widget: object, fields: [
+              { name: src, label: "Image", widget: image },
+              { name: alt, label: "Alt text", widget: string } ] }
+          - { name: stat, label: "Experience badge", widget: object, fields: [
+              { name: number, label: "Number", widget: string },
+              { name: text, label: "Text", widget: string } ] }
+          - name: values
+            label: "Values section"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - name: items
+                label: "Cards"
+                widget: list
+                summary: "{{fields.t}}"
+                fields:
+                  - { name: t, label: "Title", widget: string }
+                  - { name: d, label: "Text", widget: text }
+          - { name: cta, label: "CTA band override", widget: object, fields: [ { name: title, label: "Title", widget: string } ] }
+
+      # —— Membership / maintenance plan ——
+      - name: membership
+        label: "Maintenance Plan page"
+        file: "site/src/content/data/pages/membership.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - name: intro
+            label: "Intro"
+            widget: object
+            fields:
+              - { name: heading, label: "Heading", widget: string }
+              - { name: lead, label: "Lead", widget: text }
+              - { name: includesHeading, label: "'What's included' heading", widget: string }
+              - { name: note, label: "Pricing note", widget: text }
+          - { name: includes, label: "What's included", widget: list, field: { name: item, label: "Item", widget: string } }
+          - name: card
+            label: "Plan card"
+            widget: object
+            fields:
+              - { name: tag, label: "Tag", widget: string }
+              - { name: title, label: "Title", widget: string }
+              - { name: price, label: "Price", widget: string }
+              - { name: priceNote, label: "Price note", widget: string }
+              - { name: perks, label: "Perks", widget: list, field: { name: perk, label: "Perk", widget: string } }
+              - { name: callLabel, label: "Call button label", widget: string }
+              - { name: bookLabel, label: "Book button label", widget: string }
+          - { name: cta, label: "CTA band override", widget: object, fields: [ { name: title, label: "Title", widget: string } ] }
+
+      # —— Financing ——
+      - name: financing
+        label: "Financing page"
+        file: "site/src/content/data/pages/financing.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - name: intro
+            label: "Intro"
+            widget: object
+            fields:
+              - { name: heading, label: "Heading", widget: string }
+              - { name: paragraph, label: "Paragraph", widget: text }
+              - { name: disclaimer, label: "Disclaimer", widget: text }
+          - name: points
+            label: "Benefit cards"
+            widget: list
+            summary: "{{fields.t}}"
+            fields:
+              - { name: t, label: "Title", widget: string }
+              - { name: d, label: "Text", widget: text }
+          - name: box
+            label: "Sidebar box"
+            widget: object
+            fields:
+              - { name: heading, label: "Heading", widget: string }
+              - { name: text, label: "Text", widget: text }
+              - { name: callLabel, label: "Call button label", widget: string }
+              - { name: quoteLabel, label: "Quote button label", widget: string }
+          - { name: cta, label: "CTA band override", widget: object, fields: [
+              { name: title, label: "Title", widget: string },
+              { name: text, label: "Text", widget: text } ] }
+
+      # —— Visualizer ——
+      - name: visualizer
+        label: "Design-Your-Door page"
+        file: "site/src/content/data/pages/visualizer.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - { name: intro, label: "Intro", widget: object, fields: [
+              { name: heading, label: "Heading", widget: string },
+              { name: paragraph, label: "Paragraph", widget: text } ] }
+          - { name: steps, label: "Steps", widget: list, field: { name: step, label: "Step", widget: string } }
+          - { name: buttons, label: "Buttons", widget: object, fields: [
+              { name: tool, label: "Design-tool button", widget: string },
+              { name: quote, label: "Quote button", widget: string } ] }
+          - { name: note, label: "Note under buttons", widget: text }
+          - { name: image, label: "Photo", widget: object, fields: [
+              { name: src, label: "Image", widget: image },
+              { name: alt, label: "Alt text", widget: string } ] }
+          - { name: cta, label: "CTA band override", widget: object, fields: [
+              { name: title, label: "Title", widget: string },
+              { name: text, label: "Text", widget: text } ] }
+
+      # —— Request service / booking ——
+      - name: book
+        label: "Request Service page"
+        file: "site/src/content/data/pages/book.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - name: call
+            label: "Call card"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: callLabel, label: "Call button label", widget: string }
+              - { name: note, label: "Note", widget: text }
+          - name: next
+            label: "What happens next"
+            widget: object
+            fields:
+              - { name: heading, label: "Heading", widget: string }
+              - name: steps
+                label: "Steps"
+                widget: list
+                summary: "{{fields.t}}"
+                fields:
+                  - { name: t, label: "Title", widget: string }
+                  - { name: d, label: "Text", widget: text }
+          - { name: trust, label: "Trust line", widget: string }
+          - { name: form, label: "Form", widget: object, fields: [
+              { name: heading, label: "Form heading", widget: string },
+              { name: cta, label: "Submit button", widget: string } ] }
+
+      # —— Contact ——
+      - name: contact
+        label: "Contact page"
+        file: "site/src/content/data/pages/contact.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - { name: callBlock, label: "Call block", widget: object, fields: [
+              { name: heading, label: "Heading", widget: string },
+              { name: availability, label: "Availability", widget: string } ] }
+          - { name: areaBlock, label: "Service-area block", widget: object, fields: [
+              { name: heading, label: "Heading", widget: string },
+              { name: text, label: "Text", widget: text },
+              { name: link, label: "Link label", widget: string } ] }
+          - { name: hours, label: "Hours block", widget: object, fields: [
+              { name: heading, label: "Heading", widget: string },
+              { name: openLabel, label: "Per-day label", widget: string } ] }
+          - { name: payBlock, label: "Payment block", widget: object, fields: [
+              { name: heading, label: "Heading", widget: string } ] }
+          - { name: callButtonLabel, label: "Bottom call button", widget: string }
+          - { name: form, label: "Form", widget: object, fields: [
+              { name: heading, label: "Form heading", widget: string },
+              { name: intro, label: "Form intro", widget: text },
+              { name: cta, label: "Submit button", widget: string } ] }
+
+      # —— Gallery ——
+      - name: gallery
+        label: "Gallery page"
+        file: "site/src/content/data/pages/gallery.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - name: images
+            label: "Photos"
+            widget: list
+            summary: "{{fields.caption}}"
+            fields:
+              - { name: src, label: "Image", widget: image }
+              - { name: caption, label: "Caption", widget: string }
+          - { name: note, label: "Closing note", widget: object, fields: [
+              { name: noteHtml, label: "Note (HTML allowed)", widget: text } ] }
+
+      # —— FAQ ——
+      - name: faq
+        label: "FAQ page"
+        file: "site/src/content/data/pages/faq.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - { name: searchPlaceholder, label: "Search box placeholder", widget: string }
+          - { name: emptyHtml, label: "No-results message (HTML allowed)", widget: string }
+          - { name: cta, label: "Bottom call card", widget: object, fields: [
+              { name: heading, label: "Heading", widget: string },
+              { name: text, label: "Text", widget: text },
+              { name: callLabel, label: "Call button label", widget: string } ] }
+
+      # —— Reviews ——
+      - name: reviews-page
+        label: "Reviews page"
+        file: "site/src/content/data/pages/reviews.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - name: platforms
+            label: "Platform stat cards"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "Platform", widget: string }
+              - { name: count, label: "Count", widget: string, hint: "Tokens like {reviewsGoogle} pull the live number from Site Settings" }
+              - { name: note, label: "Note", widget: string }
+          - { name: intro, label: "Intro line", widget: object, fields: [
+              { name: pre, label: "Text before link", widget: text },
+              { name: linkLabel, label: "Link label", widget: string },
+              { name: post, label: "Text after link", widget: string } ] }
+          - { name: leaveReview, label: "Leave-a-review block", widget: object, fields: [
+              { name: heading, label: "Heading", widget: string },
+              { name: text, label: "Text", widget: text },
+              { name: buttonLabel, label: "Button label", widget: string } ] }
+
+      # —— Coupons page copy (the coupons themselves live under "Coupons & Offers") ——
+      - name: coupons-page
+        label: "Coupons page copy"
+        file: "site/src/content/data/pages/coupons.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - { name: redeemLabel, label: "'Call to redeem' button", widget: string }
+          - { name: forLabel, label: "'For:' label", widget: string }
+          - { name: cta, label: "CTA band override", widget: object, fields: [
+              { name: title, label: "Title", widget: string },
+              { name: text, label: "Text", widget: text } ] }
+
+      # —— Thank-you ——
+      - name: thank-you
+        label: "Thank-you page"
+        file: "site/src/content/data/pages/thank-you.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: heading, label: "Heading", widget: string }
+          - { name: text, label: "Text", widget: text }
+          - { name: callLabel, label: "Call button label", widget: string }
+          - { name: homeLabel, label: "Home button label", widget: string }
+
+      # —— 404 ——
+      - name: not-found
+        label: "404 page"
+        file: "site/src/content/data/pages/not-found.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: code, label: "Big code", widget: string }
+          - { name: heading, label: "Heading", widget: string }
+          - { name: text, label: "Text", widget: text }
+          - { name: homeLabel, label: "Home button label", widget: string }
+          - { name: servicesLabel, label: "Services button label", widget: string }
+          - { name: callLabel, label: "Call button label", widget: string }
+
+      # —— Services index ——
+      - name: services-index
+        label: "Services index page"
+        file: "site/src/content/data/pages/services-index.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - { name: learnMoreLabel, label: "'Learn more' link", widget: string }
+          - { name: cta, label: "CTA band override", widget: object, fields: [
+              { name: title, label: "Title", widget: string },
+              { name: text, label: "Text", widget: text } ] }
+
+      # —— Service-area index ——
+      - name: service-area-index
+        label: "Service-area index page"
+        file: "site/src/content/data/pages/service-area-index.json"
+        fields:
+          - { name: meta, label: "SEO", widget: object, fields: [
+              { name: title, label: "Browser/tab title", widget: string },
+              { name: description, label: "Meta description", widget: text } ] }
+          - { name: header, label: "Page header", widget: object, fields: [
+              { name: title, label: "Title (H1)", widget: string },
+              { name: subtitle, label: "Subtitle", widget: text, hint: "{count} becomes the number of cities" },
+              { name: crumb, label: "Breadcrumb label", widget: string } ] }
+          - { name: homeBadge, label: "'Home base' badge", widget: string }
+          - { name: cardLinkPrefix, label: "City-card link prefix", widget: string }
+          - { name: note, label: "Bottom note", widget: object, fields: [
+              { name: pre, label: "Text before link", widget: text },
+              { name: linkLabel, label: "Link label", widget: string },
+              { name: post, label: "Text after link", widget: string } ] }
 
   # ── Coupons / promotions ──
   - name: coupons
@@ -124,5 +709,5 @@ collections:
       - { name: description, label: "Description / excerpt", widget: text }
       - { name: date, label: "Date", widget: datetime, picker_utc: true, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { name: category, label: "Category", widget: string, default: "Garage Door Tips" }
-      - { name: hero, label: "Hero image name", widget: string, required: false, hint: "Photo basename in src/assets/photos, e.g. Garage-Door-Service" }
+      - { name: hero, label: "Hero image", widget: image, required: false, hint: "Upload or pick a photo" }
       - { name: body, label: "Body", widget: markdown }

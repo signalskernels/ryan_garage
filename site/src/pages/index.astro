@@ -13,46 +13,33 @@ import TrustStrip from '@/components/TrustStrip.astro';
 import LeadForm from '@/components/LeadForm.astro';
 import EstimateForm from '@/components/EstimateForm.astro';
 import CtaBand from '@/components/CtaBand.astro';
+import { page } from '@/lib/pages';
 
-const why = [
-  { icon: 'replace', t: 'Same-day & emergency', d: 'A broken door can’t wait. We respond fast — many customers are seen the same day, day or night.' },
-  { icon: 'maintenance', t: 'Honest, no upsell', d: 'We diagnose the real problem and quote it up front. We won’t sell you parts you don’t need.' },
-  { icon: 'install', t: 'Fair, transparent pricing', d: 'Clear pricing before we start. Reviewers consistently say we beat the big competitors’ quotes.' },
-  { icon: 'keypad', t: 'Mobile & fully insured', d: 'We come to you, anywhere within ~50 miles of Huntley, fully insured for your peace of mind.' },
-];
-const steps = [
-  { n: '1', t: 'Call or request online', d: 'Tell us what’s happening. We’ll give you a time window — often same-day.' },
-  { n: '2', t: 'Upfront diagnosis & quote', d: 'We assess the issue on-site and quote the work clearly before we begin.' },
-  { n: '3', t: 'Precision repair or install', d: 'We fix it right the first time using correctly-rated, durable parts.' },
-  { n: '4', t: 'Safety test & cleanup', d: 'We cycle-test the door, confirm it’s safe and quiet, and tidy up.' },
-];
+const c = page('home');
 ---
 <Base
   title={undefined}
-  description="Ryan Garage Door — trusted mobile garage door repair, installation & service in Huntley, IL and the NW Chicago suburbs. 24/7 emergency service. 265+ five-star reviews. Call (224) 770-0587."
+  description={c.meta.description}
 >
   <!-- HERO -->
   <section class="hero">
-    <Image src={photo('Professional-Garage-Door-Service-2')} alt="New garage door on a modern home" widths={[760, 1100, 1600]} sizes="100vw" class="hero__bg" loading="eager" fetchpriority="high" />
+    <Image src={photo(c.hero.image.src)} alt={c.hero.image.alt} widths={[760, 1100, 1600]} sizes="100vw" class="hero__bg" loading="eager" fetchpriority="high" />
     <div class="hero__scrim"></div>
     <div class="wrap hero__in">
       <div class="hero__copy">
-        <p class="eyebrow">Huntley, IL &amp; surrounding suburbs · Since {site.founded}</p>
+        <p class="eyebrow">{c.hero.eyebrow}</p>
         <h1>{site.hero.pre} <span class="text-gold">{site.hero.highlight}</span> {site.hero.post}</h1>
         <p class="lead">{site.hero.sub}</p>
         <div class="hero__rating">
           <span class="stars">★★★★★</span>
-          <span><b>5.0</b> rating · <b>{site.reviews.total}+</b> reviews on Google, Thumbtack &amp; Angi</span>
+          <span set:html={c.hero.ratingHtml} />
         </div>
         <div class="cta-row">
-          <a href={site.phoneHref} class="btn btn--lg">Call {site.phone}</a>
-          <a href="/book" class="btn btn--lg btn--ghost">Request Service</a>
+          <a href={site.phoneHref} class="btn btn--lg">{c.hero.callLabel}</a>
+          <a href="/book" class="btn btn--lg btn--ghost">{c.hero.requestLabel}</a>
         </div>
         <ul class="hero__badges">
-          <li>✓ Fully Insured</li>
-          <li>✓ 24/7 Emergency</li>
-          <li>✓ Free Estimates</li>
-          <li>✓ LiftMaster · Chamberlain · Genie</li>
+          {c.hero.badges.map((b: string) => <li>{b}</li>)}
         </ul>
       </div>
       <div class="hero__form">
@@ -67,9 +54,9 @@ const steps = [
   <section class="section" id="services">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">What we do</p>
-        <h2>Complete residential garage door service</h2>
-        <p class="lead">From a 2 a.m. broken spring to a beautiful new door, one trusted local team handles it all.</p>
+        <p class="eyebrow">{c.services.eyebrow}</p>
+        <h2>{c.services.heading}</h2>
+        <p class="lead">{c.services.lead}</p>
       </div>
       <div class="grid cols-4 svc-grid">
         {services.map((s) => (
@@ -88,16 +75,16 @@ const steps = [
   <section class="section section--surface" id="reviews">
     <div class="wrap">
       <div class="sec-head center">
-        <p class="eyebrow">Don’t take our word for it</p>
-        <h2>{site.reviews.total}+ neighbors. Every single one, five stars.</h2>
-        <p class="lead">{site.reviews.google} five-star reviews on Google alone — plus {site.reviews.thumbtack} on Thumbtack and more on Angi &amp; Nextdoor. Here’s what Huntley-area homeowners say.</p>
+        <p class="eyebrow">{c.reviews.eyebrow}</p>
+        <h2>{c.reviews.heading}</h2>
+        <p class="lead">{c.reviews.lead}</p>
       </div>
       <div class="grid cols-3 rv-grid">
         {featuredReviews.slice(0, 6).map((r) => <ReviewCard review={r} />)}
       </div>
       <div class="cta-row cta-row--center">
-        <a href="/reviews" class="btn btn--outline">Read more reviews</a>
-        <a href={site.reviews.googleProfileUrl} class="btn" target="_blank" rel="noopener">Leave us a Google review</a>
+        <a href="/reviews" class="btn btn--outline">{c.reviews.moreLabel}</a>
+        <a href={site.reviews.googleProfileUrl} class="btn" target="_blank" rel="noopener">{c.reviews.googleLabel}</a>
       </div>
     </div>
   </section>
@@ -106,11 +93,11 @@ const steps = [
   <section class="section">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Why homeowners choose us</p>
-        <h2>The pro your neighbors already trust</h2>
+        <p class="eyebrow">{c.why.eyebrow}</p>
+        <h2>{c.why.heading}</h2>
       </div>
       <div class="grid cols-4">
-        {why.map((w) => (
+        {c.why.items.map((w: { icon: string; t: string; d: string }) => (
           <div class="why">
             <div class="why__icon"><ServiceIcon name={w.icon} size={26} /></div>
             <h3>{w.t}</h3>
@@ -125,11 +112,11 @@ const steps = [
   <section class="section section--navy">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">How it works</p>
-        <h2>Simple, honest, done right</h2>
+        <p class="eyebrow">{c.process.eyebrow}</p>
+        <h2>{c.process.heading}</h2>
       </div>
       <div class="grid cols-4 steps">
-        {steps.map((s) => (
+        {c.process.steps.map((s: { n: string; t: string; d: string }) => (
           <div class="step">
             <div class="step__n">{s.n}</div>
             <h3>{s.t}</h3>
@@ -144,19 +131,19 @@ const steps = [
   <section class="section section--surface">
     <div class="wrap">
       <div class="sec-head center">
-        <p class="eyebrow">Current offers</p>
-        <h2>Save on your service</h2>
+        <p class="eyebrow">{c.coupons.eyebrow}</p>
+        <h2>{c.coupons.heading}</h2>
       </div>
       <div class="grid cols-4">
-        {coupons.map((c) => (
+        {coupons.map((cp) => (
           <div class="coupon">
-            <div class="coupon__amt">{c.amount}</div>
-            <h3>{c.title}</h3>
-            <p>{c.detail}</p>
+            <div class="coupon__amt">{cp.amount}</div>
+            <h3>{cp.title}</h3>
+            <p>{cp.detail}</p>
           </div>
         ))}
       </div>
-      <p class="center" style="margin-top:1.4rem;"><a href="/coupons" class="btn btn--outline">See coupon details</a></p>
+      <p class="center" style="margin-top:1.4rem;"><a href="/coupons" class="btn btn--outline">{c.coupons.detailsLabel}</a></p>
     </div>
   </section>
 
@@ -164,14 +151,14 @@ const steps = [
   <section class="section">
     <div class="wrap area">
       <div>
-        <p class="eyebrow">Service area</p>
-        <h2>Serving the suburbs from Rockford to Orland Park</h2>
-        <p class="lead">Based in Huntley, our mobile team covers a wide swath of the NW Chicago suburbs — across McHenry, Kane, Lake, DuPage, Cook, Will, DeKalb, Kendall and Winnebago counties. {locations.length} communities and counting.</p>
-        <a href="/service-area" class="btn btn--navy" style="margin-top:.6rem;">View all {locations.length} service areas</a>
+        <p class="eyebrow">{c.area.eyebrow}</p>
+        <h2>{c.area.heading}</h2>
+        <p class="lead">{c.area.lead.replace('{count}', String(locations.length))}</p>
+        <a href="/service-area" class="btn btn--navy" style="margin-top:.6rem;">{c.area.viewAllLabel.replace('{count}', String(locations.length))}</a>
       </div>
       <ul class="area__chips">
         {locations.slice(0, 17).map((l) => <li><a href={`/service-area/${l.slug}`}>{l.name}, IL</a></li>)}
-        <li><a href="/service-area" class="area__more">+{locations.length - 17} more →</a></li>
+        <li><a href="/service-area" class="area__more">{c.area.moreLabel.replace('{count}', String(locations.length - 17))}</a></li>
       </ul>
     </div>
   </section>
@@ -180,19 +167,17 @@ const steps = [
   <section class="section section--surface" id="contact">
     <div class="wrap form-split">
       <div class="form-split__copy">
-        <p class="eyebrow">Get started</p>
-        <h2>Request your free estimate</h2>
-        <p class="lead">Send a few details and we’ll get right back to you to confirm a time. Prefer to talk? We’re here 24/7.</p>
+        <p class="eyebrow">{c.leadSection.eyebrow}</p>
+        <h2>{c.leadSection.heading}</h2>
+        <p class="lead">{c.leadSection.lead}</p>
         <a href={site.phoneHref} class="hero__rating hero__rating--call">
-          <span class="stars">📞</span><span><b>{site.phone}</b><br><small>Open 24 hours · 7 days a week</small></span>
+          <span class="stars">📞</span><span><b>{site.phone}</b><br><small>{c.leadSection.hoursNote}</small></span>
         </a>
         <ul class="form-split__list">
-          <li>✓ Honest, upfront pricing — no surprises</li>
-          <li>✓ Same-day &amp; emergency appointments</li>
-          <li>✓ Fully insured, BBB-accredited team</li>
+          {c.leadSection.points.map((p: string) => <li>{p}</li>)}
         </ul>
       </div>
-      <LeadForm heading="Request your free estimate" />
+      <LeadForm heading={c.leadSection.formHeading} />
     </div>
   </section>
 

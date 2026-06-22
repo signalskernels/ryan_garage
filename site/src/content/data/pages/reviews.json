@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Reviews",
+    "description": "Read {reviewsTotal}+ verified five-star reviews for Ryan Garage Door from Google, Thumbtack, Angi and Nextdoor. Then leave your own."
+  },
+  "header": {
+    "title": "Reviews & Reputation",
+    "subtitle": "{reviewsTotal}+ verified reviews across Google, Thumbtack, Angi and Nextdoor — and every single one is five stars.",
+    "crumb": "Reviews"
+  },
+  "platforms": [
+    { "name": "Google", "count": "{reviewsGoogle}", "note": "All 5 stars" },
+    { "name": "Thumbtack", "count": "{reviewsThumbtack}", "note": "160+ hires" },
+    { "name": "Angi / HomeAdvisor", "count": "{reviewsHomeadvisor}", "note": "All 5 stars" },
+    { "name": "Nextdoor", "count": "{reviewsNextdoor}", "note": "Neighbor picks" }
+  ],
+  "intro": {
+    "pre": "We’re grateful that homeowners across the NW Chicago suburbs trust us — and take the time to say so. Below is a hand-picked selection of verbatim reviews. Want to see them all? ",
+    "linkLabel": "View our Google profile",
+    "post": "."
+  },
+  "leaveReview": {
+    "heading": "Worked with us? We’d love your review.",
+    "text": "It takes 30 seconds and helps your neighbors find honest garage door help.",
+    "buttonLabel": "Leave us a Google review"
+  }
+}

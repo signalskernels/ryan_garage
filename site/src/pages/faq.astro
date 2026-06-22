@@ -4,27 +4,29 @@ import PageHeader from '@/components/PageHeader.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { faqs } from '@/data/faqs';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
 
+const c = page('faq');
 const jsonLd = [{
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 }];
 ---
-<Base title="FAQ" description="Answers to common questions about Ryan Garage Door — emergency service, experience, service area, credentials, openers, maintenance and payment." jsonLd={jsonLd}>
+<Base title={c.meta.title} description={c.meta.description} jsonLd={jsonLd}>
   <PageHeader
-    title="Frequently Asked Questions"
-    subtitle="Honest answers to the things homeowners ask us most. Still curious? Just call — we’re happy to help."
-    crumbs={[{ label: 'FAQ' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section">
     <div class="wrap measure faq" style="margin-inline:auto;">
       <div class="faq__search">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input type="search" class="input" placeholder="Search questions…" data-faq-search aria-label="Search frequently asked questions" />
+        <input type="search" class="input" placeholder={c.searchPlaceholder} data-faq-search aria-label="Search frequently asked questions" />
       </div>
-      <p class="faq__empty" data-faq-empty hidden>No questions match that search. Try another word — or just <a href="tel:+12247700587">call us</a>.</p>
+      <p class="faq__empty" data-faq-empty hidden set:html={c.emptyHtml}></p>
       {faqs.map((f, i) => (
         <details class="faq__item" open={i === 0}>
           <summary>
@@ -36,10 +38,10 @@ const jsonLd = [{
       ))}
       <div class="faq__cta card">
         <div>
-          <h3>Didn’t find your answer?</h3>
-          <p>We’re available 24/7 — call and we’ll talk it through, no pressure.</p>
+          <h3>{c.cta.heading}</h3>
+          <p>{c.cta.text}</p>
         </div>
-        <a href={site.phoneHref} class="btn btn--lg">Call {site.phone}</a>
+        <a href={site.phoneHref} class="btn btn--lg">{c.cta.callLabel}</a>
       </div>
     </div>
   </section>

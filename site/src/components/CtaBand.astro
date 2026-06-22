@@ -1,10 +1,9 @@
 ---
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
+const g = page('global');
 interface Props { title?: string; text?: string; }
-const {
-  title = 'Garage door trouble? We can help today.',
-  text = 'Call now for fast, friendly service — or send a request and we’ll get right back to you.',
-} = Astro.props;
+const { title = g.cta.title, text = g.cta.text } = Astro.props;
 ---
 <section class="section section--tight cta">
   <div class="wrap cta__in">
@@ -13,8 +12,8 @@ const {
       <p class="lead">{text}</p>
     </div>
     <div class="cta__btns">
-      <a href={site.phoneHref} class="btn btn--lg">Call {site.phone}</a>
-      <a href="/book" class="btn btn--lg btn--ghost">Request Service</a>
+      <a href={site.phoneHref} class="btn btn--lg">{g.cta.callLabel}</a>
+      <a href="/book" class="btn btn--lg btn--ghost">{g.cta.requestLabel}</a>
     </div>
   </div>
 </section>

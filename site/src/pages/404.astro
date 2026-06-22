@@ -1,17 +1,20 @@
 ---
 import Base from '@/layouts/Base.astro';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
+
+const c = page('not-found');
 ---
-<Base title="Page Not Found" description="That page couldn’t be found." noindex={true}>
+<Base title={c.meta.title} description={c.meta.description} noindex={true}>
   <section class="section center nf">
     <div class="wrap measure" style="margin-inline:auto;">
-      <p class="nf__code">404</p>
-      <h1>We couldn’t find that page</h1>
-      <p class="lead" style="margin:.8rem auto 1.6rem;">It may have moved. Let’s get you back on track — or just give us a call.</p>
+      <p class="nf__code">{c.code}</p>
+      <h1>{c.heading}</h1>
+      <p class="lead" style="margin:.8rem auto 1.6rem;">{c.text}</p>
       <div class="cta-row cta-row--center">
-        <a href="/" class="btn btn--lg">Back to home</a>
-        <a href="/services" class="btn btn--lg btn--outline">Our services</a>
-        <a href={site.phoneHref} class="btn btn--lg btn--navy">Call {site.phone}</a>
+        <a href="/" class="btn btn--lg">{c.homeLabel}</a>
+        <a href="/services" class="btn btn--lg btn--outline">{c.servicesLabel}</a>
+        <a href={site.phoneHref} class="btn btn--lg btn--navy">{c.callLabel}</a>
       </div>
     </div>
   </section>

@@ -1,0 +1,16 @@
+{
+  "cta": {
+    "title": "Garage door trouble? We can help today.",
+    "text": "Call now for fast, friendly service — or send a request and we’ll get right back to you.",
+    "callLabel": "Call {phone}",
+    "requestLabel": "Request Service"
+  },
+  "trust": {
+    "items": [
+      { "icon": "star", "n": "{reviewsTotal}+", "l": "Five-star reviews" },
+      { "icon": "badge", "n": "5.0★", "l": "On Google, Thumbtack & Angi" },
+      { "icon": "clock", "n": "24/7", "l": "Emergency service" },
+      { "icon": "shield", "n": "Licensed", "l": "Fully insured & BBB-accredited" }
+    ]
+  }
+}

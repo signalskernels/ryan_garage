@@ -4,6 +4,9 @@ import PageHeader from '@/components/PageHeader.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { locations } from '@/data/locations';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
+
+const c = page('service-area-index');
 
 // group by county for a more local feel
 const byCounty = locations.reduce((acc, l) => {
@@ -11,11 +14,11 @@ const byCounty = locations.reduce((acc, l) => {
   return acc;
 }, {} as Record<string, typeof locations>);
 ---
-<Base title="Service Area" description="Ryan Garage Door provides mobile garage door repair and installation across Huntley, IL and 18+ nearby communities within a 50-mile radius.">
+<Base title={c.meta.title} description={c.meta.description}>
   <PageHeader
-    title="Where We Serve"
-    subtitle={`Based in Huntley, our mobile team covers ${locations.length} communities across the NW Chicago suburbs — roughly from Rockford in the northwest to Orland Park in the southeast, spanning McHenry, Kane, Lake, DuPage, Cook, Will, DeKalb, Kendall and Winnebago counties.`}
-    crumbs={[{ label: 'Service Area' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle.replace('{count}', String(locations.length))}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section">
@@ -26,15 +29,15 @@ const byCounty = locations.reduce((acc, l) => {
           <div class="grid cols-3 area-grid">
             {towns.map((l) => (
               <a href={`/service-area/${l.slug}`} class="ac card card--hover">
-                <h3>{l.name}, IL {l.primary && <span class="ac__home">Home base</span>}</h3>
+                <h3>{l.name}, IL {l.primary && <span class="ac__home">{c.homeBadge}</span>}</h3>
                 <p>{l.blurb}</p>
-                <span class="ac__link">Garage door service in {l.name} →</span>
+                <span class="ac__link">{c.cardLinkPrefix} {l.name} →</span>
               </a>
             ))}
           </div>
         </div>
       ))}
-      <p class="area-note">Don’t see your town? We travel up to {site.serviceRadiusMiles} miles from Huntley — including parts of Elgin, Wheaton and greater Chicagoland. <a href={site.phoneHref}>Call {site.phone}</a> and we’ll let you know.</p>
+      <p class="area-note">{c.note.pre}<a href={site.phoneHref}>{c.note.linkLabel}</a>{c.note.post}</p>
     </div>
   </section>
 

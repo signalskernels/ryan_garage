@@ -1,5 +1,6 @@
 ---
-import { site } from '@/data/site';
+import { page } from '@/lib/pages';
+const g = page('global');
 
 const icons: Record<string, string> = {
   star: '<path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.9 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/>',
@@ -7,12 +8,7 @@ const icons: Record<string, string> = {
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7.2V12l3.2 1.9"/>',
   shield: '<path d="M12 2.5l7.5 2.8v5.7c0 4.7-3.2 8-7.5 9.5-4.3-1.5-7.5-4.8-7.5-9.5V5.3z"/><path d="M9 12l2 2 4-4"/>',
 };
-const items = [
-  { icon: 'star', n: `${site.reviews.total}+`, l: 'Five-star reviews' },
-  { icon: 'badge', n: '5.0★', l: 'On Google, Thumbtack & Angi' },
-  { icon: 'clock', n: '24/7', l: 'Emergency service' },
-  { icon: 'shield', n: 'Licensed', l: 'Fully insured & BBB-accredited' },
-];
+const items = g.trust.items as { icon: string; n: string; l: string }[];
 ---
 <section class="ribbon-band">
   <div class="wrap ribbon-band__in">

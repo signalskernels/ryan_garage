@@ -3,35 +3,29 @@ import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import { photosByPrefix, photo } from '@/lib/photos';
+import { photo } from '@/lib/photos';
+import { page } from '@/lib/pages';
 
-// Project shots + a few highlighted service photos.
-const projectShots = photosByPrefix('Professional-Garage-Door-Service');
-const highlights = ['Garage-Door-Replacement', 'Garage-Door-Opener-Repair', 'Garage-Door-Maintenance', 'Trusted-Garage-Door-Service-Huntley-IL'];
-const captions = ['Garage door installation', 'New door & opener', 'Spring & cable repair', 'Door replacement', 'Opener upgrade', 'Maintenance & tune-up', 'Roller replacement', 'Smart opener setup'];
-const gallery = [
-  ...highlights.map((name, i) => ({ img: photo(name), cap: captions[i] })),
-  ...projectShots.map((p, i) => ({ img: p.img, cap: captions[i % captions.length] })),
-];
+const c = page('gallery');
 ---
-<Base title="Project Gallery" description="See examples of Ryan Garage Door’s work — installations, replacements, opener upgrades and repairs across the Huntley, IL area.">
+<Base title={c.meta.title} description={c.meta.description}>
   <PageHeader
-    title="Project Gallery"
-    subtitle="A look at the doors, openers and repairs we’ve handled for homeowners across the NW Chicago suburbs."
-    crumbs={[{ label: 'Gallery' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section">
     <div class="wrap">
       <div class="gal">
-        {gallery.map((g, i) => (
+        {c.images.map((g: { src: string; caption: string }, i: number) => (
           <figure class="gal__item">
-            <Image src={g.img} alt={`${g.cap} — Ryan Garage Door`} widths={[300, 480]} sizes="(max-width:600px) 50vw, 300px" loading={i < 4 ? 'eager' : 'lazy'} />
-            <figcaption>{g.cap}</figcaption>
+            <Image src={photo(g.src)} alt={`${g.caption} — Ryan Garage Door`} widths={[300, 480]} sizes="(max-width:600px) 50vw, 300px" loading={i < 4 ? 'eager' : 'lazy'} />
+            <figcaption>{g.caption}</figcaption>
           </figure>
         ))}
       </div>
-      <p class="gal__note">Want your home to look like this? <a href="/book">Request a free estimate</a> or call <a href="tel:+12247700587">(224) 770-0587</a>.</p>
+      <p class="gal__note" set:html={c.note.noteHtml}></p>
     </div>
   </section>
 

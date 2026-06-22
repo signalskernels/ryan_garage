@@ -5,25 +5,21 @@ import CtaBand from '@/components/CtaBand.astro';
 import ReviewCard from '@/components/ReviewCard.astro';
 import { reviews } from '@/data/reviews';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
 
-const platforms = [
-  { name: 'Google', count: site.reviews.google, note: 'All 5 stars' },
-  { name: 'Thumbtack', count: site.reviews.thumbtack, note: '160+ hires' },
-  { name: 'Angi / HomeAdvisor', count: site.reviews.homeadvisor, note: 'All 5 stars' },
-  { name: 'Nextdoor', count: site.reviews.nextdoor, note: 'Neighbor picks' },
-];
+const c = page('reviews');
 ---
-<Base title="Reviews" description={`Read ${site.reviews.total}+ verified five-star reviews for Ryan Garage Door from Google, Thumbtack, Angi and Nextdoor. Then leave your own.`}>
+<Base title={c.meta.title} description={c.meta.description}>
   <PageHeader
-    title="Reviews & Reputation"
-    subtitle={`${site.reviews.total}+ verified reviews across Google, Thumbtack, Angi and Nextdoor — and every single one is five stars.`}
-    crumbs={[{ label: 'Reviews' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section--tight" style="padding-top:clamp(28px,4vw,44px);">
     <div class="wrap">
       <div class="rv-stats">
-        {platforms.map((p) => (
+        {c.platforms.map((p: { name: string; count: string; note: string }) => (
           <div class="rv-stat card">
             <span class="stars">★★★★★</span>
             <div class="rv-stat__n">{p.count}</div>
@@ -32,7 +28,7 @@ const platforms = [
           </div>
         ))}
       </div>
-      <p class="rv-intro">We’re grateful that homeowners across the NW Chicago suburbs trust us — and take the time to say so. Below is a hand-picked selection of verbatim reviews. Want to see them all? <a href={site.reviews.googleProfileUrl} target="_blank" rel="noopener">View our Google profile</a>.</p>
+      <p class="rv-intro">{c.intro.pre}<a href={site.reviews.googleProfileUrl} target="_blank" rel="noopener">{c.intro.linkLabel}</a>{c.intro.post}</p>
     </div>
   </section>
 
@@ -44,9 +40,9 @@ const platforms = [
 
   <section class="section section--surface center">
     <div class="wrap measure" style="margin-inline:auto;">
-      <h2>Worked with us? We’d love your review.</h2>
-      <p class="lead" style="margin:.6rem auto 1.4rem;">It takes 30 seconds and helps your neighbors find honest garage door help.</p>
-      <a href={site.reviews.googleProfileUrl} class="btn btn--lg" target="_blank" rel="noopener">Leave us a Google review</a>
+      <h2>{c.leaveReview.heading}</h2>
+      <p class="lead" style="margin:.6rem auto 1.4rem;">{c.leaveReview.text}</p>
+      <a href={site.reviews.googleProfileUrl} class="btn btn--lg" target="_blank" rel="noopener">{c.leaveReview.buttonLabel}</a>
     </div>
   </section>
 

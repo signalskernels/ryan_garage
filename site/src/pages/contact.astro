@@ -3,42 +3,45 @@ import Base from '@/layouts/Base.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import LeadForm from '@/components/LeadForm.astro';
 import { site, days } from '@/data/site';
+import { page } from '@/lib/pages';
+
+const c = page('contact');
 ---
-<Base title="Contact Us" description={`Contact Ryan Garage Door — call ${site.phone} 24/7, or send a request online. Mobile garage door service across Huntley, IL and the NW suburbs.`}>
+<Base title={c.meta.title} description={c.meta.description}>
   <PageHeader
-    title="Contact Us"
-    subtitle="Call us 24/7, or send a request and we’ll get right back to you. We’re here to help with anything garage door related."
-    crumbs={[{ label: 'Contact' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section">
     <div class="wrap contact">
       <div class="contact__info">
         <div class="contact__block">
-          <h3>Call or text</h3>
+          <h3>{c.callBlock.heading}</h3>
           <a href={site.phoneHref} class="contact__phone">{site.phone}</a>
-          <p class="muted">Available 24 hours · 7 days a week</p>
+          <p class="muted">{c.callBlock.availability}</p>
         </div>
         <div class="contact__block">
-          <h3>Service area</h3>
-          <p>Mobile service based in {site.address.locality}, {site.address.region} {site.address.postalCode} — covering homes within about {site.serviceRadiusMiles} miles across the NW Chicago suburbs.</p>
-          <a href="/service-area">See all areas we serve →</a>
+          <h3>{c.areaBlock.heading}</h3>
+          <p>{c.areaBlock.text}</p>
+          <a href="/service-area">{c.areaBlock.link}</a>
         </div>
         <div class="contact__block">
-          <h3>Hours</h3>
+          <h3>{c.hours.heading}</h3>
           <ul class="contact__hours">
-            {days.map((d) => <li><span>{d}</span><b>Open 24 hours</b></li>)}
+            {days.map((d) => <li><span>{d}</span><b>{c.hours.openLabel}</b></li>)}
           </ul>
         </div>
         <div class="contact__block">
-          <h3>Payment accepted</h3>
+          <h3>{c.payBlock.heading}</h3>
           <p class="muted">{site.paymentAccepted.join(' · ')}</p>
         </div>
-        <a class="btn btn--lg btn--block" href={site.phoneHref}>Call {site.phone}</a>
+        <a class="btn btn--lg btn--block" href={site.phoneHref}>{c.callButtonLabel}</a>
       </div>
 
       <div class="contact__form">
-        <LeadForm formName="contact" heading="Send us a message" intro="Fill this out and we’ll reach out shortly. For emergencies, calling is fastest." scheduling={false} cta="Send message" />
+        <LeadForm formName="contact" heading={c.form.heading} intro={c.form.intro} scheduling={false} cta={c.form.cta} />
       </div>
     </div>
   </section>

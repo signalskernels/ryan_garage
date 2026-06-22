@@ -4,12 +4,15 @@ import PageHeader from '@/components/PageHeader.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import { coupons, couponTerms } from '@/data/coupons';
 import { site } from '@/data/site';
+import { page } from '@/lib/pages';
+
+const pg = page('coupons');
 ---
-<Base title="Coupons & Offers" description="Current garage door service discounts from Ryan Garage Door — new customer, senior, military and first-responder savings across Huntley, IL.">
+<Base title={pg.meta.title} description={pg.meta.description}>
   <PageHeader
-    title="Coupons & Offers"
-    subtitle="A little thank-you to our neighbors. Mention an offer when you book to save on your service."
-    crumbs={[{ label: 'Coupons & Offers' }]}
+    title={pg.header.title}
+    subtitle={pg.header.subtitle}
+    crumbs={[{ label: pg.header.crumb }]}
   />
 
   <section class="section">
@@ -24,8 +27,8 @@ import { site } from '@/data/site';
             <div class="cpn__body">
               <h3>{c.title}</h3>
               <p>{c.detail}</p>
-              {c.group && <p class="cpn__who">For: {c.group}</p>}
-              <a href={site.phoneHref} class="btn">Call to redeem</a>
+              {c.group && <p class="cpn__who">{pg.forLabel} {c.group}</p>}
+              <a href={site.phoneHref} class="btn">{pg.redeemLabel}</a>
             </div>
           </div>
         ))}
@@ -34,7 +37,7 @@ import { site } from '@/data/site';
     </div>
   </section>
 
-  <CtaBand title="Ready to claim your discount?" text="Call now and mention the offer — we’ll take care of the rest." />
+  <CtaBand title={pg.cta.title} text={pg.cta.text} />
 </Base>
 
 <style>

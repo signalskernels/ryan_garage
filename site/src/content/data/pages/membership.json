@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "Worry-Free Maintenance Plan",
+    "description": "Keep your garage door safe, quiet and reliable year-round with Ryan Garage Door’s Worry-Free maintenance plan — twice-yearly tune-ups, priority service and member discounts."
+  },
+  "header": {
+    "title": "The Worry-Free Maintenance Plan",
+    "subtitle": "Most garage door breakdowns are preventable. Put your maintenance on autopilot and stop emergencies before they start.",
+    "crumb": "Maintenance Plan"
+  },
+  "intro": {
+    "heading": "Peace of mind, twice a year",
+    "lead": "Your garage door is the largest moving part of your home — and it’s easy to forget about until it fails at the worst possible moment. Our Worry-Free plan keeps it running safely and quietly, catches small problems before they become expensive ones, and puts you first when you do need us.",
+    "includesHeading": "What’s included",
+    "note": "Plan pricing is simple and flat — call for current rates. Members get priority scheduling and a standing discount on any repairs we make during a visit."
+  },
+  "includes": [
+    "Two professional tune-ups per year",
+    "Full multi-point safety inspection",
+    "Lubrication of rollers, hinges & springs",
+    "Spring-balance & cable-wear check",
+    "Safety auto-reverse & sensor testing",
+    "Hardware tightening & track alignment",
+    "Priority scheduling when you need us",
+    "Member discount on any repairs"
+  ],
+  "card": {
+    "tag": "Most popular",
+    "title": "Worry-Free Club",
+    "price": "Ask us",
+    "priceNote": "flat annual plan",
+    "perks": [
+      "✓ 2 tune-ups / year",
+      "✓ Priority scheduling",
+      "✓ Member repair discount",
+      "✓ Full safety inspection"
+    ],
+    "callLabel": "Call {phone}",
+    "bookLabel": "Ask about the plan"
+  },
+  "cta": { "title": "Ready to stop worrying about your garage door?" }
+}

@@ -3,7 +3,7 @@ title: "Common Causes of Garage Door Spring Failures (and How to Avoid Them)"
 description: "Why garage door springs break, the warning signs to watch for, and how to extend their life — from the team at Ryan Garage Door."
 date: 2026-05-28
 category: "Springs"
-hero: "Garage-Door-Specialists"
+hero: "/src/assets/photos/Garage-Door-Specialists.webp"
 ---
 
 Your garage door springs do almost all the heavy lifting — literally. They counterbalance the weight of a door that can top 150 pounds, which is why a broken spring brings everything to a halt. Here are the most common reasons springs fail, and what you can do about it.

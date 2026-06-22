@@ -3,7 +3,7 @@ title: "Understanding the Mechanics of Garage Door Openers"
 description: "Belt vs. chain drive, safety sensors, and what actually makes your garage door opener tick — explained in plain English."
 date: 2026-05-20
 category: "Openers"
-hero: "Understanding-The-Mechanics-Of-Garage-Door-Openers-Huntley-IL"
+hero: "/src/assets/photos/Understanding-The-Mechanics-Of-Garage-Door-Openers-Huntley-IL.webp"
 ---
 
 Most people only think about their garage door opener when it stops working. Understanding the basics helps you spot trouble early — and choose the right unit when it’s time to replace.

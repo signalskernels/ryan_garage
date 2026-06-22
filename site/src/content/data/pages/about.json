@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "title": "About Us",
+    "description": "Ryan Garage Door is a fully-insured, family-run mobile garage door company serving Huntley, IL since {founded}. Meet the team behind {reviewsTotal}+ five-star reviews."
+  },
+  "header": {
+    "title": "About Ryan Garage Door",
+    "subtitle": "A fully-insured, owner-operated mobile garage door company serving Huntley, IL and the NW suburbs since {founded}.",
+    "crumb": "About"
+  },
+  "intro": {
+    "heading": "The pro your neighbors recommend",
+    "paragraphs": [
+      "Ryan Garage Door started with a simple idea: homeowners deserve garage door service that’s fast, honest, and fairly priced — without the runaround or the upsell. Years and hundreds of jobs later, that’s still exactly how we work.",
+      "We’re a small, owner-operated team led by Ryan, alongside skilled technicians like Badru, Muwonge and Moush. Because we’re mobile, we come to you — anywhere within about {radius} miles of Huntley — with the parts and tools to get most jobs done on the spot, often the same day you call.",
+      "From a snapped spring at 2 a.m. to a beautiful new insulated door, we handle it all with the same care: diagnose honestly, quote up front, fix it right, and make sure it’s safe before we leave. That approach has earned us <strong>{reviewsTotal}+ five-star reviews</strong> across Google, Thumbtack, Angi and Nextdoor — every single one, five stars.",
+      "We’re fully insured and BBB-accredited, and we carry and service the brands you know — LiftMaster, Chamberlain and Genie — including Wi-Fi smart openers you can control from your phone."
+    ]
+  },
+  "image": {
+    "src": "/src/assets/photos/Trusted-Garage-Door-Service-Huntley-IL.webp",
+    "alt": "Ryan Garage Door technician adjusting a garage door"
+  },
+  "stat": {
+    "number": "{years}+ yrs",
+    "text": "of hands-on garage door experience serving the Huntley area"
+  },
+  "values": {
+    "eyebrow": "What we stand for",
+    "heading": "How we treat every job",
+    "items": [
+      { "t": "Honesty first", "d": "We tell you what’s actually wrong and what it’ll cost — before we start. No invented problems, no pressure." },
+      { "t": "Show up & follow through", "d": "We give a time window, communicate if we’re running late, and get the job done right the first time." },
+      { "t": "Fair pricing", "d": "Customers tell us again and again that we beat the big competitors’ quotes without cutting corners." },
+      { "t": "Treat your home like ours", "d": "Insured, careful, and tidy — we clean up and leave your garage better than we found it." }
+    ]
+  },
+  "cta": { "title": "Ready to work with a team you can trust?" }
+}

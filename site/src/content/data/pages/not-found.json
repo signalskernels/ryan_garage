@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "title": "Page Not Found",
+    "description": "That page couldn’t be found."
+  },
+  "code": "404",
+  "heading": "We couldn’t find that page",
+  "text": "It may have moved. Let’s get you back on track — or just give us a call.",
+  "homeLabel": "Back to home",
+  "servicesLabel": "Our services",
+  "callLabel": "Call {phone}"
+}

@@ -3,7 +3,7 @@ title: "How to Choose the Right Garage Door for Replacement"
 description: "Material, insulation, style and budget — a simple guide to picking a new garage door that boosts curb appeal and lasts for years."
 date: 2026-05-04
 category: "Replacement"
-hero: "How-To-Choose-The-Right-Garage-Door-For-Replacement-Huntley-IL"
+hero: "/src/assets/photos/How-To-Choose-The-Right-Garage-Door-For-Replacement-Huntley-IL.webp"
 ---
 
 A new garage door is one of the best returns on investment in home improvement — it can take up a third of your home’s street-facing façade, so the right choice makes a big visual impact. Here’s how to choose well.

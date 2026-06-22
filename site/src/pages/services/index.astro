@@ -6,12 +6,15 @@ import CtaBand from '@/components/CtaBand.astro';
 import ServiceIcon from '@/components/ServiceIcon.astro';
 import { services } from '@/data/services';
 import { photo } from '@/lib/photos';
+import { page } from '@/lib/pages';
+
+const c = page('services-index');
 ---
-<Base title="Garage Door Services" description="Garage door spring repair, opener repair, cable repair, roller replacement, installation, replacement, maintenance and keyless entry — mobile service across Huntley, IL.">
+<Base title={c.meta.title} description={c.meta.description}>
   <PageHeader
-    title="Our Garage Door Services"
-    subtitle="One trusted local team for every garage door need — repairs, new doors, openers, and tune-ups. Fully insured, 24/7."
-    crumbs={[{ label: 'Services' }]}
+    title={c.header.title}
+    subtitle={c.header.subtitle}
+    crumbs={[{ label: c.header.crumb }]}
   />
 
   <section class="section">
@@ -27,14 +30,14 @@ import { photo } from '@/lib/photos';
             <h2>{s.title}</h2>
             <p>{s.short}</p>
             {s.priceHint && <p class="sl__hint">{s.priceHint}</p>}
-            <span class="sl__link">Learn more →</span>
+            <span class="sl__link">{c.learnMoreLabel}</span>
           </div>
         </a>
       ))}
     </div>
   </section>
 
-  <CtaBand title="Not sure what’s wrong?" text="Tell us what your door is doing — we’ll diagnose it honestly and quote it up front." />
+  <CtaBand title={c.cta.title} text={c.cta.text} />
 </Base>
 
 <style>

@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "Project Gallery",
+    "description": "See examples of Ryan Garage Door’s work — installations, replacements, opener upgrades and repairs across the Huntley, IL area."
+  },
+  "header": {
+    "title": "Project Gallery",
+    "subtitle": "A look at the doors, openers and repairs we’ve handled for homeowners across the NW Chicago suburbs.",
+    "crumb": "Gallery"
+  },
+  "images": [
+    { "src": "/src/assets/photos/Garage-Door-Replacement.webp", "caption": "Garage door installation" },
+    { "src": "/src/assets/photos/Garage-Door-Opener-Repair.webp", "caption": "New door & opener" },
+    { "src": "/src/assets/photos/Garage-Door-Maintenance.webp", "caption": "Spring & cable repair" },
+    { "src": "/src/assets/photos/Trusted-Garage-Door-Service-Huntley-IL.webp", "caption": "Door replacement" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service.webp", "caption": "Garage door installation" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-1.webp", "caption": "New door & opener" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-10.webp", "caption": "Spring & cable repair" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-11.webp", "caption": "Door replacement" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-12.webp", "caption": "Opener upgrade" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-13.webp", "caption": "Maintenance & tune-up" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-14.webp", "caption": "Roller replacement" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-15.webp", "caption": "Smart opener setup" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-16.webp", "caption": "Garage door installation" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-17.webp", "caption": "New door & opener" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-2.webp", "caption": "Spring & cable repair" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-3.webp", "caption": "Door replacement" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-4.webp", "caption": "Opener upgrade" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-5.webp", "caption": "Maintenance & tune-up" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-6.webp", "caption": "Roller replacement" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-7.webp", "caption": "Smart opener setup" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-8.webp", "caption": "Garage door installation" },
+    { "src": "/src/assets/photos/Professional-Garage-Door-Service-9.webp", "caption": "New door & opener" }
+  ],
+  "note": {
+    "noteHtml": "Want your home to look like this? <a href=\"/book\">Request a free estimate</a> or call <a href=\"tel:+12247700587\">{phone}</a>."
+  }
+}

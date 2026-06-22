@@ -3,7 +3,7 @@ title: "Steps to Improve the Lifespan of Your Garage Door Opener"
 description: "Simple maintenance habits that help your garage door opener run quietly and reliably for years longer."
 date: 2026-04-18
 category: "Openers"
-hero: "Steps-To-Improve-The-Lifespan-Of-Your-Garage-Door-Opener-Huntley-IL"
+hero: "/src/assets/photos/Steps-To-Improve-The-Lifespan-Of-Your-Garage-Door-Opener-Huntley-IL.webp"
 ---
 
 A garage door opener is a quiet workhorse — most last 10 to 15 years. With a little care, you can push toward the high end of that range and avoid surprise failures.

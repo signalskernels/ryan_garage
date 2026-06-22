@@ -3,7 +3,7 @@ title: "The Importance of Timely Garage Door Cable Maintenance"
 description: "Garage door cables work alongside the springs to carry the door’s weight. Here’s why a small fray is worth fixing fast."
 date: 2026-04-26
 category: "Cables"
-hero: "The-Importance-Of-Timely-Garage-Door-Cable-Maintenance-Huntley-IL"
+hero: "/src/assets/photos/The-Importance-Of-Timely-Garage-Door-Cable-Maintenance-Huntley-IL.webp"
 ---
 
 Cables are one of the most overlooked parts of a garage door — right up until one snaps. Working with the springs, they carry the full weight of the door as it raises and lowers. When a cable starts to go, the whole system is affected.

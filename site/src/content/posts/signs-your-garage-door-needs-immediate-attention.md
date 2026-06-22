@@ -3,7 +3,7 @@ title: "Signs Your Garage Door Needs Immediate Attention"
 description: "Strange noises, slow response, sagging — the warning signs that mean it’s time to call a garage door pro before a small issue becomes a big one."
 date: 2026-05-12
 category: "Maintenance"
-hero: "Signs-Your-Garage-Door-Needs-Immediate-Maintenance-Attention-Huntley-IL"
+hero: "/src/assets/photos/Signs-Your-Garage-Door-Needs-Immediate-Maintenance-Attention-Huntley-IL.webp"
 ---
 
 A garage door rarely fails without warning. Catch these signs early and you’ll usually turn a major repair into a minor one.
