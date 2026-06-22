@@ -14,7 +14,7 @@ plans — **~$0/month, forever.**
 - **How it works:** you edit content in the browser → click **Save** → the site
   rebuilds and your change is live in ~1–2 minutes.
 - **What you can edit yourself:** business info, hours, phone, homepage text,
-  coupons, FAQs, reviews, and blog posts.
+  coupons, FAQs, reviews, blog posts, and your live-chat link.
 
 ---
 
@@ -97,14 +97,41 @@ key you generate on GitHub once and paste into the editor.
 ## Part 3 — How editing works
 
 - **What you can edit today:** Site Settings (business name, phone, email, hours,
-  service area, review counts, homepage hero text, top-bar offer), **Coupons**,
-  **FAQs**, **Reviews**, and **Blog posts**.
+  service area, review counts, homepage hero text, top-bar offer, live-chat link),
+  **Coupons**, **FAQs**, **Reviews**, and **Blog posts**.
 - **Save = publish.** Clicking **Save** records the change and rebuilds the site.
   It's live in about **1–2 minutes**.
 - **Images:** use the image upload field on a post; it stores the file with the site.
 - **You can't break the layout.** You're only editing words and pictures — the
   design is locked. Every change is version-controlled, so anything can be rolled
   back by a developer if needed.
+
+---
+
+## Part 4 — Turn on your free live chat (Tawk.to)
+
+Your site has a **free live chat** built in — a chat bubble visitors can use to
+message you, **answered by you or your team** (not a paid robot), so it stays
+**$0/month**. It's **off until you connect your free account**.
+
+### Step 7 — Create your free Tawk.to account
+1. Go to **https://tawk.to** → **Sign up** (free).
+2. Add your business as a **property**. Tawk.to gives you an embed code that
+   contains a URL like **`https://embed.tawk.to/XXXXXXXX/YYYYYYYY`**.
+3. Copy that `embed.tawk.to/…` URL.
+
+### Step 8 — Paste it into your site
+1. Open your editor at **`/admin` → Site Settings**.
+2. Find **"Live chat embed URL"** and **paste** the URL from Step 7.
+3. **Save.** In ~1–2 minutes the chat bubble appears on every page.
+   _(Clear the field anytime to turn chat off.)_
+
+### Answering chats
+- Install the **Tawk.to app** (phone or desktop), or use their web dashboard, to
+  reply. You set your **online/away** status and an offline message in Tawk.to.
+
+> The chat loads only after a visitor interacts with the page, so it never slows
+> your site down.
 
 ---
 
@@ -119,8 +146,9 @@ key you generate on GitHub once and paste into the editor.
 
 ## Please review for accuracy (placeholders from your current ads)
 
-- [ ] **24/7 / emergency hours** — the site advertises 24/7. Make sure your Google
-  Business Profile and other listings say the same thing.
+- [ ] **Hours / availability** — the site is worded as *same-day / by appointment*
+  (no "24/7" claim). Make sure your Google Business Profile and other listings
+  match how you actually operate.
 - [ ] **Google review link** — confirm it points to your real Google reviews page.
 - [ ] **Door visualizer** — currently links to Clopay; tell us if you carry a
   different brand.
@@ -135,6 +163,7 @@ key you generate on GitHub once and paste into the editor.
 | Code + content | GitHub | Free |
 | Hosting | Netlify | Free |
 | Content editor (CMS) | Sveltia | Free |
+| Live chat | Tawk.to | Free |
 | **Domain name** | Your registrar | **~$12–20 / year** |
 | **Total recurring** | | **≈ the domain only** |
 

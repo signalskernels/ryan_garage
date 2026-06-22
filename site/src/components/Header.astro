@@ -65,10 +65,11 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path === href 
   .hd{ position:sticky; top:0; z-index:60; background:#fff; border-bottom:1px solid var(--line);
        transition:box-shadow .2s ease; }
   .hd.is-stuck{ box-shadow:0 6px 24px -16px rgba(10,31,61,.5); }
-  .hd__in{ display:flex; align-items:center; gap:1.2rem; min-height:74px; }
-  .hd__logo img{ height:46px; width:auto; }
-  .hd__nav{ display:flex; gap:.3rem; margin-left:.5rem; flex:1; }
-  .hd__link{ font-weight:600; font-size:.95rem; color:var(--body); padding:.5rem .65rem; border-radius:8px; white-space:nowrap; }
+  .hd__in{ display:flex; align-items:center; gap:.9rem; min-height:74px; }
+  .hd__logo{ flex:none; }
+  .hd__logo img{ height:46px; width:auto; max-width:none; }
+  .hd__nav{ display:flex; gap:.2rem; margin-left:.4rem; flex:1; }
+  .hd__link{ font-weight:600; font-size:.95rem; color:var(--body); padding:.5rem .55rem; border-radius:8px; white-space:nowrap; }
   .hd__link:hover{ color:var(--navy); background:var(--surface); }
   .hd__link.is-active{ color:var(--navy); background:var(--surface-2); }
 
@@ -92,17 +93,17 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path === href 
   .hd__drawer-cta{ display:grid; gap:.6rem; margin-top:1rem; }
 
   /* responsive: hide desktop nav + phone-block, show burger */
-  @media (max-width:1024px){
+  @media (max-width:1200px){
     .hd__nav{ display:none; }
     .hd__phone small{ display:none; }
   }
-  @media (max-width:1024px){ .hd__burger{ display:flex; } }
+  @media (max-width:1200px){ .hd__burger{ display:flex; } }
   @media (max-width:560px){
     .hd__phone b{ font-size:.95rem; }
     .hd .btn{ display:none; }
     .hd__logo img{ height:40px; }
   }
-  @media (min-width:1025px){ .hd__drawer{ display:none!important; } }
+  @media (min-width:1201px){ .hd__drawer{ display:none!important; } }
 </style>
 
 <script>
