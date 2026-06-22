@@ -4,6 +4,7 @@
     { "label": "Service Area", "href": "/service-area" },
     { "label": "Reviews", "href": "/reviews" },
     { "label": "Gallery", "href": "/gallery" },
+    { "label": "Design Your Door", "href": "/visualizer" },
     { "label": "About", "href": "/about" },
     { "label": "Blog", "href": "/blog" },
     { "label": "FAQ", "href": "/faq" },

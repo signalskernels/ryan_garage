@@ -34,11 +34,21 @@
     "eyebrow": "Why homeowners choose us",
     "heading": "The pro your neighbors already trust",
     "items": [
-      { "icon": "replace", "t": "Same-day & emergency", "d": "A broken door can’t wait. We respond fast — many customers are seen the same day, day or night." },
+      { "icon": "replace", "t": "Same-day & emergency", "d": "A broken door can’t wait. We respond fast — many customers are seen the same day." },
       { "icon": "maintenance", "t": "Honest, no upsell", "d": "We diagnose the real problem and quote it up front. We won’t sell you parts you don’t need." },
       { "icon": "install", "t": "Fair, transparent pricing", "d": "Clear pricing before we start. Reviewers consistently say we beat the big competitors’ quotes." },
       { "icon": "keypad", "t": "Mobile & fully insured", "d": "We come to you, anywhere within ~50 miles of Huntley, fully insured for your peace of mind." }
     ]
+  },
+  "visualizer": {
+    "eyebrow": "Design Your Door",
+    "heading": "Design your dream garage door",
+    "lead": "Your garage door is up to a third of your home’s curb appeal. Upload a photo of your house and try on different styles, colors, and window options until something feels right — then we’ll install it.",
+    "buttonLabel": "Design your door",
+    "image": {
+      "src": "/src/assets/photos/How-To-Choose-The-Right-Garage-Door-For-Replacement-Huntley-IL.webp",
+      "alt": "Beautiful custom garage door installed on a Huntley, IL home"
+    }
   },
   "process": {
     "eyebrow": "How it works",

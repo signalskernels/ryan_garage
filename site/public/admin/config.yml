@@ -246,6 +246,20 @@ collections:
                   - { name: icon, label: "Icon", widget: select, options: ["spring", "opener", "cable", "roller", "install", "replace", "maintenance", "keypad"] }
                   - { name: t, label: "Title", widget: string }
                   - { name: d, label: "Text", widget: text }
+          - name: visualizer
+            label: "Visualizer band"
+            widget: object
+            fields:
+              - { name: eyebrow, label: "Eyebrow", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: lead, label: "Lead", widget: text }
+              - { name: buttonLabel, label: "Button label", widget: string }
+              - name: image
+                label: "Photo"
+                widget: object
+                fields:
+                  - { name: src, label: "Image", widget: image }
+                  - { name: alt, label: "Alt text", widget: string }
           - name: process
             label: "Process section"
             widget: object
