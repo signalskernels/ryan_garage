@@ -3,7 +3,7 @@
     "description": "Ryan Garage Door — trusted mobile garage door repair, installation & service in Huntley, IL and the NW Chicago suburbs. Fast, same-day service. {reviewsTotal}+ five-star reviews. Call {phone}."
   },
   "hero": {
-    "eyebrow": "Huntley, IL & surrounding suburbs · Since {founded}",
+    "eyebrow": "Huntley, IL & surrounding suburbs",
     "ratingHtml": "<b>5.0</b> rating · <b>{reviewsTotal}+</b> reviews on Google, Thumbtack &amp; Angi",
     "callLabel": "Call {phone}",
     "requestLabel": "Request Service",

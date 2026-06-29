@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "About Us",
-    "description": "Ryan Garage Door is a fully-insured, family-run mobile garage door company serving Huntley, IL since {founded}. Meet the team behind {reviewsTotal}+ five-star reviews."
+    "description": "Ryan Garage Door is a fully-insured, family-run mobile garage door company serving Huntley, IL. Meet the team behind {reviewsTotal}+ five-star reviews."
   },
   "header": {
     "title": "About Ryan Garage Door",
-    "subtitle": "A fully-insured, owner-operated mobile garage door company serving Huntley, IL and the NW suburbs since {founded}.",
+    "subtitle": "A fully-insured, owner-operated mobile garage door company serving Huntley, IL and the NW suburbs.",
     "crumb": "About"
   },
   "intro": {
@@ -22,8 +22,8 @@
     "alt": "Ryan Garage Door technician adjusting a garage door"
   },
   "stat": {
-    "number": "{years}+ yrs",
-    "text": "of hands-on garage door experience serving the Huntley area"
+    "number": "{reviewsTotal}+",
+    "text": "five-star reviews across Google, Thumbtack, Angi & Nextdoor"
   },
   "values": {
     "eyebrow": "What we stand for",
