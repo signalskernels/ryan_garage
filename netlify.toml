@@ -12,6 +12,12 @@
   command = "npm run build"
   publish = "dist"        # relative to base → site/dist
 
+# Pin Node to match the CI gate (deploy.yml uses Node 20). Astro 5 requires
+# Node >=18.20.8; leaving this unset lets Netlify pick a default that may be
+# too old and break the build. Keep in sync with .nvmrc and the CI workflow.
+[build.environment]
+  NODE_VERSION = "20"
+
 # Long-cache Astro's fingerprinted assets.
 [[headers]]
   for = "/_astro/*"
