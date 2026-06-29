@@ -1,5 +1,5 @@
 # ---- build the static Astro site ----
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 
 # Install deps (reproducible — lockfile committed)
